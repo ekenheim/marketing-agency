@@ -27,6 +27,18 @@ export interface FeatureData {
   label: string;
 }
 
+export interface StatData {
+  id: number;
+  icon?: string;
+  value: string;
+  label: string;
+}
+
+export interface BadgeData {
+  id: number;
+  label: string;
+}
+
 // Single type: { data: T | null }
 export interface StrapiResponse<T> {
   data: T | null;
@@ -53,6 +65,7 @@ export interface HeroData {
   primaryCta?: CtaData;
   secondaryCta?: CtaData;
   backgroundMedia?: StrapiMedia | null;
+  stats?: StatData[];
 }
 
 export interface ServiceData {
@@ -111,6 +124,8 @@ export interface GlobalData {
   phone?: string;
   instagramUrl?: string;
   linkedinUrl?: string; // Strapi v5 lowercases: linkedinUrl not linkedInUrl
+  location?: string;
+  trustBadges?: BadgeData[];
 }
 
 export interface ContactSubmission {

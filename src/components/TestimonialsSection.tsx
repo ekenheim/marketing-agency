@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, Quote, User } from "lucide-react";
-import type { TestimonialData } from "@/types/strapi";
-import { strapiMedia } from "@/lib/strapi";
+import type { TestimonialData, GlobalData } from "@/types/strapi";
 
 const FALLBACK_TESTIMONIALS: TestimonialData[] = [
   {
@@ -45,9 +44,10 @@ function StarRating() {
 
 interface Props {
   testimonials: TestimonialData[] | null;
+  globalData: GlobalData | null;
 }
 
-export default function TestimonialsSection({ testimonials }: Props) {
+export default function TestimonialsSection({ testimonials, globalData }: Props) {
   const items =
     testimonials && testimonials.length > 0
       ? testimonials
@@ -66,9 +66,7 @@ export default function TestimonialsSection({ testimonials }: Props) {
   };
 
   const active = items[current];
-  const avatarUrl = active.avatar?.url
-    ? strapiMedia(active.avatar.url)
-    : null;
+  const avatarUrl = active.avatar?.url ?? null;
 
   return (
     <section id="testimonials" className="py-24 bg-navy-950 overflow-hidden">
@@ -188,16 +186,17 @@ export default function TestimonialsSection({ testimonials }: Props) {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-16 flex flex-wrap justify-center gap-8 items-center"
         >
-          {["Google Partner", "Meta Business Partner", "HubSpot Certified", "ISO 27001 Aware"].map(
-            (badge) => (
-              <div
-                key={badge}
-                className="px-4 py-2 border border-white/10 rounded-lg text-slate-500 text-sm font-medium"
-              >
-                {badge}
-              </div>
-            )
-          )}
+          {(globalData?.trustBadges && globalData.trustBadges.length > 0
+            ? globalData.trustBadges.map((b) => b.label)
+            : ["Google Partner", "Meta Business Partner", "HubSpot Certified", "ISO 27001 Aware"]
+          ).map((badge) => (
+            <div
+              key={badge}
+              className="px-4 py-2 border border-white/10 rounded-lg text-slate-500 text-sm font-medium"
+            >
+              {badge}
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>

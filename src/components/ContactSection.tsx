@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Send, CheckCircle2, AlertCircle, Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
-import type { GlobalData } from "@/types/strapi";
+import type { GlobalData, ServiceData } from "@/types/strapi";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -30,9 +30,14 @@ const SERVICE_OPTIONS = [
 
 interface Props {
   globalData: GlobalData | null;
+  services: ServiceData[] | null;
 }
 
-export default function ContactSection({ globalData }: Props) {
+export default function ContactSection({ globalData, services }: Props) {
+  const serviceOptions =
+    services && services.length > 0
+      ? [...services.map((s) => s.title), "Not sure yet"]
+      : SERVICE_OPTIONS;
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const {
@@ -145,7 +150,9 @@ export default function ContactSection({ globalData }: Props) {
                 </div>
                 <div>
                   <div className="text-xs text-slate-500 font-medium uppercase tracking-wider mb-0.5">Based in</div>
-                  <div className="text-slate-200 text-sm">Casablanca, Morocco</div>
+                  <div className="text-slate-200 text-sm">
+                    {globalData?.location ?? "Casablanca, Morocco"}
+                  </div>
                 </div>
               </div>
             </div>
@@ -257,7 +264,7 @@ export default function ContactSection({ globalData }: Props) {
                         className="w-full px-4 py-3 bg-navy-900/60 border border-white/10 focus:border-amber-500/40 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-colors appearance-none cursor-pointer"
                       >
                         <option value="">Select a service…</option>
-                        {SERVICE_OPTIONS.map((s) => (
+                        {serviceOptions.map((s) => (
                           <option key={s} value={s}>
                             {s}
                           </option>

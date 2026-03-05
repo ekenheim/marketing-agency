@@ -3,7 +3,6 @@
 import { motion, type Variants } from "framer-motion";
 import { ArrowUpRight, Tag } from "lucide-react";
 import type { CaseStudyData } from "@/types/strapi";
-import { strapiMedia } from "@/lib/strapi";
 
 const FALLBACK_CASES: CaseStudyData[] = [
   {
@@ -107,9 +106,7 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {items.map((cs, i) => {
-            const coverUrl = cs.coverImage?.url
-              ? strapiMedia(cs.coverImage.url)
-              : null;
+            const coverUrl = cs.coverImage?.url ?? null;
             const tags = parseTags(cs.tags);
 
             return (

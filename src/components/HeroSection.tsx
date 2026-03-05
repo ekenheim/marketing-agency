@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, TrendingUp, Users, BarChart2 } from "lucide-react";
-import type { HeroData } from "@/types/strapi";
-import { strapiMedia } from "@/lib/strapi";
+import * as LucideIcons from "lucide-react";
+import type { LucideProps } from "lucide-react";
+import type { HeroData, StatData } from "@/types/strapi";
 
 const FALLBACK: HeroData = {
   headline: "We help Moroccan brands attract high-value clients",
@@ -12,11 +13,20 @@ const FALLBACK: HeroData = {
   secondaryCta: { label: "Get in touch", url: "#contact", variant: "secondary" },
 };
 
-const stats = [
+const FALLBACK_STATS = [
   { icon: TrendingUp, value: "3×", label: "Average lead growth" },
   { icon: Users, value: "50+", label: "Moroccan brands served" },
   { icon: BarChart2, value: "−42%", label: "Avg. cost per lead" },
 ];
+
+type IconComponent = React.ComponentType<LucideProps>;
+
+function StatIcon({ name }: { name?: string }) {
+  if (!name) return <TrendingUp size={18} className="text-amber-400" />;
+  const Icon = (LucideIcons as unknown as Record<string, IconComponent>)[name];
+  if (!Icon) return <TrendingUp size={18} className="text-amber-400" />;
+  return <Icon size={18} className="text-amber-400" />;
+}
 
 interface Props {
   data: HeroData | null;
@@ -24,9 +34,7 @@ interface Props {
 
 export default function HeroSection({ data }: Props) {
   const hero = data ?? FALLBACK;
-  const bgUrl = hero.backgroundMedia?.url
-    ? strapiMedia(hero.backgroundMedia.url)
-    : null;
+  const bgUrl = hero.backgroundMedia?.url ?? null;
 
   const handleCta = (url: string) => {
     if (url.startsWith("#")) {
@@ -177,17 +185,29 @@ export default function HeroSection({ data }: Props) {
             transition={{ duration: 0.6, delay: 0.9 }}
             className="flex flex-wrap gap-6 sm:gap-10"
           >
-            {stats.map((stat, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
-                  <stat.icon size={18} className="text-amber-400" />
-                </div>
-                <div>
-                  <div className="text-2xl font-black text-white">{stat.value}</div>
-                  <div className="text-xs text-slate-400 font-medium">{stat.label}</div>
-                </div>
-              </div>
-            ))}
+            {hero.stats && hero.stats.length > 0
+              ? hero.stats.map((stat: StatData) => (
+                  <div key={stat.id} className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+                      <StatIcon name={stat.icon} />
+                    </div>
+                    <div>
+                      <div className="text-2xl font-black text-white">{stat.value}</div>
+                      <div className="text-xs text-slate-400 font-medium">{stat.label}</div>
+                    </div>
+                  </div>
+                ))
+              : FALLBACK_STATS.map((stat, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+                      <stat.icon size={18} className="text-amber-400" />
+                    </div>
+                    <div>
+                      <div className="text-2xl font-black text-white">{stat.value}</div>
+                      <div className="text-xs text-slate-400 font-medium">{stat.label}</div>
+                    </div>
+                  </div>
+                ))}
           </motion.div>
         </div>
       </div>

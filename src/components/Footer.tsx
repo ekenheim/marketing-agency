@@ -129,7 +129,9 @@ export default function Footer({ globalData }: Props) {
                   </a>
                 </li>
               )}
-              <li className="text-slate-500 text-sm">Casablanca, Morocco</li>
+              <li className="text-slate-500 text-sm">
+                {globalData?.location ?? "Casablanca, Morocco"}
+              </li>
             </ul>
           </div>
         </motion.div>

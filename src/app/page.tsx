@@ -19,12 +19,23 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
-// Strapi v5: response is flat — data IS the object, no .attributes wrapper.
+// Resolve relative Strapi media URLs to absolute ones server-side.
+// This prevents SSR/client hydration mismatches caused by NEXT_PUBLIC_
+// env vars being baked into the JS bundle at build time vs read at runtime.
+function resolveUrl(url: string | null | undefined): string {
+  if (!url) return "";
+  if (url.startsWith("http")) return url;
+  return `${process.env.NEXT_PUBLIC_STRAPI_URL ?? ""}${url}`;
+}
 
 async function fetchHero() {
   try {
     const res = await strapiGet<StrapiResponse<HeroData>>("/hero?populate=*");
-    return res.data ?? null;
+    const hero = res.data ?? null;
+    if (hero?.backgroundMedia?.url) {
+      hero.backgroundMedia.url = resolveUrl(hero.backgroundMedia.url);
+    }
+    return hero;
   } catch {
     return null;
   }
@@ -46,7 +57,12 @@ async function fetchCaseStudies() {
     const res = await strapiGet<StrapiListResponse<CaseStudyData>>(
       "/case-studies?filters[featured][$eq]=true&populate=*"
     );
-    return res.data;
+    return res.data.map((cs) => ({
+      ...cs,
+      coverImage: cs.coverImage
+        ? { ...cs.coverImage, url: resolveUrl(cs.coverImage.url) }
+        : null,
+    }));
   } catch {
     return null;
   }
@@ -57,7 +73,10 @@ async function fetchTeam() {
     const res = await strapiGet<StrapiListResponse<TeamMemberData>>(
       "/team-members?sort=order:asc&populate=*"
     );
-    return res.data;
+    return res.data.map((m) => ({
+      ...m,
+      photo: m.photo ? { ...m.photo, url: resolveUrl(m.photo.url) } : null,
+    }));
   } catch {
     return null;
   }
@@ -68,7 +87,10 @@ async function fetchTestimonials() {
     const res = await strapiGet<StrapiListResponse<TestimonialData>>(
       "/testimonials?filters[featured][$eq]=true&populate=*"
     );
-    return res.data;
+    return res.data.map((t) => ({
+      ...t,
+      avatar: t.avatar ? { ...t.avatar, url: resolveUrl(t.avatar.url) } : null,
+    }));
   } catch {
     return null;
   }
@@ -79,7 +101,11 @@ async function fetchGlobal() {
     const res = await strapiGet<StrapiResponse<GlobalData>>(
       "/global?populate=*"
     );
-    return res.data ?? null;
+    const global = res.data ?? null;
+    if (global?.logo?.url) {
+      global.logo.url = resolveUrl(global.logo.url);
+    }
+    return global;
   } catch {
     return null;
   }
@@ -103,8 +129,8 @@ export default async function HomePage() {
       <ServicesSection services={services} />
       <CaseStudiesSection caseStudies={caseStudies} />
       <TeamSection team={team} />
-      <TestimonialsSection testimonials={testimonials} />
-      <ContactSection globalData={globalData} />
+      <TestimonialsSection testimonials={testimonials} globalData={globalData} />
+      <ContactSection globalData={globalData} services={services} />
       <Footer globalData={globalData} />
     </main>
   );

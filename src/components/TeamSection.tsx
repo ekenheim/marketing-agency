@@ -3,7 +3,6 @@
 import { motion, type Variants } from "framer-motion";
 import { Linkedin, User } from "lucide-react";
 import type { TeamMemberData } from "@/types/strapi";
-import { strapiMedia } from "@/lib/strapi";
 
 const FALLBACK_TEAM: TeamMemberData[] = [
   {
@@ -82,9 +81,7 @@ export default function TeamSection({ team }: Props) {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {members.map((member, i) => {
-            const photoUrl = member.photo?.url
-              ? strapiMedia(member.photo.url)
-              : null;
+            const photoUrl = member.photo?.url ?? null;
 
             return (
               <motion.div
