@@ -66,8 +66,8 @@ export default function TestimonialsSection({ testimonials }: Props) {
   };
 
   const active = items[current];
-  const avatarUrl = active.avatar?.data?.attributes.url
-    ? strapiMedia(active.avatar.data.attributes.url)
+  const avatarUrl = active.avatar?.url
+    ? strapiMedia(active.avatar.url)
     : null;
 
   return (

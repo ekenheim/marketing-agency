@@ -19,10 +19,12 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
+// Strapi v5: response is flat — data IS the object, no .attributes wrapper.
+
 async function fetchHero() {
   try {
     const res = await strapiGet<StrapiResponse<HeroData>>("/hero?populate=*");
-    return res.data?.attributes ?? null;
+    return res.data ?? null;
   } catch {
     return null;
   }
@@ -33,7 +35,7 @@ async function fetchServices() {
     const res = await strapiGet<StrapiListResponse<ServiceData>>(
       "/services?sort=order:asc&populate[features]=*"
     );
-    return res.data.map((d) => d.attributes);
+    return res.data;
   } catch {
     return null;
   }
@@ -44,7 +46,7 @@ async function fetchCaseStudies() {
     const res = await strapiGet<StrapiListResponse<CaseStudyData>>(
       "/case-studies?filters[featured][$eq]=true&populate[coverImage]=*&populate[results]=*"
     );
-    return res.data.map((d) => d.attributes);
+    return res.data;
   } catch {
     return null;
   }
@@ -55,7 +57,7 @@ async function fetchTeam() {
     const res = await strapiGet<StrapiListResponse<TeamMemberData>>(
       "/team-members?sort=order:asc&populate[photo]=*"
     );
-    return res.data.map((d) => d.attributes);
+    return res.data;
   } catch {
     return null;
   }
@@ -66,7 +68,7 @@ async function fetchTestimonials() {
     const res = await strapiGet<StrapiListResponse<TestimonialData>>(
       "/testimonials?filters[featured][$eq]=true&populate[avatar]=*"
     );
-    return res.data.map((d) => d.attributes);
+    return res.data;
   } catch {
     return null;
   }
@@ -77,7 +79,7 @@ async function fetchGlobal() {
     const res = await strapiGet<StrapiResponse<GlobalData>>(
       "/global?populate=*"
     );
-    return res.data?.attributes ?? null;
+    return res.data ?? null;
   } catch {
     return null;
   }

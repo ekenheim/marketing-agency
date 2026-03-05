@@ -24,8 +24,8 @@ interface Props {
 
 export default function HeroSection({ data }: Props) {
   const hero = data ?? FALLBACK;
-  const bgUrl = hero.backgroundMedia?.data?.attributes.url
-    ? strapiMedia(hero.backgroundMedia.data.attributes.url)
+  const bgUrl = hero.backgroundMedia?.url
+    ? strapiMedia(hero.backgroundMedia.url)
     : null;
 
   const handleCta = (url: string) => {

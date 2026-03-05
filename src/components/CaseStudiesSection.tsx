@@ -107,8 +107,8 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {items.map((cs, i) => {
-            const coverUrl = cs.coverImage?.data?.attributes.url
-              ? strapiMedia(cs.coverImage.data.attributes.url)
+            const coverUrl = cs.coverImage?.url
+              ? strapiMedia(cs.coverImage.url)
               : null;
             const tags = parseTags(cs.tags);
 

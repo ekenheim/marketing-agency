@@ -61,9 +61,9 @@ export default function Footer({ globalData }: Props) {
                   <Instagram size={16} />
                 </a>
               )}
-              {globalData?.linkedInUrl && (
+              {globalData?.linkedinUrl && (
                 <a
-                  href={globalData.linkedInUrl}
+                  href={globalData.linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-9 h-9 rounded-lg border border-white/10 hover:border-amber-500/40 flex items-center justify-center text-slate-400 hover:text-amber-400 transition-all"
