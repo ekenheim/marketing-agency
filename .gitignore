@@ -32,6 +32,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# .env.production is intentionally committed — NEXT_PUBLIC_STRAPI_URL is not a secret
+!.env.production
 
 # vercel
 .vercel

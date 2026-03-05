@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns: [
+      { protocol: "https", hostname: "strapi.ekenhome.se" },
       { protocol: "https", hostname: "**" },
       { protocol: "http", hostname: "**" },
     ],
