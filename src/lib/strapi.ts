@@ -1,17 +1,14 @@
 const STRAPI_API_URL = process.env.STRAPI_API_URL!;
 const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN!;
 
-export async function strapiGet<T>(
-  path: string,
-  revalidate: number = 60
-): Promise<T> {
+export async function strapiGet<T>(path: string): Promise<T> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
 
   try {
     const res = await fetch(`${STRAPI_API_URL}/api${path}`, {
       headers: { Authorization: `Bearer ${STRAPI_API_TOKEN}` },
-      next: { revalidate },
+      cache: "no-store",
       signal: controller.signal,
     });
     if (!res.ok)

@@ -1,3 +1,9 @@
+// Disable static pre-rendering. The build runs in CI where Strapi is unreachable
+// (internal K8s URL), so ISR would bake stale fallbacks and broken image URLs into
+// the static HTML. With force-dynamic every request is server-rendered fresh with
+// the correct runtime env vars and live Strapi data.
+export const dynamic = "force-dynamic";
+
 import { strapiGet } from "@/lib/strapi";
 import type {
   StrapiResponse,
