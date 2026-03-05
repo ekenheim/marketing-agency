@@ -26,12 +26,16 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
 // Resolve relative Strapi media URLs to absolute ones server-side.
-// This prevents SSR/client hydration mismatches caused by NEXT_PUBLIC_
-// env vars being baked into the JS bundle at build time vs read at runtime.
+// IMPORTANT: Must use STRAPI_PUBLIC_URL (no NEXT_PUBLIC_ prefix), NOT
+// NEXT_PUBLIC_STRAPI_URL. Next.js inlines all NEXT_PUBLIC_ vars at build time
+// so their value is frozen to whatever was set when `npm run build` ran inside
+// Docker — the K8s runtime env var is never read. A plain env var like
+// STRAPI_PUBLIC_URL is read from process.env at request time by the server
+// component, so it always reflects the live runtime value.
 function resolveUrl(url: string | null | undefined): string {
   if (!url) return "";
   if (url.startsWith("http")) return url;
-  return `${process.env.NEXT_PUBLIC_STRAPI_URL ?? ""}${url}`;
+  return `${process.env.STRAPI_PUBLIC_URL ?? ""}${url}`;
 }
 
 async function fetchHero() {

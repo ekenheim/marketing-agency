@@ -30,8 +30,6 @@ jobs:
         with:
           context: .
           push: true
-          build-args: |
-            NEXT_PUBLIC_STRAPI_URL=${{ secrets.NEXT_PUBLIC_STRAPI_URL }}
           tags: |
             ${{ env.IMAGE_NAME }}:${{ github.ref_name }}
             ${{ env.IMAGE_NAME }}:latest
