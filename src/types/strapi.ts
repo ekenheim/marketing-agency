@@ -85,6 +85,7 @@ export interface CaseStudyData {
   slug: string;
   client: string;
   industry?: string;
+  summary?: string;
   challenge?: string;
   solution?: string;
   results?: MetricData[];

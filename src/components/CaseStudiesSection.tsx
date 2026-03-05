@@ -155,9 +155,15 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
                   <div className="text-xs text-amber-500 font-semibold uppercase tracking-wider mb-2">
                     {cs.client}
                   </div>
-                  <h3 className="text-white font-bold text-base leading-snug mb-4">
+                  <h3 className="text-white font-bold text-base leading-snug mb-3">
                     {cs.title}
                   </h3>
+
+                  {cs.summary && (
+                    <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3">
+                      {cs.summary}
+                    </p>
+                  )}
 
                   {/* Metrics */}
                   {cs.results && cs.results.length > 0 && (
