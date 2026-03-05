@@ -33,7 +33,7 @@ async function fetchHero() {
 async function fetchServices() {
   try {
     const res = await strapiGet<StrapiListResponse<ServiceData>>(
-      "/services?sort=order:asc&populate[features]=*"
+      "/services?sort=order:asc&populate=*"
     );
     return res.data;
   } catch {
@@ -44,7 +44,7 @@ async function fetchServices() {
 async function fetchCaseStudies() {
   try {
     const res = await strapiGet<StrapiListResponse<CaseStudyData>>(
-      "/case-studies?filters[featured][$eq]=true&populate[coverImage]=*&populate[results]=*"
+      "/case-studies?filters[featured][$eq]=true&populate=*"
     );
     return res.data;
   } catch {
@@ -55,7 +55,7 @@ async function fetchCaseStudies() {
 async function fetchTeam() {
   try {
     const res = await strapiGet<StrapiListResponse<TeamMemberData>>(
-      "/team-members?sort=order:asc&populate[photo]=*"
+      "/team-members?sort=order:asc&populate=*"
     );
     return res.data;
   } catch {
@@ -66,7 +66,7 @@ async function fetchTeam() {
 async function fetchTestimonials() {
   try {
     const res = await strapiGet<StrapiListResponse<TestimonialData>>(
-      "/testimonials?filters[featured][$eq]=true&populate[avatar]=*"
+      "/testimonials?filters[featured][$eq]=true&populate=*"
     );
     return res.data;
   } catch {
