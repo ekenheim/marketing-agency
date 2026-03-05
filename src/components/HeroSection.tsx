@@ -7,7 +7,8 @@ import type { LucideProps } from "lucide-react";
 import type { HeroData, StatData } from "@/types/strapi";
 
 const FALLBACK: HeroData = {
-  headline: "We help Moroccan brands attract high-value clients",
+  headline: "We turn clicks into clients —",
+  headlineAccent: "and clients into loyal fans",
   subheadline: "Data-driven digital growth strategies that scale.",
   primaryCta: { label: "See our work", url: "#case-studies", variant: "primary" },
   secondaryCta: { label: "Get in touch", url: "#contact", variant: "secondary" },
@@ -44,8 +45,6 @@ export default function HeroSection({ data }: Props) {
       window.open(url, "_blank", "noopener");
     }
   };
-
-  const words = hero.headline.split(" ");
 
   return (
     <section
@@ -120,21 +119,35 @@ export default function HeroSection({ data }: Props) {
 
           {/* Headline — staggered word animation */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
-            {words.map((word, i) => (
+            {hero.headline.split(" ").map((word, i) => (
               <motion.span
-                key={i}
+                key={`main-${i}`}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.05 }}
-                className="inline-block mr-3 last:mr-0"
+                className="inline-block mr-3"
               >
-                {word === "high-value" || word === "scale" ? (
-                  <span className="text-amber-400">{word}</span>
-                ) : (
-                  word
-                )}
+                {word}
               </motion.span>
             ))}
+            {hero.headlineAccent && (
+              <>
+                {hero.headlineAccent.split(" ").map((word, i) => (
+                  <motion.span
+                    key={`accent-${i}`}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: 0.2 + (hero.headline.split(" ").length + i) * 0.05,
+                    }}
+                    className="inline-block mr-3 text-amber-400"
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+              </>
+            )}
           </h1>
 
           {/* Subheadline */}

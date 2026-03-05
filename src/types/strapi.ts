@@ -61,6 +61,7 @@ export interface StrapiListResponse<T> {
 export interface HeroData {
   id?: number;
   headline: string;
+  headlineAccent?: string;
   subheadline?: string;
   primaryCta?: CtaData;
   secondaryCta?: CtaData;
