@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -44,6 +45,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className="antialiased">{children}</body>
+      <Script
+        src="https://rybbit.ekenhome.se/api/script.js"
+        data-site-id="0efa8759375c"
+        strategy="afterInteractive"
+      />
     </html>
   );
 }
