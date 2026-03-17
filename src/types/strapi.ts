@@ -128,6 +128,9 @@ export interface GlobalData {
   linkedinUrl?: string; // Strapi v5 lowercases: linkedinUrl not linkedInUrl
   location?: string;
   trustBadges?: BadgeData[];
+  servicesSectionLabel?: string;
+  servicesSectionTitle?: string;
+  servicesSectionSubtitle?: string;
 }
 
 export interface ContactSubmission {

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { ArrowUpRight, Tag } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Tag } from "lucide-react";
 import type { CaseStudyData } from "@/types/strapi";
 
 const FALLBACK_CASES: CaseStudyData[] = [
@@ -66,11 +66,22 @@ const cardVariants: Variants = {
 
 interface Props {
   caseStudies: CaseStudyData[] | null;
+  ctaLabel?: string;
+  ctaUrl?: string;
 }
 
-export default function CaseStudiesSection({ caseStudies }: Props) {
+export default function CaseStudiesSection({ caseStudies, ctaLabel = "Start a project", ctaUrl = "#contact" }: Props) {
   const items =
     caseStudies && caseStudies.length > 0 ? caseStudies : FALLBACK_CASES;
+
+  const handleCta = () => {
+    if (ctaUrl.startsWith("#")) {
+      const el = document.querySelector(ctaUrl);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.open(ctaUrl, "_blank", "noopener");
+    }
+  };
 
   return (
     <section id="case-studies" className="py-24 bg-navy-950">
@@ -92,9 +103,18 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
               <span className="text-amber-400">speak for themselves</span>
             </h2>
           </div>
-          <p className="text-slate-400 max-w-xs sm:text-right">
-            Real numbers from real Moroccan brands we&apos;ve helped grow.
-          </p>
+          <div className="flex flex-col items-start sm:items-end gap-4">
+            <p className="text-slate-400 max-w-xs sm:text-right">
+              Real numbers from real Moroccan brands we&apos;ve helped grow.
+            </p>
+            <button
+              onClick={handleCta}
+              className="group flex items-center gap-2 px-6 py-3 bg-amber-500 hover:bg-amber-400 text-navy-900 font-bold rounded-xl transition-all duration-200 hover:scale-105 active:scale-95 text-sm shadow-lg shadow-amber-500/25 cursor-pointer whitespace-nowrap"
+            >
+              {ctaLabel}
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
         </motion.div>
 
         {/* Grid */}

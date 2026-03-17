@@ -11,7 +11,6 @@ import type {
   HeroData,
   ServiceData,
   CaseStudyData,
-  TeamMemberData,
   TestimonialData,
   GlobalData,
 } from "@/types/strapi";
@@ -20,7 +19,6 @@ import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
-import TeamSection from "@/components/TeamSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
@@ -78,20 +76,6 @@ async function fetchCaseStudies() {
   }
 }
 
-async function fetchTeam() {
-  try {
-    const res = await strapiGet<StrapiListResponse<TeamMemberData>>(
-      "/team-members?sort=order:asc&populate=*"
-    );
-    return res.data.map((m) => ({
-      ...m,
-      photo: m.photo ? { ...m.photo, url: resolveUrl(m.photo.url) } : null,
-    }));
-  } catch {
-    return null;
-  }
-}
-
 async function fetchTestimonials() {
   try {
     const res = await strapiGet<StrapiListResponse<TestimonialData>>(
@@ -122,12 +106,11 @@ async function fetchGlobal() {
 }
 
 export default async function HomePage() {
-  const [hero, services, caseStudies, team, testimonials, globalData] =
+  const [hero, services, caseStudies, testimonials, globalData] =
     await Promise.all([
       fetchHero(),
       fetchServices(),
       fetchCaseStudies(),
-      fetchTeam(),
       fetchTestimonials(),
       fetchGlobal(),
     ]);
@@ -136,9 +119,8 @@ export default async function HomePage() {
     <main>
       <Header />
       <HeroSection data={hero} />
-      <ServicesSection services={services} />
+      <ServicesSection services={services} globalData={globalData} />
       <CaseStudiesSection caseStudies={caseStudies} />
-      <TeamSection team={team} />
       <TestimonialsSection testimonials={testimonials} globalData={globalData} />
       <ContactSection globalData={globalData} services={services} />
       <Footer globalData={globalData} />

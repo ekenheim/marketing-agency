@@ -55,7 +55,7 @@ export default function HeroSection({ data }: Props) {
       {bgUrl ? (
         bgUrl.endsWith(".mp4") || bgUrl.endsWith(".webm") ? (
           <video
-            className="absolute inset-0 w-full h-full object-cover opacity-20"
+            className="absolute inset-0 w-full h-full object-cover opacity-40"
             autoPlay
             muted
             loop
@@ -67,7 +67,7 @@ export default function HeroSection({ data }: Props) {
           <img
             src={bgUrl}
             alt=""
-            className="absolute inset-0 w-full h-full object-cover opacity-20"
+            className="absolute inset-0 w-full h-full object-cover opacity-40"
           />
         )
       ) : (
@@ -102,7 +102,7 @@ export default function HeroSection({ data }: Props) {
       )}
 
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-navy-950/60 via-navy-950/40 to-navy-950/90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-navy-950/40 via-navy-950/20 to-navy-950/70" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
         <div className="max-w-4xl">

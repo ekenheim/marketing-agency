@@ -3,7 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import * as LucideIcons from "lucide-react";
 import { CheckCircle2, type LucideProps } from "lucide-react";
-import type { ServiceData } from "@/types/strapi";
+import type { ServiceData, GlobalData } from "@/types/strapi";
 
 const FALLBACK_SERVICES: ServiceData[] = [
   {
@@ -101,10 +101,14 @@ const cardVariants: Variants = {
 
 interface Props {
   services: ServiceData[] | null;
+  globalData?: GlobalData | null;
 }
 
-export default function ServicesSection({ services }: Props) {
+export default function ServicesSection({ services, globalData }: Props) {
   const items = (services && services.length > 0) ? services : FALLBACK_SERVICES;
+  const sectionLabel = globalData?.servicesSectionLabel ?? "What we do";
+  const sectionTitle = globalData?.servicesSectionTitle ?? "Services built for measurable growth";
+  const sectionSubtitle = globalData?.servicesSectionSubtitle ?? "Every service is designed around one goal: attracting high-value clients and delivering returns you can see.";
 
   return (
     <section id="services" className="py-24 bg-navy-900">
@@ -118,15 +122,13 @@ export default function ServicesSection({ services }: Props) {
           className="text-center mb-16"
         >
           <span className="inline-block text-amber-500 text-sm font-semibold uppercase tracking-widest mb-4">
-            What we do
+            {sectionLabel}
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-5">
-            Services built for{" "}
-            <span className="text-amber-400">measurable growth</span>
+            {sectionTitle}
           </h2>
           <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-            Every service is designed around one goal: attracting high-value clients
-            and delivering returns you can see.
+            {sectionSubtitle}
           </p>
         </motion.div>
 
