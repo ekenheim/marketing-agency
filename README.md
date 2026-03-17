@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Digitomara — Marketing Agency Frontend
 
-## Getting Started
+Next.js 16 marketing site for Digitomara, a data-driven digital agency targeting Moroccan brands. All content is fetched at request time from a headless Strapi v5 CMS.
 
-First, run the development server:
+## Architecture
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+Browser → Next.js (server component, force-dynamic) → Strapi v5 REST API
+                                                         ↑
+                                              contact form POSTs directly
+                                              from the browser
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The home page (`src/app/page.tsx`) is a single **async server component** marked `force-dynamic`. On every request it fires six parallel `strapiGet` calls to populate:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Section | Strapi endpoint |
+|---|---|
+| Hero | `/api/hero?populate=*` |
+| Services | `/api/services?sort=order:asc&populate=*` |
+| Case Studies | `/api/case-studies?filters[featured][$eq]=true&populate=*` |
+| Team | `/api/team-members?sort=order:asc&populate=*` |
+| Testimonials | `/api/testimonials?filters[featured][$eq]=true&populate=*` |
+| Global (site config) | `/api/global?populate=*` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The `ContactSection` is a **client component** — on submit it POSTs the form payload directly from the browser to `${NEXT_PUBLIC_STRAPI_URL}/api/contacts`, bypassing the Next.js server entirely. Form validation uses `react-hook-form` + `zod`.
 
-## Learn More
+## Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+| Variable | Where it's read | Purpose |
+|---|---|---|
+| `STRAPI_API_URL` | Server only (SSR) | Internal Strapi base URL used for server-side data fetches (e.g. `http://strapi-cms.development.svc.cluster.local:1337`) |
+| `STRAPI_API_TOKEN` | Server only (SSR) | Read-only Strapi API token, injected as a `Bearer` header on every `strapiGet` call |
+| `NEXT_PUBLIC_STRAPI_URL` | Build-time + browser | Public Strapi URL, baked into the JS bundle at build time. Used by the contact form POST and for constructing absolute media URLs client-side |
+| `STRAPI_PUBLIC_URL` | Server only (runtime) | Runtime override for constructing absolute media URLs in server components. Unlike `NEXT_PUBLIC_STRAPI_URL`, this is read from `process.env` at request time so Kubernetes can override it without rebuilding |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> **Why two Strapi URL variables?** `NEXT_PUBLIC_*` values are inlined at `npm run build` time and cannot be changed at runtime. `STRAPI_PUBLIC_URL` (no `NEXT_PUBLIC_` prefix) is a plain env var read by the server component on each request, so the Kubernetes pod can set it freely without a new Docker build.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Copy `.env.example` to `.env.local` to develop locally:
 
-## Deploy on Vercel
+```bash
+cp .env.example .env.local
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Local Development
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm install
+npm run dev        # starts on http://localhost:3000 with Turbopack
+```
+
+Requires a running Strapi v5 instance. Point `STRAPI_API_URL` and `NEXT_PUBLIC_STRAPI_URL` at it in `.env.local`.
+
+## Production Build & Docker
+
+The app is packaged as a **standalone Next.js output** (`output: "standalone"` in `next.config.ts`) and served via a minimal two-stage Docker image:
+
+```bash
+docker build \
+  --build-arg NEXT_PUBLIC_STRAPI_URL=https://strapi.ekenhome.se \
+  -t digitomara-frontend .
+docker run -p 3000:3000 \
+  -e STRAPI_API_URL=http://strapi-cms.development.svc.cluster.local:1337 \
+  -e STRAPI_API_TOKEN=<token> \
+  -e STRAPI_PUBLIC_URL=https://strapi.ekenhome.se \
+  digitomara-frontend
+```
+
+The `NEXT_PUBLIC_STRAPI_URL` build-arg is committed in `.env.production` so CI picks it up automatically without needing a secret.
+
+## API Routes
+
+| Route | Method | Purpose |
+|---|---|---|
+| `/api/health` | `GET` | Returns `{ status: "ok" }` — used as a Kubernetes liveness/readiness probe |
+
+## Key Dependencies
+
+- **Next.js 16** — App Router, server components, standalone output
+- **React 19** — concurrent rendering
+- **Tailwind CSS v4** — utility styling via PostCSS
+- **Framer Motion** — scroll-triggered and entrance animations across all sections
+- **react-hook-form + zod** — contact form validation
+- **lucide-react** — icon set
+
+## Analytics
+
+A self-hosted [Rybbit](https://rybbit.io) analytics snippet is loaded via `next/script` with `strategy="afterInteractive"` from `https://rybbit.ekenhome.se`.
+
+## Content Types (Strapi v5)
+
+Strapi v5 returns **flat responses** — there is no `attributes` wrapper. The TypeScript types in `src/types/strapi.ts` reflect this directly. The main content types are:
+
+- `Hero` (single type) — headline, sub-headline, CTAs, background media, stats
+- `Service` (collection) — title, slug, icon, description, features, sort order
+- `CaseStudy` (collection) — client, challenge, results metrics, cover image, featured flag
+- `TeamMember` (collection) — name, role, bio, photo, LinkedIn, sort order
+- `Testimonial` (collection) — quote, author, avatar, featured flag
+- `Global` (single type) — site name, logo, contact info, social links, trust badges

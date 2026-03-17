@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l /c/Users/ekenh/marketing-agency/src/components/*.tsx)"
+    ]
+  }
+}
