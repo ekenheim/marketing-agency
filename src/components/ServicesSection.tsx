@@ -138,13 +138,13 @@ export default function ServicesSection({ services, globalData }: Props) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="flex flex-wrap justify-center gap-6"
         >
           {items.map((service, i) => (
             <motion.div
               key={service.slug || i}
               variants={cardVariants}
-              className="group relative bg-navy-800/50 border border-white/5 hover:border-amber-500/30 rounded-2xl p-7 transition-all duration-300 hover:bg-navy-800/80 hover:-translate-y-1 cursor-default"
+              className="group relative bg-navy-800/50 border border-white/5 hover:border-amber-500/30 rounded-2xl p-7 transition-all duration-300 hover:bg-navy-800/80 hover:-translate-y-1 cursor-default w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
             >
               {/* Icon */}
               <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-5 group-hover:bg-amber-500/15 transition-colors">
