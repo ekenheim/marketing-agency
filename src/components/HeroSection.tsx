@@ -114,7 +114,7 @@ export default function HeroSection({ data }: Props) {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-sm font-medium mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-            Data-driven digital growth for Moroccan brands
+            Nordic performance standards · Moroccan market
           </motion.div>
 
           {/* Headline — staggered word animation */}
