@@ -33,6 +33,8 @@ Two distinct Strapi URL variables exist by design:
 | `STRAPI_API_TOKEN` | Server-side only | Bearer token for Strapi REST API |
 | `NEXT_PUBLIC_STRAPI_URL` | Build-time baked into JS | Public URL for contact form POST and client-side use |
 | `STRAPI_PUBLIC_URL` | Server runtime | Media URL construction — overridable without rebuild |
+| `GOOGLE_SERVICE_ACCOUNT_KEY` | Server-side only | JSON key for Google service account (Sheets API) |
+| `GOOGLE_SHEET_ID` | Server-side only | Google Spreadsheet ID for contact form submissions |
 
 `NEXT_PUBLIC_STRAPI_URL` is intentionally committed in `.env.production` because it's not a secret (it gets inlined into the browser bundle anyway).
 

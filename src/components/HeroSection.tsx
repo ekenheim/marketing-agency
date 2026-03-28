@@ -10,8 +10,8 @@ const FALLBACK: HeroData = {
   headline: "We turn clicks into clients —",
   headlineAccent: "and clients into loyal fans",
   subheadline: "Data-driven digital growth strategies that scale.",
-  primaryCta: { label: "See our work", url: "#case-studies", variant: "primary" },
-  secondaryCta: { label: "Get in touch", url: "#contact", variant: "secondary" },
+  primaryCta: { label: "View Case Studies", url: "#case-studies", variant: "primary" },
+  secondaryCta: { label: "Book a Strategy Call", url: "#contact", variant: "secondary" },
 };
 
 const FALLBACK_STATS = [

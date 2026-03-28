@@ -11,7 +11,6 @@ import type {
   HeroData,
   ServiceData,
   CaseStudyData,
-  TestimonialData,
   GlobalData,
 } from "@/types/strapi";
 
@@ -19,7 +18,6 @@ import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
@@ -76,20 +74,6 @@ async function fetchCaseStudies() {
   }
 }
 
-async function fetchTestimonials() {
-  try {
-    const res = await strapiGet<StrapiListResponse<TestimonialData>>(
-      "/testimonials?filters[featured][$eq]=true&populate=*"
-    );
-    return res.data.map((t) => ({
-      ...t,
-      avatar: t.avatar ? { ...t.avatar, url: resolveUrl(t.avatar.url) } : null,
-    }));
-  } catch {
-    return null;
-  }
-}
-
 async function fetchGlobal() {
   try {
     const res = await strapiGet<StrapiResponse<GlobalData>>(
@@ -106,12 +90,11 @@ async function fetchGlobal() {
 }
 
 export default async function HomePage() {
-  const [hero, services, caseStudies, testimonials, globalData] =
+  const [hero, services, caseStudies, globalData] =
     await Promise.all([
       fetchHero(),
       fetchServices(),
       fetchCaseStudies(),
-      fetchTestimonials(),
       fetchGlobal(),
     ]);
 
@@ -121,7 +104,6 @@ export default async function HomePage() {
       <HeroSection data={hero} />
       <ServicesSection services={services} globalData={globalData} />
       <CaseStudiesSection caseStudies={caseStudies} />
-      <TestimonialsSection testimonials={testimonials} globalData={globalData} />
       <ContactSection globalData={globalData} services={services} />
       <Footer globalData={globalData} />
     </main>

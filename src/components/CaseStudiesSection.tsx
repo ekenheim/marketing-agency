@@ -70,7 +70,7 @@ interface Props {
   ctaUrl?: string;
 }
 
-export default function CaseStudiesSection({ caseStudies, ctaLabel = "Start a project", ctaUrl = "mailto:hello@digitomara.com" }: Props) {
+export default function CaseStudiesSection({ caseStudies, ctaLabel = "Start a project", ctaUrl = "#contact" }: Props) {
   const items =
     caseStudies && caseStudies.length > 0 ? caseStudies : FALLBACK_CASES;
 
@@ -98,13 +98,16 @@ export default function CaseStudiesSection({ caseStudies, ctaLabel = "Start a pr
             <p className="text-slate-400 max-w-xs sm:text-right">
               Real numbers from real Moroccan brands we&apos;ve helped grow.
             </p>
-            <a
-              href={ctaUrl}
+            <button
+              onClick={() => {
+                const el = document.querySelector(ctaUrl);
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
               className="group flex items-center gap-2 px-6 py-3 bg-amber-500 hover:bg-amber-400 text-navy-900 font-bold rounded-xl transition-all duration-200 hover:scale-105 active:scale-95 text-sm shadow-lg shadow-amber-500/25 cursor-pointer whitespace-nowrap"
             >
               {ctaLabel}
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </a>
+            </button>
           </div>
         </motion.div>
 

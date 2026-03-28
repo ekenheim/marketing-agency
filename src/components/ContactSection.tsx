@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Send, CheckCircle2, Mail, Phone, MapPin } from "lucide-react";
+import { Send, CheckCircle2, AlertCircle, Mail, Phone, MapPin } from "lucide-react";
+import { useState } from "react";
 import type { GlobalData, ServiceData } from "@/types/strapi";
 
 const contactSchema = z.object({
@@ -38,29 +39,29 @@ export default function ContactSection({ globalData, services }: Props) {
       ? [...services.map((s) => s.title), "Not sure yet"]
       : SERVICE_OPTIONS;
 
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ContactForm>({ resolver: zodResolver(contactSchema) });
 
-  const onSubmit = (data: ContactForm) => {
-    const to = globalData?.email ?? "hello@digitomara.com";
-    const subject = data.service
-      ? `New project enquiry – ${data.service}`
-      : "New project enquiry";
-    const lines = [
-      `Name: ${data.name}`,
-      `Email: ${data.email}`,
-      data.company ? `Company: ${data.company}` : "",
-      data.service ? `Service: ${data.service}` : "",
-      "",
-      data.message,
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines)}`;
+  const onSubmit = async (data: ContactForm) => {
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error("Submission failed");
+      setStatus("success");
+      reset();
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -177,113 +178,152 @@ export default function ContactSection({ globalData, services }: Props) {
             className="lg:col-span-3"
           >
             <div className="bg-navy-800/40 border border-white/5 rounded-2xl p-7 sm:p-9">
-              <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  {/* Name */}
-                  <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Name <span className="text-amber-500">*</span>
-                    </label>
-                    <input
-                      {...register("name")}
-                      placeholder="Sara El Amrani"
-                      className={`w-full px-4 py-3 bg-navy-900/60 border rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-colors ${
-                        errors.name
-                          ? "border-red-500/60"
-                          : "border-white/10 focus:border-amber-500/40"
-                      }`}
-                    />
-                    {errors.name && (
-                      <p className="mt-1.5 text-xs text-red-400">{errors.name.message}</p>
-                    )}
-                  </div>
-
-                  {/* Email */}
-                  <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Email <span className="text-amber-500">*</span>
-                    </label>
-                    <input
-                      {...register("email")}
-                      type="email"
-                      placeholder="sara@example.com"
-                      className={`w-full px-4 py-3 bg-navy-900/60 border rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-colors ${
-                        errors.email
-                          ? "border-red-500/60"
-                          : "border-white/10 focus:border-amber-500/40"
-                      }`}
-                    />
-                    {errors.email && (
-                      <p className="mt-1.5 text-xs text-red-400">{errors.email.message}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  {/* Company */}
-                  <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Company
-                    </label>
-                    <input
-                      {...register("company")}
-                      placeholder="Startup Maroc"
-                      className="w-full px-4 py-3 bg-navy-900/60 border border-white/10 focus:border-amber-500/40 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-colors"
-                    />
-                  </div>
-
-                  {/* Service */}
-                  <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Service interested in
-                    </label>
-                    <select
-                      {...register("service")}
-                      className="w-full px-4 py-3 bg-navy-900/60 border border-white/10 focus:border-amber-500/40 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-colors appearance-none cursor-pointer"
-                    >
-                      <option value="">Select a service…</option>
-                      {serviceOptions.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                {/* Message */}
-                <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">
-                    Message <span className="text-amber-500">*</span>
-                  </label>
-                  <textarea
-                    {...register("message")}
-                    rows={5}
-                    placeholder="Tell us about your business, goals, and current challenges…"
-                    className={`w-full px-4 py-3 bg-navy-900/60 border rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-colors resize-none ${
-                      errors.message
-                        ? "border-red-500/60"
-                        : "border-white/10 focus:border-amber-500/40"
-                    }`}
-                  />
-                  {errors.message && (
-                    <p className="mt-1.5 text-xs text-red-400">{errors.message.message}</p>
-                  )}
-                </div>
-
-                {/* Submit */}
-                <button
-                  type="submit"
-                  className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-amber-500 hover:bg-amber-400 text-navy-900 font-bold rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer text-sm"
+              {status === "success" ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center py-8"
                 >
-                  <Send size={16} />
-                  Send message
-                </button>
+                  <div className="w-16 h-16 rounded-full bg-green-500/15 border border-green-500/30 flex items-center justify-center mx-auto mb-5">
+                    <CheckCircle2 size={32} className="text-green-400" />
+                  </div>
+                  <h3 className="text-white font-bold text-xl mb-2">Message sent!</h3>
+                  <p className="text-slate-400 mb-6">
+                    We&apos;ll get back to you within 24 hours.
+                  </p>
+                  <button
+                    onClick={() => setStatus("idle")}
+                    className="px-6 py-2.5 border border-white/15 rounded-lg text-slate-300 hover:text-white hover:border-white/30 text-sm transition-colors cursor-pointer"
+                  >
+                    Send another message
+                  </button>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    {/* Name */}
+                    <div>
+                      <label className="block text-sm font-medium text-slate-300 mb-2">
+                        Name <span className="text-amber-500">*</span>
+                      </label>
+                      <input
+                        {...register("name")}
+                        placeholder="Sara El Amrani"
+                        className={`w-full px-4 py-3 bg-navy-900/60 border rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-colors ${
+                          errors.name
+                            ? "border-red-500/60"
+                            : "border-white/10 focus:border-amber-500/40"
+                        }`}
+                      />
+                      {errors.name && (
+                        <p className="mt-1.5 text-xs text-red-400">{errors.name.message}</p>
+                      )}
+                    </div>
 
-                <p className="text-xs text-slate-500 text-center">
-                  By sending this form you agree to our privacy policy. We never sell your data.
-                </p>
-              </form>
+                    {/* Email */}
+                    <div>
+                      <label className="block text-sm font-medium text-slate-300 mb-2">
+                        Email <span className="text-amber-500">*</span>
+                      </label>
+                      <input
+                        {...register("email")}
+                        type="email"
+                        placeholder="sara@example.com"
+                        className={`w-full px-4 py-3 bg-navy-900/60 border rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-colors ${
+                          errors.email
+                            ? "border-red-500/60"
+                            : "border-white/10 focus:border-amber-500/40"
+                        }`}
+                      />
+                      {errors.email && (
+                        <p className="mt-1.5 text-xs text-red-400">{errors.email.message}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    {/* Company */}
+                    <div>
+                      <label className="block text-sm font-medium text-slate-300 mb-2">
+                        Company
+                      </label>
+                      <input
+                        {...register("company")}
+                        placeholder="Startup Maroc"
+                        className="w-full px-4 py-3 bg-navy-900/60 border border-white/10 focus:border-amber-500/40 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-colors"
+                      />
+                    </div>
+
+                    {/* Service */}
+                    <div>
+                      <label className="block text-sm font-medium text-slate-300 mb-2">
+                        Service interested in
+                      </label>
+                      <select
+                        {...register("service")}
+                        className="w-full px-4 py-3 bg-navy-900/60 border border-white/10 focus:border-amber-500/40 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-colors appearance-none cursor-pointer"
+                      >
+                        <option value="">Select a service…</option>
+                        {serviceOptions.map((s) => (
+                          <option key={s} value={s}>
+                            {s}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Message */}
+                  <div>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">
+                      Message <span className="text-amber-500">*</span>
+                    </label>
+                    <textarea
+                      {...register("message")}
+                      rows={5}
+                      placeholder="Tell us about your business, goals, and current challenges…"
+                      className={`w-full px-4 py-3 bg-navy-900/60 border rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-colors resize-none ${
+                        errors.message
+                          ? "border-red-500/60"
+                          : "border-white/10 focus:border-amber-500/40"
+                      }`}
+                    />
+                    {errors.message && (
+                      <p className="mt-1.5 text-xs text-red-400">{errors.message.message}</p>
+                    )}
+                  </div>
+
+                  {status === "error" && (
+                    <div className="flex items-center gap-2.5 p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-sm text-red-400">
+                      <AlertCircle size={16} />
+                      Something went wrong. Please try again or email us directly.
+                    </div>
+                  )}
+
+                  {/* Submit */}
+                  <button
+                    type="submit"
+                    disabled={status === "loading"}
+                    className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-amber-500 hover:bg-amber-400 disabled:bg-amber-500/50 disabled:cursor-not-allowed text-navy-900 font-bold rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer text-sm"
+                  >
+                    {status === "loading" ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-navy-900/30 border-t-navy-900 rounded-full animate-spin" />
+                        Sending…
+                      </>
+                    ) : (
+                      <>
+                        <Send size={16} />
+                        Send message
+                      </>
+                    )}
+                  </button>
+
+                  <p className="text-xs text-slate-500 text-center">
+                    By sending this form you agree to our privacy policy. We never sell your data.
+                  </p>
+                </form>
+              )}
             </div>
           </motion.div>
         </div>

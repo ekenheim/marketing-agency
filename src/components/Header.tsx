@@ -7,7 +7,6 @@ const navLinks = [
   { label: "Services", href: "#services" },
   { label: "Work", href: "#case-studies" },
   { label: "Team", href: "#team" },
-  { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -65,12 +64,12 @@ export default function Header() {
 
           {/* Desktop CTA */}
           <div className="hidden md:block">
-            <a
-              href="mailto:hello@digitomara.com"
-              className="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-navy-900 font-semibold text-sm rounded-lg transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer inline-block"
+            <button
+              onClick={() => handleNavClick("#contact")}
+              className="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-navy-900 font-semibold text-sm rounded-lg transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
             >
               Start a project
-            </a>
+            </button>
           </div>
 
           {/* Mobile Toggle */}
@@ -100,12 +99,12 @@ export default function Header() {
               {link.label}
             </button>
           ))}
-          <a
-            href="mailto:hello@digitomara.com"
-            className="mt-2 px-4 py-3 bg-amber-500 hover:bg-amber-400 text-navy-900 font-semibold text-sm rounded-lg transition-colors cursor-pointer block text-center"
+          <button
+            onClick={() => handleNavClick("#contact")}
+            className="mt-2 px-4 py-3 bg-amber-500 hover:bg-amber-400 text-navy-900 font-semibold text-sm rounded-lg transition-colors cursor-pointer w-full text-center"
           >
             Start a project
-          </a>
+          </button>
         </div>
       </div>
     </header>
