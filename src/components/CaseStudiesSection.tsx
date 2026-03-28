@@ -95,9 +95,6 @@ export default function CaseStudiesSection({ caseStudies, ctaLabel = "Start a pr
             </h2>
           </div>
           <div className="flex flex-col items-start sm:items-end gap-4">
-            <p className="text-slate-400 max-w-xs sm:text-right">
-              Real numbers from real Moroccan brands we&apos;ve helped grow.
-            </p>
             <button
               onClick={() => {
                 const el = document.querySelector(ctaUrl);

@@ -169,26 +169,22 @@ export default function HeroSection({ data }: Props) {
             transition={{ duration: 0.5, delay: 0.7 }}
             className="flex flex-wrap gap-4 mb-20"
           >
-            {hero.primaryCta && (
-              <button
-                onClick={() => handleCta(hero.primaryCta!.url)}
-                className="group flex items-center gap-2 px-7 py-4 bg-amber-500 hover:bg-amber-400 text-navy-900 font-bold rounded-xl transition-all duration-200 hover:scale-105 active:scale-95 text-base shadow-lg shadow-amber-500/25 cursor-pointer"
-              >
-                {hero.primaryCta.label}
-                <ArrowRight
-                  size={18}
-                  className="group-hover:translate-x-1 transition-transform"
-                />
-              </button>
-            )}
-            {hero.secondaryCta && (
-              <button
-                onClick={() => handleCta(hero.secondaryCta!.url)}
-                className="flex items-center gap-2 px-7 py-4 border border-white/20 hover:border-amber-500/50 text-white hover:text-amber-400 font-semibold rounded-xl transition-all duration-200 hover:bg-white/5 text-base cursor-pointer"
-              >
-                {hero.secondaryCta.label}
-              </button>
-            )}
+            <button
+              onClick={() => handleCta("#case-studies")}
+              className="group flex items-center gap-2 px-7 py-4 bg-amber-500 hover:bg-amber-400 text-navy-900 font-bold rounded-xl transition-all duration-200 hover:scale-105 active:scale-95 text-base shadow-lg shadow-amber-500/25 cursor-pointer"
+            >
+              {hero.primaryCta?.label ?? "View Case Studies"}
+              <ArrowRight
+                size={18}
+                className="group-hover:translate-x-1 transition-transform"
+              />
+            </button>
+            <button
+              onClick={() => handleCta("#contact")}
+              className="flex items-center gap-2 px-7 py-4 border border-white/20 hover:border-amber-500/50 text-white hover:text-amber-400 font-semibold rounded-xl transition-all duration-200 hover:bg-white/5 text-base cursor-pointer"
+            >
+              {hero.secondaryCta?.label ?? "Book a Strategy Call"}
+            </button>
           </motion.div>
 
           {/* Stats */}
