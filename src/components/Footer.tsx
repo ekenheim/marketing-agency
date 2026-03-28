@@ -4,11 +4,9 @@ import { motion } from "framer-motion";
 import { Instagram, Linkedin, Mail, ArrowUp } from "lucide-react";
 import type { GlobalData } from "@/types/strapi";
 
-const navLinks = [
+const scrollLinks = [
   { label: "Services", href: "#services" },
   { label: "Work", href: "#case-studies" },
-  { label: "Team", href: "#team" },
-  { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -90,7 +88,7 @@ export default function Footer({ globalData }: Props) {
               Navigation
             </h4>
             <ul className="space-y-3">
-              {navLinks.map((link) => (
+              {scrollLinks.map((link) => (
                 <li key={link.href}>
                   <button
                     onClick={() => handleNav(link.href)}
@@ -100,6 +98,14 @@ export default function Footer({ globalData }: Props) {
                   </button>
                 </li>
               ))}
+              <li>
+                <a
+                  href="/team"
+                  className="text-slate-400 hover:text-amber-400 text-sm transition-colors"
+                >
+                  Team
+                </a>
+              </li>
             </ul>
           </div>
 

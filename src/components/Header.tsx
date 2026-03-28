@@ -3,10 +3,9 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
-const navLinks = [
+const scrollLinks = [
   { label: "Services", href: "#services" },
   { label: "Work", href: "#case-studies" },
-  { label: "Team", href: "#team" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -23,7 +22,12 @@ export default function Header() {
   const handleNavClick = (href: string) => {
     setMenuOpen(false);
     const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // On a sub-page — navigate home with the anchor
+      window.location.assign(`/${href}`);
+    }
   };
 
   return (
@@ -51,7 +55,7 @@ export default function Header() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {scrollLinks.map((link) => (
               <button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
@@ -60,6 +64,12 @@ export default function Header() {
                 {link.label}
               </button>
             ))}
+            <a
+              href="/team"
+              className="text-slate-300 hover:text-amber-400 text-sm font-medium transition-colors duration-200"
+            >
+              Team
+            </a>
           </nav>
 
           {/* Desktop CTA */}
@@ -90,7 +100,7 @@ export default function Header() {
         }`}
       >
         <div className="bg-navy-900/98 backdrop-blur-md border-t border-white/5 px-4 py-4 flex flex-col gap-2">
-          {navLinks.map((link) => (
+          {scrollLinks.map((link) => (
             <button
               key={link.href}
               onClick={() => handleNavClick(link.href)}
@@ -99,6 +109,12 @@ export default function Header() {
               {link.label}
             </button>
           ))}
+          <a
+            href="/team"
+            className="text-left px-4 py-3 text-slate-200 hover:text-amber-400 hover:bg-white/5 rounded-lg text-sm font-medium transition-colors"
+          >
+            Team
+          </a>
           <button
             onClick={() => handleNavClick("#contact")}
             className="mt-2 px-4 py-3 bg-amber-500 hover:bg-amber-400 text-navy-900 font-semibold text-sm rounded-lg transition-colors cursor-pointer w-full text-center"
