@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(wc -l /c/Users/ekenh/marketing-agency/src/components/*.tsx)"
+      "Bash(wc -l /c/Users/ekenh/marketing-agency/src/components/*.tsx)",
+      "Bash(npm run:*)",
+      "Bash(npm install:*)",
+      "Bash(npx next:*)",
+      "Bash(kill 37474)",
+      "Bash(rm -f .next/dev/lock)"
     ]
   }
 }

@@ -65,12 +65,12 @@ export default function Header() {
 
           {/* Desktop CTA */}
           <div className="hidden md:block">
-            <button
-              onClick={() => handleNavClick("#contact")}
-              className="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-navy-900 font-semibold text-sm rounded-lg transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+            <a
+              href="mailto:hello@digitomara.com"
+              className="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-navy-900 font-semibold text-sm rounded-lg transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer inline-block"
             >
               Start a project
-            </button>
+            </a>
           </div>
 
           {/* Mobile Toggle */}
@@ -100,12 +100,12 @@ export default function Header() {
               {link.label}
             </button>
           ))}
-          <button
-            onClick={() => handleNavClick("#contact")}
-            className="mt-2 px-4 py-3 bg-amber-500 hover:bg-amber-400 text-navy-900 font-semibold text-sm rounded-lg transition-colors cursor-pointer"
+          <a
+            href="mailto:hello@digitomara.com"
+            className="mt-2 px-4 py-3 bg-amber-500 hover:bg-amber-400 text-navy-900 font-semibold text-sm rounded-lg transition-colors cursor-pointer block text-center"
           >
             Start a project
-          </button>
+          </a>
         </div>
       </div>
     </header>
