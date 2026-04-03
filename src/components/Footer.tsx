@@ -47,7 +47,7 @@ export default function Footer({ globalData }: Props) {
             </button>
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
               {globalData?.tagline ??
-                "Helping Moroccan brands attract high-value clients and scale with data-driven digital growth."}
+                "We help Moroccan brands get more clients and grow online. That's it."}
             </p>
 
             {/* Socials */}

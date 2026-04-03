@@ -24,9 +24,9 @@ const values = [
   },
   {
     icon: BarChart2,
-    title: "Data Over Opinions",
+    title: "Data over opinions",
     description:
-      "Every decision is backed by data. We test, measure, and optimise \u2014 gut feelings don\u2019t run campaigns.",
+      "We test and measure before we scale. If the numbers say we\u2019re wrong, we change course.",
   },
   {
     icon: Shield,
@@ -36,9 +36,9 @@ const values = [
   },
   {
     icon: TrendingUp,
-    title: "Long-Term Thinking",
+    title: "Long-term thinking",
     description:
-      "Quick wins matter, but we build systems that compound. Sustainable growth over overnight spikes.",
+      "Quick wins are great, but we\u2019d rather build something that keeps growing six months from now.",
   },
 ];
 
@@ -57,8 +57,8 @@ export default function ValuesSection() {
             What we stand for
           </span>
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-black text-white">
-            Values that drive{" "}
-            <span className="text-amber-500">every decision</span>
+            How we{" "}
+            <span className="text-amber-500">actually operate</span>
           </h2>
         </motion.div>
 

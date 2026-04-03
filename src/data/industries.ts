@@ -69,7 +69,7 @@ export const INDUSTRIES: Record<string, IndustryData> = {
       {
         title: "Reputation & Review Strategy",
         description:
-          "Systematic review collection and management that lifts your Google and TripAdvisor rankings.",
+          "A real system for collecting and managing reviews that pushes your Google and TripAdvisor rankings up.",
       },
       {
         title: "Seasonal Campaign Planning",
@@ -84,7 +84,7 @@ export const INDUSTRIES: Record<string, IndustryData> = {
     ],
     ctaHeadline: "Ready to own your bookings?",
     ctaDescription:
-      "Get a free audit of your current digital presence and see exactly where you're leaving revenue on the table.",
+      "Get a free audit of your current setup. We'll show you where the money is leaking.",
   },
   ecommerce: {
     slug: "ecommerce",
@@ -122,7 +122,7 @@ export const INDUSTRIES: Record<string, IndustryData> = {
       {
         title: "Conversion Rate Optimization",
         description:
-          "Landing page optimization, A/B testing, and checkout flow improvements that lift conversion rates by 30-50%.",
+          "We fix your landing pages, run A/B tests, and clean up your checkout flow. Typical lift: 30-50%.",
       },
       {
         title: "Email & WhatsApp Retargeting",
@@ -142,7 +142,7 @@ export const INDUSTRIES: Record<string, IndustryData> = {
     ],
     ctaHeadline: "Ready to scale profitably?",
     ctaDescription:
-      "Get a free audit of your ad accounts and we'll show you exactly where your budget is being wasted.",
+      "Get a free audit of your ad accounts. We'll tell you where your budget is going and what to cut.",
   },
   b2b: {
     slug: "b2b",
@@ -175,12 +175,12 @@ export const INDUSTRIES: Record<string, IndustryData> = {
       {
         title: "LinkedIn Advertising",
         description:
-          "Precision-targeted campaigns reaching decision-makers by job title, company size, and industry across Morocco and MENA.",
+          "Campaigns targeted by job title, company size, and industry across Morocco and MENA. Your ads hit the people who sign the checks.",
       },
       {
-        title: "Content Marketing Engine",
+        title: "Content that books demos",
         description:
-          "Thought leadership content that positions you as the category expert and generates inbound demo requests.",
+          "Articles and guides that make prospects come to you instead of the other way around.",
       },
       {
         title: "Lead Scoring & CRM",
@@ -188,9 +188,9 @@ export const INDUSTRIES: Record<string, IndustryData> = {
           "Automated qualification that routes hot leads to sales immediately and nurtures cold ones until they're ready.",
       },
       {
-        title: "Full-Funnel Attribution",
+        title: "Full-funnel attribution",
         description:
-          "Multi-touch attribution models that show exactly which touchpoints drive signed contracts — not just form fills.",
+          "Attribution that tracks all the way to a signed contract, not just a form fill.",
       },
     ],
     stats: [
@@ -200,6 +200,6 @@ export const INDUSTRIES: Record<string, IndustryData> = {
     ],
     ctaHeadline: "Ready to fill your pipeline?",
     ctaDescription:
-      "Get a free audit of your current lead generation and we'll identify the biggest opportunities for growth.",
+      "Get a free audit of your current lead gen. We'll tell you what's working, what's not, and where to focus next.",
   },
 };

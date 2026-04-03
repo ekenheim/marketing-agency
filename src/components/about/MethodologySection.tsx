@@ -25,7 +25,7 @@ const steps = [
     number: "02",
     title: "Strategy & Setup",
     description:
-      "Custom growth roadmap with clear KPIs, tracking infrastructure, and campaign architecture.",
+      "We build you a roadmap with real KPIs, set up tracking, and structure your campaigns.",
   },
   {
     number: "03",
@@ -37,7 +37,7 @@ const steps = [
     number: "04",
     title: "Scale & Report",
     description:
-      "Double down on what works. Monthly reporting with full transparency on spend, results, and next steps.",
+      "We put more money behind what works and less behind what doesn't. Monthly reports show you exactly where every dirham went.",
   },
 ];
 
@@ -56,8 +56,8 @@ export default function MethodologySection() {
             How we work
           </span>
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-black text-white">
-            A process built for{" "}
-            <span className="text-amber-500">measurable outcomes</span>
+            Four steps,{" "}
+            <span className="text-amber-500">no mystery</span>
           </h2>
         </motion.div>
 

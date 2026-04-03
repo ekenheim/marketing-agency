@@ -18,21 +18,21 @@ const cardVariants: Variants = {
 const cards = [
   {
     icon: Target,
-    title: "Conversion-First Thinking",
+    title: "Conversion-first thinking",
     description:
-      "Honed at Sweden\u2019s top fintech and gaming studios, where every pixel is measured against revenue.",
+      "Learned at Sweden\u2019s top fintech and gaming studios, where every pixel gets measured against revenue.",
   },
   {
     icon: LineChart,
-    title: "Enterprise-Grade Tracking",
+    title: "Tracking that actually works",
     description:
-      "We bring the same attribution and analytics stack used by Nordic unicorns to the Moroccan market.",
+      "The same attribution and analytics stack that Nordic tech companies run on, set up for Morocco.",
   },
   {
     icon: Globe,
-    title: "Local Market Mastery",
+    title: "We know this market",
     description:
-      "Deep understanding of Moroccan consumer behavior, Arabic/French content, and regional ad platforms.",
+      "Moroccan consumer behavior, Arabic/French content, regional ad platforms. Not guesswork from abroad.",
   },
 ];
 

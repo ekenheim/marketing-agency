@@ -34,7 +34,7 @@ const founders = [
     name: "Nizar",
     role: "Design & Content",
     description:
-      "Creative lead bridging European design precision with Moroccan market sensibilities. Fluent storytelling across Arabic, French, and English.",
+      "Runs our creative output. European design eye, Moroccan market instinct. Works natively in Arabic, French, and English.",
     credentials: [],
   },
 ];

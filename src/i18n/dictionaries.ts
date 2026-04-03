@@ -54,24 +54,6 @@ export interface Dictionary {
     }[];
     badges: string[];
   };
-  pricing: {
-    label: string;
-    title: string;
-    titleAccent: string;
-    subtitle: string;
-    disclaimer: string;
-    recommended: string;
-    startingFrom: string;
-    perMonth: string;
-    tiers: {
-      name: string;
-      description: string;
-      price: string;
-      features: string[];
-      cta: string;
-      highlighted: boolean;
-    }[];
-  };
   contact: {
     label: string;
     title: string;
@@ -150,7 +132,7 @@ const en: Dictionary = {
     badge: "Nordic performance standards · Moroccan market",
     headline: "We turn clicks into clients —",
     headlineAccent: "and clients into loyal fans",
-    subheadline: "Data-driven digital growth strategies that scale.",
+    subheadline: "Performance marketing that actually moves your numbers.",
     primaryCta: "View Case Studies",
     secondaryCta: "Get a Free Audit",
     scroll: "Scroll",
@@ -162,13 +144,13 @@ const en: Dictionary = {
   },
   services: {
     label: "What we do",
-    title: "Services built for measurable growth",
+    title: "Services that move the needle",
     subtitle:
-      "Every service is designed around one goal: attracting high-value clients and delivering returns you can see.",
+      "We do six things, and we do them well. Each one is aimed at getting you more clients and more revenue.",
     items: [
       {
         title: "Performance Marketing",
-        description: "ROI-focused paid campaigns across Meta and Google.",
+        description: "Paid campaigns on Meta and Google, managed for ROI.",
         features: ["Google Ads management", "Meta & Instagram campaigns", "Weekly performance reports"],
       },
       {
@@ -178,22 +160,22 @@ const en: Dictionary = {
       },
       {
         title: "Social Media",
-        description: "Build engaged communities and grow brand awareness.",
+        description: "Grow a following that actually engages with your brand.",
         features: ["Content creation & scheduling", "Community management", "Influencer partnerships"],
       },
       {
         title: "Web & Landing Pages",
-        description: "Conversion-optimised pages that turn visitors into leads.",
+        description: "Pages built to convert visitors into leads, not just look pretty.",
         features: ["CRO-focused design", "A/B testing setup", "Analytics integration"],
       },
       {
         title: "Email & CRM",
-        description: "Nurture leads with personalised automated campaigns.",
+        description: "Automated sequences that keep leads warm until they're ready to buy.",
         features: ["Email automation flows", "CRM setup & integration", "Lead scoring models"],
       },
       {
         title: "Analytics & Data",
-        description: "Turn raw data into actionable growth insights.",
+        description: "Dashboards and reports that tell you what's working and what to cut.",
         features: ["Custom dashboards", "Attribution modelling", "Monthly strategy reviews"],
       },
     ],
@@ -266,57 +248,16 @@ const en: Dictionary = {
     ],
     badges: ["Google Partner", "Meta Business Partner", "HubSpot Certified", "ISO 27001 Aware"],
   },
-  pricing: {
-    label: "Investment",
-    title: "Transparent pricing,",
-    titleAccent: "real results",
-    subtitle: "No hidden fees. No lock-in contracts. Just clear packages designed for measurable growth.",
-    disclaimer: "All packages are customised to your specific goals. Prices shown are starting points.",
-    recommended: "Recommended",
-    startingFrom: "Starting from",
-    perMonth: "/month",
-    tiers: [
-      {
-        name: "Growth",
-        description: "For brands ready to establish a strong digital presence and start generating qualified leads.",
-        price: "5,000 MAD",
-        features: [
-          "Dedicated account manager",
-          "Meta or Google Ads management",
-          "Monthly performance reports",
-          "Landing page optimization",
-          "Email support",
-        ],
-        cta: "Get started",
-        highlighted: false,
-      },
-      {
-        name: "Scale",
-        description: "For established brands looking to dominate their market with a full-funnel strategy.",
-        price: "15,000 MAD",
-        features: [
-          "Everything in Growth",
-          "Multi-channel ad campaigns",
-          "SEO & content strategy",
-          "CRM & email automation",
-          "Weekly strategy calls",
-          "Custom analytics dashboard",
-        ],
-        cta: "Let's talk strategy",
-        highlighted: true,
-      },
-    ],
-  },
   contact: {
     label: "Get in touch",
     title: "Ready to",
     titleAccent: "grow your brand?",
-    subtitle: "Tell us about your business and we'll map out a data-driven growth strategy tailored to your goals.",
+    subtitle: "Tell us what you're working on. We'll come back with a plan.",
     talkTitle: "Let's talk growth",
     talkDescription:
-      "We work with a select group of Moroccan brands at a time to ensure every client gets our full attention. Reach out to see if we're a fit.",
+      "We take on a limited number of clients so nobody gets half-assed service. Drop us a line and we'll see if it makes sense to work together.",
     responseTitle: "24-hour response guarantee.",
-    responseDetail: "Every enquiry gets a thoughtful reply within one business day.",
+    responseDetail: "We reply to every message within one business day.",
     formLabels: {
       name: "Name",
       email: "Email",
@@ -342,17 +283,17 @@ const en: Dictionary = {
     successMessage: "We'll get back to you within 24 hours.",
     sendAnother: "Send another message",
     errorMessage: "Something went wrong. Please try again or email us directly.",
-    privacyNotice: "By sending this form you agree to our privacy policy. We never sell your data.",
+    privacyNotice: "By sending this form you agree to our privacy policy. We don't sell your data.",
     notSureYet: "Not sure yet",
     auditHighlight: "Free 15-minute audit",
-    auditDescription: "Not ready for a full project? Request a free audit of your current digital presence — no strings attached.",
+    auditDescription: "Not ready for a full project? We'll review your current setup and tell you what we'd change. No pitch, no obligation.",
   },
   team: {
     label: "The team",
     title: "Strategists, not",
     titleAccent: "order-takers",
     subtitle:
-      "A tight-knit team of specialists who obsess over your growth metrics — not vanity numbers.",
+      "Small team, big opinions about your numbers. We'd rather argue about your conversion rate than your follower count.",
   },
   footer: {
     navigation: "Navigation",
@@ -366,7 +307,7 @@ const en: Dictionary = {
     b2b: "B2B & SaaS",
   },
   logos: {
-    label: "Trusted by forward-thinking brands",
+    label: "Brands we work with",
   },
   whatsapp: {
     tooltip: "Chat with us",
@@ -387,7 +328,7 @@ const fr: Dictionary = {
     badge: "Standards nordiques · Marché marocain",
     headline: "On transforme les clics en clients —",
     headlineAccent: "et les clients en fans fidèles",
-    subheadline: "Des stratégies de croissance digitale basées sur les données.",
+    subheadline: "Du marketing de performance qui fait vraiment bouger vos chiffres.",
     primaryCta: "Voir nos réalisations",
     secondaryCta: "Audit gratuit",
     scroll: "Défiler",
@@ -399,13 +340,13 @@ const fr: Dictionary = {
   },
   services: {
     label: "Nos services",
-    title: "Des services conçus pour une croissance mesurable",
+    title: "Des services qui font la différence",
     subtitle:
-      "Chaque service est conçu autour d'un seul objectif : attirer des clients à forte valeur et générer des résultats visibles.",
+      "On fait six choses, et on les fait bien. Chacune vise à vous amener plus de clients et plus de chiffre d'affaires.",
     items: [
       {
         title: "Marketing de performance",
-        description: "Campagnes publicitaires axées ROI sur Meta et Google.",
+        description: "Campagnes pub sur Meta et Google, gérées pour le ROI.",
         features: ["Gestion Google Ads", "Campagnes Meta & Instagram", "Rapports hebdomadaires"],
       },
       {
@@ -415,22 +356,22 @@ const fr: Dictionary = {
       },
       {
         title: "Réseaux sociaux",
-        description: "Construisez des communautés engagées et développez votre notoriété.",
+        description: "Développez une audience qui interagit vraiment avec votre marque.",
         features: ["Création & planification de contenu", "Community management", "Partenariats influenceurs"],
       },
       {
         title: "Web & Landing pages",
-        description: "Des pages optimisées pour la conversion qui transforment les visiteurs en leads.",
+        description: "Des pages faites pour convertir les visiteurs en leads, pas juste pour faire joli.",
         features: ["Design axé CRO", "Configuration A/B testing", "Intégration analytics"],
       },
       {
         title: "Email & CRM",
-        description: "Nourrissez vos leads avec des campagnes automatisées personnalisées.",
+        description: "Des séquences automatisées qui gardent vos leads au chaud jusqu'à l'achat.",
         features: ["Flux d'automatisation email", "Configuration & intégration CRM", "Modèles de lead scoring"],
       },
       {
         title: "Analytics & Data",
-        description: "Transformez vos données brutes en insights de croissance actionnables.",
+        description: "Des tableaux de bord et rapports qui vous disent ce qui marche et ce qu'il faut couper.",
         features: ["Tableaux de bord personnalisés", "Modélisation d'attribution", "Revues stratégiques mensuelles"],
       },
     ],
@@ -503,57 +444,16 @@ const fr: Dictionary = {
     ],
     badges: ["Google Partner", "Meta Business Partner", "HubSpot Certified", "ISO 27001 Aware"],
   },
-  pricing: {
-    label: "Investissement",
-    title: "Tarifs transparents,",
-    titleAccent: "résultats concrets",
-    subtitle: "Pas de frais cachés. Pas d'engagement. Des formules claires conçues pour une croissance mesurable.",
-    disclaimer: "Toutes les formules sont personnalisées selon vos objectifs. Les prix affichés sont des points de départ.",
-    recommended: "Recommandé",
-    startingFrom: "À partir de",
-    perMonth: "/mois",
-    tiers: [
-      {
-        name: "Growth",
-        description: "Pour les marques prêtes à établir une présence digitale forte et à générer des leads qualifiés.",
-        price: "5 000 MAD",
-        features: [
-          "Account manager dédié",
-          "Gestion Meta ou Google Ads",
-          "Rapports de performance mensuels",
-          "Optimisation de landing pages",
-          "Support par email",
-        ],
-        cta: "Commencer",
-        highlighted: false,
-      },
-      {
-        name: "Scale",
-        description: "Pour les marques établies qui veulent dominer leur marché avec une stratégie full-funnel.",
-        price: "15 000 MAD",
-        features: [
-          "Tout le pack Growth inclus",
-          "Campagnes multi-canaux",
-          "Stratégie SEO & contenu",
-          "Automatisation CRM & email",
-          "Appels stratégiques hebdomadaires",
-          "Dashboard analytics personnalisé",
-        ],
-        cta: "Discutons stratégie",
-        highlighted: true,
-      },
-    ],
-  },
   contact: {
     label: "Contactez-nous",
     title: "Prêt à",
     titleAccent: "développer votre marque ?",
-    subtitle: "Parlez-nous de votre entreprise et nous élaborerons une stratégie de croissance sur mesure.",
+    subtitle: "Dites-nous sur quoi vous bossez. On revient avec un plan.",
     talkTitle: "Parlons croissance",
     talkDescription:
-      "Nous travaillons avec un nombre limité de marques marocaines à la fois pour garantir une attention totale à chaque client. Contactez-nous pour voir si nous sommes faits pour collaborer.",
+      "On prend un nombre limité de clients pour ne bâcler le travail de personne. Écrivez-nous et on verra si ça colle.",
     responseTitle: "Réponse garantie sous 24h.",
-    responseDetail: "Chaque demande reçoit une réponse réfléchie en un jour ouvré.",
+    responseDetail: "On répond à chaque message en un jour ouvré.",
     formLabels: {
       name: "Nom",
       email: "Email",
@@ -579,17 +479,17 @@ const fr: Dictionary = {
     successMessage: "Nous vous répondrons sous 24 heures.",
     sendAnother: "Envoyer un autre message",
     errorMessage: "Une erreur est survenue. Veuillez réessayer ou nous contacter directement par email.",
-    privacyNotice: "En envoyant ce formulaire, vous acceptez notre politique de confidentialité. Nous ne vendons jamais vos données.",
+    privacyNotice: "En envoyant ce formulaire, vous acceptez notre politique de confidentialité. On ne vend pas vos données.",
     notSureYet: "Pas encore sûr(e)",
     auditHighlight: "Audit gratuit de 15 minutes",
-    auditDescription: "Pas encore prêt pour un projet complet ? Demandez un audit gratuit de votre présence digitale — sans engagement.",
+    auditDescription: "Pas encore prêt pour un projet complet ? On analyse votre setup actuel et on vous dit ce qu'on changerait. Sans pitch, sans obligation.",
   },
   team: {
     label: "L'équipe",
     title: "Des stratèges, pas des",
     titleAccent: "exécutants",
     subtitle:
-      "Une équipe soudée de spécialistes obsédés par vos métriques de croissance — pas par les vanity metrics.",
+      "Petite équipe, grandes convictions sur vos chiffres. On préfère débattre de votre taux de conversion que de votre nombre de followers.",
   },
   footer: {
     navigation: "Navigation",
@@ -603,7 +503,7 @@ const fr: Dictionary = {
     b2b: "B2B & SaaS",
   },
   logos: {
-    label: "Des marques visionnaires nous font confiance",
+    label: "Les marques avec qui on travaille",
   },
   whatsapp: {
     tooltip: "Discutons sur WhatsApp",

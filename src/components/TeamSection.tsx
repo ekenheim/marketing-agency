@@ -25,7 +25,7 @@ const FALLBACK_TEAM: TeamMemberData[] = [
   {
     name: "Nizar",
     role: "Design & Content",
-    bio: "Creative lead bridging European design precision with Moroccan market sensibilities. Fluent storytelling across Arabic, French, and English.",
+    bio: "Runs our creative output. European design eye, Moroccan market instinct. Works natively in Arabic, French, and English.",
     specialties: ["Visual Design", "Content Strategy", "Multilingual Creative"],
     order: 3,
   },

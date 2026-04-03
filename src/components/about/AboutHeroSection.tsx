@@ -33,9 +33,9 @@ export default function AboutHeroSection() {
             <span className="text-amber-500">Moroccan ambition.</span>
           </h1>
           <p className="mt-6 text-slate-400 text-lg max-w-3xl mx-auto">
-            Digitomara was founded on a simple thesis: Moroccan brands deserve
-            the same data-driven, conversion-obsessed approach that built
-            Scandinavia&apos;s top digital performers.
+            We started Digitomara because we thought Moroccan brands deserved
+            the same performance-first approach we used to grow some of
+            Scandinavia&apos;s biggest digital companies. So we brought it here.
           </p>
         </motion.div>
 
@@ -53,8 +53,8 @@ export default function AboutHeroSection() {
           >
             <h3 className="text-xl font-bold text-white mb-3">Mission</h3>
             <p className="text-slate-400">
-              Drive measurable digital growth for Moroccan businesses through
-              world-class performance marketing, analytics, and CRM.
+              Help Moroccan businesses grow online with performance marketing,
+              proper analytics, and CRM that actually gets used.
             </p>
           </motion.div>
 
@@ -65,8 +65,8 @@ export default function AboutHeroSection() {
           >
             <h3 className="text-xl font-bold text-white mb-3">Vision</h3>
             <p className="text-slate-400">
-              To become Morocco&apos;s most trusted digital growth partner —
-              known for results, not promises.
+              Be the agency Moroccan brands call when they want results, not
+              slide decks.
             </p>
           </motion.div>
         </motion.div>
