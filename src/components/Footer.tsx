@@ -22,42 +22,46 @@ export default function Footer({ globalData }: Props) {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
   const handleNav = (href: string) => {
     const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.location.assign(`/${href}`);
+    }
   };
 
   return (
-    <footer className="bg-navy-950 border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <footer className="bg-navy-950 border-t border-white/[0.04]">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12"
+          className="grid grid-cols-1 md:grid-cols-4 gap-14 mb-14"
         >
           {/* Brand */}
           <div className="md:col-span-1">
-            <button onClick={scrollTop} className="flex items-center gap-2 mb-4 group">
-              <div className="w-9 h-9 rounded-lg bg-amber-500 flex items-center justify-center font-black text-navy-900 text-lg">
+            <button onClick={scrollTop} className="flex items-center gap-3 mb-5 group">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center font-[family-name:var(--font-display)] font-extrabold text-navy-900 text-xl shadow-lg shadow-amber-500/15">
                 D
               </div>
-              <span className="font-bold text-xl text-white tracking-tight">
+              <span className="font-[family-name:var(--font-display)] font-bold text-[1.35rem] text-white/90 tracking-tight">
                 digito<span className="text-amber-500">mara</span>
               </span>
             </button>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
+            <p className="text-white/30 text-sm leading-relaxed max-w-xs font-light">
               {globalData?.tagline ??
                 "We help Moroccan brands get more clients and grow online. That's it."}
             </p>
 
             {/* Socials */}
-            <div className="flex gap-3 mt-6">
+            <div className="flex gap-3 mt-7">
               {globalData?.instagramUrl && (
                 <a
                   href={globalData.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg border border-white/10 hover:border-amber-500/40 flex items-center justify-center text-slate-400 hover:text-amber-400 transition-all"
+                  className="w-10 h-10 rounded-xl border border-white/[0.06] hover:border-amber-500/25 flex items-center justify-center text-white/25 hover:text-amber-400 transition-all duration-300"
                   aria-label="Instagram"
                 >
                   <Instagram size={16} />
@@ -68,7 +72,7 @@ export default function Footer({ globalData }: Props) {
                   href={globalData.linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg border border-white/10 hover:border-amber-500/40 flex items-center justify-center text-slate-400 hover:text-amber-400 transition-all"
+                  className="w-10 h-10 rounded-xl border border-white/[0.06] hover:border-amber-500/25 flex items-center justify-center text-white/25 hover:text-amber-400 transition-all duration-300"
                   aria-label="LinkedIn"
                 >
                   <Linkedin size={16} />
@@ -77,7 +81,7 @@ export default function Footer({ globalData }: Props) {
               {globalData?.email && (
                 <a
                   href={`mailto:${globalData.email}`}
-                  className="w-9 h-9 rounded-lg border border-white/10 hover:border-amber-500/40 flex items-center justify-center text-slate-400 hover:text-amber-400 transition-all"
+                  className="w-10 h-10 rounded-xl border border-white/[0.06] hover:border-amber-500/25 flex items-center justify-center text-white/25 hover:text-amber-400 transition-all duration-300"
                   aria-label="Email"
                 >
                   <Mail size={16} />
@@ -88,32 +92,32 @@ export default function Footer({ globalData }: Props) {
 
           {/* Navigation */}
           <div>
-            <h4 className="text-white font-semibold text-sm uppercase tracking-widest mb-5">
+            <h4 className="text-white/50 font-semibold text-[0.7rem] uppercase tracking-[0.2em] mb-6">
               {t.footer.navigation}
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-3.5">
               {scrollLinks.map((link) => (
                 <li key={link.href}>
                   <button
                     onClick={() => handleNav(link.href)}
-                    className="text-slate-400 hover:text-amber-400 text-sm transition-colors cursor-pointer"
+                    className="text-white/30 hover:text-amber-400 text-sm transition-colors duration-300 cursor-pointer font-light"
                   >
                     {link.label}
                   </button>
                 </li>
               ))}
               <li>
-                <Link href="/about" className="text-slate-400 hover:text-amber-400 text-sm transition-colors">
+                <Link href="/about" className="text-white/30 hover:text-amber-400 text-sm transition-colors duration-300 font-light">
                   {t.header.about}
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-slate-400 hover:text-amber-400 text-sm transition-colors">
+                <Link href="/blog" className="text-white/30 hover:text-amber-400 text-sm transition-colors duration-300 font-light">
                   {t.header.blog}
                 </Link>
               </li>
               <li>
-                <Link href="/team" className="text-slate-400 hover:text-amber-400 text-sm transition-colors">
+                <Link href="/team" className="text-white/30 hover:text-amber-400 text-sm transition-colors duration-300 font-light">
                   {t.header.team}
                 </Link>
               </li>
@@ -122,22 +126,22 @@ export default function Footer({ globalData }: Props) {
 
           {/* Industries */}
           <div>
-            <h4 className="text-white font-semibold text-sm uppercase tracking-widest mb-5">
+            <h4 className="text-white/50 font-semibold text-[0.7rem] uppercase tracking-[0.2em] mb-6">
               {t.footer.industries}
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-3.5">
               <li>
-                <Link href="/industries/hospitality" className="text-slate-400 hover:text-amber-400 text-sm transition-colors">
+                <Link href="/industries/hospitality" className="text-white/30 hover:text-amber-400 text-sm transition-colors duration-300 font-light">
                   {t.footer.hospitality}
                 </Link>
               </li>
               <li>
-                <Link href="/industries/ecommerce" className="text-slate-400 hover:text-amber-400 text-sm transition-colors">
+                <Link href="/industries/ecommerce" className="text-white/30 hover:text-amber-400 text-sm transition-colors duration-300 font-light">
                   {t.footer.ecommerce}
                 </Link>
               </li>
               <li>
-                <Link href="/industries/b2b" className="text-slate-400 hover:text-amber-400 text-sm transition-colors">
+                <Link href="/industries/b2b" className="text-white/30 hover:text-amber-400 text-sm transition-colors duration-300 font-light">
                   {t.footer.b2b}
                 </Link>
               </li>
@@ -146,15 +150,15 @@ export default function Footer({ globalData }: Props) {
 
           {/* Contact */}
           <div>
-            <h4 className="text-white font-semibold text-sm uppercase tracking-widest mb-5">
+            <h4 className="text-white/50 font-semibold text-[0.7rem] uppercase tracking-[0.2em] mb-6">
               {t.footer.contact}
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-3.5">
               {globalData?.email && (
                 <li>
                   <a
                     href={`mailto:${globalData.email}`}
-                    className="text-slate-400 hover:text-amber-400 text-sm transition-colors"
+                    className="text-white/30 hover:text-amber-400 text-sm transition-colors duration-300 font-light"
                   >
                     {globalData.email}
                   </a>
@@ -164,13 +168,13 @@ export default function Footer({ globalData }: Props) {
                 <li>
                   <a
                     href={`tel:${globalData.phone}`}
-                    className="text-slate-400 hover:text-amber-400 text-sm transition-colors"
+                    className="text-white/30 hover:text-amber-400 text-sm transition-colors duration-300 font-light"
                   >
                     {globalData.phone}
                   </a>
                 </li>
               )}
-              <li className="text-slate-500 text-sm">
+              <li className="text-white/20 text-sm font-light">
                 {globalData?.location ?? "Casablanca, Morocco"}
               </li>
             </ul>
@@ -178,17 +182,18 @@ export default function Footer({ globalData }: Props) {
         </motion.div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-slate-500 text-sm">
+        <div className="editorial-line mb-8" />
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-white/20 text-[0.75rem] font-light">
             © {new Date().getFullYear()}{" "}
             {globalData?.siteName ?? "Digitomara"}. {t.footer.allRights}
           </p>
-          <div className="flex items-center gap-6">
-            <span className="text-slate-600 text-xs">{t.footer.privacyPolicy}</span>
-            <span className="text-slate-600 text-xs">{t.footer.termsOfService}</span>
+          <div className="flex items-center gap-4 sm:gap-8">
+            <span className="text-white/15 text-[0.65rem] sm:text-[0.7rem] font-light hover:text-white/30 transition-colors cursor-pointer">{t.footer.privacyPolicy}</span>
+            <span className="text-white/15 text-[0.65rem] sm:text-[0.7rem] font-light hover:text-white/30 transition-colors cursor-pointer">{t.footer.termsOfService}</span>
             <button
               onClick={scrollTop}
-              className="w-8 h-8 rounded-lg border border-white/10 hover:border-amber-500/40 flex items-center justify-center text-slate-500 hover:text-amber-400 transition-all cursor-pointer"
+              className="w-10 h-10 sm:w-9 sm:h-9 rounded-xl border border-white/[0.06] hover:border-amber-500/25 flex items-center justify-center text-white/25 hover:text-amber-400 transition-all duration-300 cursor-pointer flex-shrink-0"
               aria-label="Back to top"
             >
               <ArrowUp size={14} />

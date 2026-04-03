@@ -1,10 +1,25 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { Bricolage_Grotesque, Outfit } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import LocaleProvider from "@/i18n/LocaleProvider";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { LOCALE_COOKIE, DEFAULT_LOCALE, type Locale } from "@/i18n/locale";
+
+const display = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+const body = Outfit({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: {
@@ -50,8 +65,8 @@ export default async function RootLayout({
   const locale = (cookieStore.get(LOCALE_COOKIE)?.value ?? DEFAULT_LOCALE) as Locale;
 
   return (
-    <html lang={locale} className="scroll-smooth">
-      <body className="antialiased" suppressHydrationWarning>
+    <html lang={locale} className={`scroll-smooth ${display.variable} ${body.variable}`}>
+      <body className="antialiased font-[family-name:var(--font-body)]" suppressHydrationWarning>
         <LocaleProvider locale={locale}>
           {children}
           <WhatsAppButton />

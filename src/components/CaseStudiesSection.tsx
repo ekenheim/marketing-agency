@@ -20,7 +20,7 @@ const containerVariants = {
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55 } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
 interface Props {
@@ -44,23 +44,26 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
         }));
 
   return (
-    <section id="case-studies" className="py-24 bg-navy-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="case-studies" className="py-16 sm:py-28 bg-navy-950 relative overflow-hidden">
+      {/* Diagonal accent */}
+      <div className="absolute top-0 left-[15%] w-px h-full bg-gradient-to-b from-transparent via-white/[0.03] to-transparent" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14"
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-8 mb-16"
         >
           <div>
-            <span className="inline-block text-amber-500 text-sm font-semibold uppercase tracking-widest mb-4">
+            <span className="inline-block text-amber-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em] mb-5">
               {t.caseStudies.label}
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white">
+            <h2 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-[3.25rem] font-extrabold text-white/95 leading-tight">
               {t.caseStudies.title}{" "}
-              <span className="text-amber-400">{t.caseStudies.titleAccent}</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-300">{t.caseStudies.titleAccent}</span>
             </h2>
           </div>
           <div className="flex flex-col items-start sm:items-end gap-4">
@@ -69,10 +72,10 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
                 const el = document.querySelector("#contact");
                 if (el) el.scrollIntoView({ behavior: "smooth" });
               }}
-              className="group flex items-center gap-2 px-6 py-3 bg-amber-500 hover:bg-amber-400 text-navy-900 font-bold rounded-xl transition-all duration-200 hover:scale-105 active:scale-95 text-sm shadow-lg shadow-amber-500/25 cursor-pointer whitespace-nowrap"
+              className="group flex items-center gap-3 px-7 py-3.5 bg-amber-500 hover:bg-amber-400 text-navy-900 font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/20 active:scale-95 text-[0.8rem] uppercase tracking-wider cursor-pointer whitespace-nowrap"
             >
               {t.caseStudies.ctaLabel}
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-300" />
             </button>
           </div>
         </motion.div>
@@ -83,7 +86,7 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
         >
           {items.map((cs, i) => {
             const coverUrl = cs.coverImage?.url ?? null;
@@ -93,70 +96,74 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
               <motion.article
                 key={cs.slug || i}
                 variants={cardVariants}
-                className="group relative bg-navy-800/40 border border-white/5 hover:border-amber-500/30 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2"
+                onClick={() => {
+                  const el = document.querySelector("#contact");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="group relative bg-navy-800/50 border border-white/[0.04] hover:border-amber-500/20 rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-2 cursor-pointer"
               >
                 {/* Cover image / placeholder */}
-                <div className="relative h-48 bg-gradient-to-br from-navy-700 to-navy-800 overflow-hidden">
+                <div className="relative h-52 bg-gradient-to-br from-navy-700 to-navy-800 overflow-hidden">
                   {coverUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={coverUrl}
                       alt={cs.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center">
-                        <div className="text-3xl font-black text-white/10 uppercase tracking-widest">
+                      <div className="text-center relative z-10">
+                        <div className="text-[0.65rem] font-semibold text-white/10 uppercase tracking-[0.3em]">
                           {cs.industry}
                         </div>
-                        <div className="text-amber-500/30 text-6xl font-black mt-1">
+                        <div className="font-[family-name:var(--font-display)] text-amber-500/20 text-6xl font-extrabold mt-2">
                           {cs.results?.[0]?.value}
                         </div>
                       </div>
                     </div>
                   )}
                   {/* Overlay on hover */}
-                  <div className="absolute inset-0 bg-navy-950/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <div className="flex items-center gap-2 text-white font-semibold text-sm">
-                      {t.caseStudies.viewCaseStudy} <ArrowUpRight size={16} />
+                  <div className="absolute inset-0 bg-navy-950/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-sm">
+                    <div className="flex items-center gap-2 text-amber-400 font-medium text-sm tracking-wide">
+                      {t.caseStudies.viewCaseStudy} <ArrowUpRight size={15} />
                     </div>
                   </div>
                   {/* Industry badge */}
                   {cs.industry && (
-                    <div className="absolute top-3 left-3 px-2.5 py-1 bg-navy-900/90 backdrop-blur-sm rounded-md text-xs text-slate-300 font-medium">
+                    <div className="absolute top-3 left-3 px-3 py-1.5 bg-navy-900/80 backdrop-blur-sm rounded-lg text-[0.65rem] text-white/50 font-medium uppercase tracking-wider">
                       {cs.industry}
                     </div>
                   )}
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
-                  <div className="text-xs text-amber-500 font-semibold uppercase tracking-wider mb-2">
+                <div className="p-7">
+                  <div className="text-[0.65rem] text-amber-500 font-semibold uppercase tracking-[0.2em] mb-2">
                     {cs.client}
                   </div>
-                  <h3 className="text-white font-bold text-base leading-snug mb-3">
+                  <h3 className="font-[family-name:var(--font-display)] text-white/90 font-bold text-base leading-snug mb-4">
                     {cs.title}
                   </h3>
 
                   {cs.summary && (
-                    <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3">
+                    <p className="text-white/30 text-sm leading-relaxed mb-5 line-clamp-3 font-light">
                       {cs.summary}
                     </p>
                   )}
 
                   {/* Metrics */}
                   {cs.results && cs.results.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="flex flex-wrap gap-2 mb-5">
                       {cs.results.slice(0, 3).map((r) => (
                         <div
                           key={r.id}
-                          className="flex flex-col px-3 py-2 bg-amber-500/10 border border-amber-500/20 rounded-lg"
+                          className="flex flex-col px-3.5 py-2.5 bg-amber-500/[0.05] border border-amber-500/10 rounded-xl"
                         >
-                          <span className="text-amber-400 font-black text-base leading-none">
+                          <span className="font-[family-name:var(--font-display)] text-amber-400 font-extrabold text-base leading-none">
                             {r.value}
                           </span>
-                          <span className="text-slate-400 text-xs mt-0.5">{r.label}</span>
+                          <span className="text-white/30 text-[0.65rem] mt-1 font-medium">{r.label}</span>
                         </div>
                       ))}
                     </div>
@@ -168,9 +175,9 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
                       {tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className="inline-flex items-center gap-1 px-2 py-0.5 bg-white/5 rounded text-xs text-slate-400"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 bg-white/[0.03] rounded-lg text-[0.65rem] text-white/30 font-medium"
                         >
-                          <Tag size={10} />
+                          <Tag size={9} />
                           {tag}
                         </span>
                       ))}

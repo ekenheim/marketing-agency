@@ -14,21 +14,21 @@ const LOGOS = [
 
 const containerVariants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
+  visible: { transition: { staggerChildren: 0.06 } },
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 10 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  hidden: { opacity: 0, y: 8 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 export default function ClientLogosSection() {
   const { t } = useLocale();
 
   return (
-    <section className="py-12 bg-navy-900 border-y border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-slate-500 text-xs uppercase tracking-widest text-center mb-8">
+    <section className="py-14 bg-navy-900 border-y border-white/[0.04]">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+        <p className="text-white/20 text-[0.65rem] uppercase tracking-[0.25em] text-center mb-10 font-medium">
           {t.logos.label}
         </p>
         <motion.div
@@ -36,13 +36,13 @@ export default function ClientLogosSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center items-center gap-x-6 sm:gap-x-8 md:gap-x-12 gap-y-4 sm:gap-y-6"
+          className="flex flex-wrap justify-center items-center gap-x-10 sm:gap-x-14 md:gap-x-20 gap-y-5 sm:gap-y-6"
         >
           {LOGOS.map((name) => (
             <motion.span
               key={name}
               variants={itemVariants}
-              className="text-slate-500 text-lg font-bold tracking-wide opacity-40 hover:opacity-70 transition-opacity duration-300"
+              className="font-[family-name:var(--font-display)] text-white/15 text-xl font-bold tracking-wide hover:text-amber-500/30 transition-all duration-500 cursor-default"
             >
               {name}
             </motion.span>
