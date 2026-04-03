@@ -1,11 +1,11 @@
 export const dynamic = "force-dynamic";
 
 import { strapiGet } from "@/lib/strapi";
-import type { StrapiListResponse, TeamMemberData } from "@/types/strapi";
+import { getLocale } from "@/i18n/getLocale";
+import type { StrapiListResponse, StrapiResponse, TeamMemberData, GlobalData } from "@/types/strapi";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TeamSection from "@/components/TeamSection";
-import type { StrapiResponse, GlobalData } from "@/types/strapi";
 
 function resolveUrl(url: string | null | undefined): string {
   if (!url) return "";
@@ -13,10 +13,11 @@ function resolveUrl(url: string | null | undefined): string {
   return `${process.env.STRAPI_PUBLIC_URL ?? ""}${url}`;
 }
 
-async function fetchTeam() {
+async function fetchTeam(locale: string) {
   try {
     const res = await strapiGet<StrapiListResponse<TeamMemberData>>(
-      "/team-members?sort=order:asc&populate=*"
+      "/team-members?sort=order:asc&populate=*",
+      locale,
     );
     return res.data.map((m) => ({
       ...m,
@@ -27,10 +28,11 @@ async function fetchTeam() {
   }
 }
 
-async function fetchGlobal() {
+async function fetchGlobal(locale: string) {
   try {
     const res = await strapiGet<StrapiResponse<GlobalData>>(
-      "/global?populate=*"
+      "/global?populate=*",
+      locale,
     );
     const global = res.data ?? null;
     if (global?.logo?.url) {
@@ -43,7 +45,8 @@ async function fetchGlobal() {
 }
 
 export default async function TeamPage() {
-  const [team, globalData] = await Promise.all([fetchTeam(), fetchGlobal()]);
+  const locale = await getLocale();
+  const [team, globalData] = await Promise.all([fetchTeam(locale), fetchGlobal(locale)]);
 
   return (
     <main>

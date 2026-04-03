@@ -7,6 +7,7 @@ import IndustryPage from "@/components/industries/IndustryPage";
 import Footer from "@/components/Footer";
 import { INDUSTRIES } from "@/data/industries";
 import { strapiGet } from "@/lib/strapi";
+import { getLocale } from "@/i18n/getLocale";
 import type { StrapiResponse, GlobalData } from "@/types/strapi";
 
 function resolveUrl(url: string | null | undefined): string {
@@ -15,10 +16,11 @@ function resolveUrl(url: string | null | undefined): string {
   return `${process.env.STRAPI_PUBLIC_URL ?? ""}${url}`;
 }
 
-async function fetchGlobal() {
+async function fetchGlobal(locale: string) {
   try {
     const res = await strapiGet<StrapiResponse<GlobalData>>(
-      "/global?populate=*"
+      "/global?populate=*",
+      locale,
     );
     const global = res.data ?? null;
     if (global?.logo?.url) {
@@ -47,7 +49,8 @@ export default async function IndustryLandingPage({ params }: Props) {
   const industry = INDUSTRIES[slug];
   if (!industry) notFound();
 
-  const globalData = await fetchGlobal();
+  const locale = await getLocale();
+  const globalData = await fetchGlobal(locale);
 
   return (
     <main>

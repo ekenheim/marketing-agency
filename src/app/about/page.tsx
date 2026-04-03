@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { strapiGet } from "@/lib/strapi";
+import { getLocale } from "@/i18n/getLocale";
 import type { StrapiResponse, GlobalData } from "@/types/strapi";
 import Header from "@/components/Header";
 import AboutHeroSection from "@/components/about/AboutHeroSection";
@@ -16,10 +17,11 @@ function resolveUrl(url: string | null | undefined): string {
   return `${process.env.STRAPI_PUBLIC_URL ?? ""}${url}`;
 }
 
-async function fetchGlobal() {
+async function fetchGlobal(locale: string) {
   try {
     const res = await strapiGet<StrapiResponse<GlobalData>>(
-      "/global?populate=*"
+      "/global?populate=*",
+      locale,
     );
     const global = res.data ?? null;
     if (global?.logo?.url) {
@@ -38,7 +40,8 @@ export const metadata = {
 };
 
 export default async function AboutPage() {
-  const globalData = await fetchGlobal();
+  const locale = await getLocale();
+  const globalData = await fetchGlobal(locale);
   return (
     <main>
       <Header />

@@ -1,12 +1,18 @@
 const STRAPI_API_URL = process.env.STRAPI_API_URL!;
 const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN!;
 
-export async function strapiGet<T>(path: string): Promise<T> {
+export async function strapiGet<T>(path: string, locale?: string): Promise<T> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
 
+  // Append locale param if provided
+  const separator = path.includes("?") ? "&" : "?";
+  const url = locale
+    ? `${STRAPI_API_URL}/api${path}${separator}locale=${locale}`
+    : `${STRAPI_API_URL}/api${path}`;
+
   try {
-    const res = await fetch(`${STRAPI_API_URL}/api${path}`, {
+    const res = await fetch(url, {
       headers: { Authorization: `Bearer ${STRAPI_API_TOKEN}` },
       cache: "no-store",
       signal: controller.signal,

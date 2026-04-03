@@ -5,6 +5,7 @@
 export const dynamic = "force-dynamic";
 
 import { strapiGet } from "@/lib/strapi";
+import { getLocale } from "@/i18n/getLocale";
 import type {
   StrapiResponse,
   StrapiListResponse,
@@ -32,9 +33,9 @@ function resolveUrl(url: string | null | undefined): string {
   return `${process.env.STRAPI_PUBLIC_URL ?? ""}${url}`;
 }
 
-async function fetchHero() {
+async function fetchHero(locale: string) {
   try {
-    const res = await strapiGet<StrapiResponse<HeroData>>("/hero?populate=*");
+    const res = await strapiGet<StrapiResponse<HeroData>>("/hero?populate=*", locale);
     const hero = res.data ?? null;
     if (hero?.backgroundMedia?.url) {
       hero.backgroundMedia.url = resolveUrl(hero.backgroundMedia.url);
@@ -45,10 +46,11 @@ async function fetchHero() {
   }
 }
 
-async function fetchServices() {
+async function fetchServices(locale: string) {
   try {
     const res = await strapiGet<StrapiListResponse<ServiceData>>(
-      "/services?sort=order:asc&populate=*"
+      "/services?sort=order:asc&populate=*",
+      locale,
     );
     return res.data;
   } catch {
@@ -56,10 +58,11 @@ async function fetchServices() {
   }
 }
 
-async function fetchCaseStudies() {
+async function fetchCaseStudies(locale: string) {
   try {
     const res = await strapiGet<StrapiListResponse<CaseStudyData>>(
-      "/case-studies?filters[featured][$eq]=true&populate=*"
+      "/case-studies?filters[featured][$eq]=true&populate=*",
+      locale,
     );
     return res.data.map((cs) => ({
       ...cs,
@@ -72,10 +75,11 @@ async function fetchCaseStudies() {
   }
 }
 
-async function fetchTestimonials() {
+async function fetchTestimonials(locale: string) {
   try {
     const res = await strapiGet<StrapiListResponse<TestimonialData>>(
-      "/testimonials?filters[featured][$eq]=true&populate=*"
+      "/testimonials?filters[featured][$eq]=true&populate=*",
+      locale,
     );
     return res.data.map((t) => ({
       ...t,
@@ -88,10 +92,11 @@ async function fetchTestimonials() {
   }
 }
 
-async function fetchGlobal() {
+async function fetchGlobal(locale: string) {
   try {
     const res = await strapiGet<StrapiResponse<GlobalData>>(
-      "/global?populate=*"
+      "/global?populate=*",
+      locale,
     );
     const global = res.data ?? null;
     if (global?.logo?.url) {
@@ -104,13 +109,15 @@ async function fetchGlobal() {
 }
 
 export default async function HomePage() {
+  const locale = await getLocale();
+
   const [hero, services, caseStudies, testimonials, globalData] =
     await Promise.all([
-      fetchHero(),
-      fetchServices(),
-      fetchCaseStudies(),
-      fetchTestimonials(),
-      fetchGlobal(),
+      fetchHero(locale),
+      fetchServices(locale),
+      fetchCaseStudies(locale),
+      fetchTestimonials(locale),
+      fetchGlobal(locale),
     ]);
 
   return (
