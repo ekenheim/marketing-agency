@@ -51,7 +51,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className="scroll-smooth">
-      <body className="antialiased">
+      <body className="antialiased" suppressHydrationWarning>
         <LocaleProvider locale={locale}>
           {children}
           <WhatsAppButton />
