@@ -95,7 +95,7 @@ export default function ContactSection({ globalData, services }: Props) {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-16 items-start">
           {/* Contact info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -190,7 +190,7 @@ export default function ContactSection({ globalData, services }: Props) {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lg:col-span-3"
           >
-            <div className="bg-navy-800/40 border border-white/5 rounded-2xl p-7 sm:p-9">
+            <div className="bg-navy-800/40 border border-white/5 rounded-2xl p-5 sm:p-7 md:p-9">
               {status === "success" ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}

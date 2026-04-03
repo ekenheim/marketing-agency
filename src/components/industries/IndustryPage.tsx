@@ -52,7 +52,7 @@ export default function IndustryPage({ industry }: Props) {
             </p>
 
             {/* Stats row */}
-            <div className="flex flex-wrap gap-8 mb-10">
+            <div className="flex flex-wrap gap-4 sm:gap-6 md:gap-8 mb-10">
               {industry.stats.map((stat, i) => (
                 <div key={i}>
                   <div className="text-2xl sm:text-3xl font-black text-amber-400">

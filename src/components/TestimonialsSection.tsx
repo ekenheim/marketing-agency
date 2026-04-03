@@ -81,7 +81,7 @@ export default function TestimonialsSection({ testimonials, globalData }: Props)
             <Quote size={80} className="text-amber-500" />
           </div>
 
-          <div className="relative bg-navy-800/40 border border-white/5 rounded-3xl p-8 sm:p-12 min-h-[280px] flex flex-col justify-between">
+          <div className="relative bg-navy-800/40 border border-white/5 rounded-3xl p-5 sm:p-8 lg:p-12 min-h-[240px] sm:min-h-[280px] flex flex-col justify-between">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={current}

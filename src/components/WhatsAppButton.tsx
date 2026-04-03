@@ -17,7 +17,7 @@ export default function WhatsAppButton() {
       initial={{ opacity: 0, scale: 0, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ delay: 2, duration: 0.4, type: "spring", stiffness: 200 }}
-      className="fixed bottom-6 right-6 z-50 group"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 group"
     >
       {/* Ping ring */}
       <span className="absolute inset-0 rounded-full bg-amber-500/40 animate-ping" />
@@ -30,7 +30,7 @@ export default function WhatsAppButton() {
       </div>
 
       {/* Tooltip */}
-      <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-navy-800 border border-white/10 rounded-lg text-sm text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+      <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-navy-800 border border-white/10 rounded-lg text-sm text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none hidden sm:block">
         {t.whatsapp.tooltip}
       </span>
     </motion.a>

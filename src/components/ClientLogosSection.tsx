@@ -36,7 +36,7 @@ export default function ClientLogosSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center items-center gap-x-12 gap-y-6"
+          className="flex flex-wrap justify-center items-center gap-x-6 sm:gap-x-8 md:gap-x-12 gap-y-4 sm:gap-y-6"
         >
           {LOGOS.map((name) => (
             <motion.span

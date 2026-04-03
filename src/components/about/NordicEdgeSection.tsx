@@ -39,7 +39,7 @@ const cards = [
 export default function NordicEdgeSection() {
   return (
     <section className="bg-navy-950 py-24">
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
