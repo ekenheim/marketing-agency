@@ -3,31 +3,31 @@
 import { motion, type Variants } from "framer-motion";
 import { Linkedin, User } from "lucide-react";
 import type { TeamMemberData } from "@/types/strapi";
+import { useLocale } from "@/i18n/useLocale";
 
 const FALLBACK_TEAM: TeamMemberData[] = [
   {
-    name: "Youssef El Fassi",
-    role: "Founder & Growth Strategist",
-    bio: "10+ years helping Moroccan and MENA brands unlock digital revenue. Former head of performance at a leading Casablanca agency.",
+    name: "Robin",
+    role: "CRO & Tracking",
+    bio: "Former Avanza Bank, EA, and Embark Studios. Machine learning and conversion optimization background from Sweden's most data-intensive tech companies.",
+    credentials: ["Avanza Bank", "EA", "Embark Studios"],
+    specialties: ["Conversion Rate Optimization", "Server-Side Tracking", "Machine Learning"],
     order: 1,
   },
   {
-    name: "Salma Benhaddou",
-    role: "Head of Paid Media",
-    bio: "Google & Meta certified, with a track record of slashing CPAs for e-commerce and real estate brands across Morocco.",
+    name: "Randa",
+    role: "Strategy & Operations",
+    bio: "Former PriceRunner and Pulsen Group. Built and scaled multi-million SEK growth campaigns across the Nordics before bringing that playbook to Morocco.",
+    credentials: ["PriceRunner", "Pulsen Group"],
+    specialties: ["Growth Strategy", "Campaign Operations", "Performance Marketing"],
     order: 2,
   },
   {
-    name: "Amine Rachidi",
-    role: "SEO & Content Lead",
-    bio: "Specialist in Arabic and French SEO, building organic acquisition engines that deliver long-term compounding growth.",
+    name: "Nizar",
+    role: "Design & Content",
+    bio: "Creative lead bridging European design precision with Moroccan market sensibilities. Fluent storytelling across Arabic, French, and English.",
+    specialties: ["Visual Design", "Content Strategy", "Multilingual Creative"],
     order: 3,
-  },
-  {
-    name: "Nadia Tazi",
-    role: "Data & Analytics Lead",
-    bio: "Turns messy first-party data into clear dashboards and attribution models that guide every campaign decision.",
-    order: 4,
   },
 ];
 
@@ -46,6 +46,7 @@ interface Props {
 }
 
 export default function TeamSection({ team }: Props) {
+  const { t } = useLocale();
   const members = team && team.length > 0 ? team : FALLBACK_TEAM;
 
   return (
@@ -60,15 +61,14 @@ export default function TeamSection({ team }: Props) {
           className="text-center mb-16"
         >
           <span className="inline-block text-amber-500 text-sm font-semibold uppercase tracking-widest mb-4">
-            The team
+            {t.team.label}
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-5">
-            Strategists, not{" "}
-            <span className="text-amber-400">order-takers</span>
+            {t.team.title}{" "}
+            <span className="text-amber-400">{t.team.titleAccent}</span>
           </h2>
           <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-            A tight-knit team of specialists who obsess over your growth metrics —
-            not vanity numbers.
+            {t.team.subtitle}
           </p>
         </motion.div>
 
@@ -78,7 +78,7 @@ export default function TeamSection({ team }: Props) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto"
         >
           {members.map((member, i) => {
             const photoUrl = member.photo?.url ?? null;
@@ -87,10 +87,10 @@ export default function TeamSection({ team }: Props) {
               <motion.div
                 key={member.name + i}
                 variants={cardVariants}
-                className="group bg-navy-800/40 border border-white/5 hover:border-amber-500/20 rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1"
+                className="group bg-navy-800/40 border border-white/5 hover:border-amber-500/20 rounded-2xl p-8 text-center transition-all duration-300 hover:-translate-y-1"
               >
                 {/* Avatar */}
-                <div className="relative w-20 h-20 mx-auto mb-5">
+                <div className="relative w-24 h-24 mx-auto mb-5">
                   {photoUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -100,7 +100,7 @@ export default function TeamSection({ team }: Props) {
                     />
                   ) : (
                     <div className="w-full h-full rounded-full bg-gradient-to-br from-navy-600 to-navy-700 border-2 border-amber-500/20 group-hover:border-amber-500/50 transition-colors flex items-center justify-center">
-                      <User size={32} className="text-slate-400" />
+                      <User size={36} className="text-slate-400" />
                     </div>
                   )}
                   {/* Online dot */}
@@ -108,7 +108,7 @@ export default function TeamSection({ team }: Props) {
                 </div>
 
                 {/* Info */}
-                <h3 className="text-white font-bold text-base mb-1">{member.name}</h3>
+                <h3 className="text-white font-bold text-lg mb-1">{member.name}</h3>
                 <p className="text-amber-400 text-xs font-semibold uppercase tracking-wide mb-3">
                   {member.role}
                 </p>
@@ -116,6 +116,34 @@ export default function TeamSection({ team }: Props) {
                   <p className="text-slate-400 text-sm leading-relaxed mb-4">
                     {member.bio}
                   </p>
+                )}
+
+                {/* Credentials */}
+                {member.credentials && member.credentials.length > 0 && (
+                  <div className="flex flex-wrap justify-center gap-1.5 mb-3">
+                    {member.credentials.map((c) => (
+                      <span
+                        key={c}
+                        className="inline-block px-2 py-0.5 bg-amber-500/10 border border-amber-500/20 rounded text-xs text-amber-400"
+                      >
+                        {c}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Specialties */}
+                {member.specialties && member.specialties.length > 0 && (
+                  <div className="flex flex-wrap justify-center gap-1.5 mb-4">
+                    {member.specialties.map((s) => (
+                      <span
+                        key={s}
+                        className="inline-block px-2 py-0.5 bg-white/5 rounded text-xs text-slate-400"
+                      >
+                        {s}
+                      </span>
+                    ))}
+                  </div>
                 )}
 
                 {/* LinkedIn */}

@@ -1,17 +1,20 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
-
-const scrollLinks = [
-  { label: "Services", href: "#services" },
-  { label: "Work", href: "#case-studies" },
-  { label: "Contact", href: "#contact" },
-];
+import { useLocale } from "@/i18n/useLocale";
 
 export default function Header() {
+  const { t, locale, setLocale } = useLocale();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const scrollLinks = [
+    { label: t.header.services, href: "#services" },
+    { label: t.header.work, href: "#case-studies" },
+    { label: t.header.contact, href: "#contact" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -25,10 +28,11 @@ export default function Header() {
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
     } else {
-      // On a sub-page — navigate home with the anchor
       window.location.assign(`/${href}`);
     }
   };
+
+  const toggleLocale = () => setLocale(locale === "fr" ? "en" : "fr");
 
   return (
     <header
@@ -54,7 +58,7 @@ export default function Header() {
           </button>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6">
             {scrollLinks.map((link) => (
               <button
                 key={link.href}
@@ -64,12 +68,38 @@ export default function Header() {
                 {link.label}
               </button>
             ))}
-            <a
+            <Link
+              href="/about"
+              className="text-slate-300 hover:text-amber-400 text-sm font-medium transition-colors duration-200"
+            >
+              {t.header.about}
+            </Link>
+            <Link
+              href="/blog"
+              className="text-slate-300 hover:text-amber-400 text-sm font-medium transition-colors duration-200"
+            >
+              {t.header.blog}
+            </Link>
+            <Link
               href="/team"
               className="text-slate-300 hover:text-amber-400 text-sm font-medium transition-colors duration-200"
             >
-              Team
-            </a>
+              {t.header.team}
+            </Link>
+
+            {/* Locale toggle */}
+            <button
+              onClick={toggleLocale}
+              className="flex items-center gap-1 text-xs font-semibold tracking-wide cursor-pointer"
+            >
+              <span className={locale === "fr" ? "text-amber-400" : "text-slate-500 hover:text-slate-300"}>
+                FR
+              </span>
+              <span className="text-slate-600">|</span>
+              <span className={locale === "en" ? "text-amber-400" : "text-slate-500 hover:text-slate-300"}>
+                EN
+              </span>
+            </button>
           </nav>
 
           {/* Desktop CTA */}
@@ -78,7 +108,7 @@ export default function Header() {
               onClick={() => handleNavClick("#contact")}
               className="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-navy-900 font-semibold text-sm rounded-lg transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
             >
-              Start a project
+              {t.header.cta}
             </button>
           </div>
 
@@ -96,7 +126,7 @@ export default function Header() {
       {/* Mobile Menu */}
       <div
         className={`md:hidden transition-all duration-300 overflow-hidden ${
-          menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          menuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <div className="bg-navy-900/98 backdrop-blur-md border-t border-white/5 px-4 py-4 flex flex-col gap-2">
@@ -109,17 +139,36 @@ export default function Header() {
               {link.label}
             </button>
           ))}
-          <a
+          <Link
+            href="/about"
+            className="text-left px-4 py-3 text-slate-200 hover:text-amber-400 hover:bg-white/5 rounded-lg text-sm font-medium transition-colors"
+          >
+            {t.header.about}
+          </Link>
+          <Link
+            href="/blog"
+            className="text-left px-4 py-3 text-slate-200 hover:text-amber-400 hover:bg-white/5 rounded-lg text-sm font-medium transition-colors"
+          >
+            {t.header.blog}
+          </Link>
+          <Link
             href="/team"
             className="text-left px-4 py-3 text-slate-200 hover:text-amber-400 hover:bg-white/5 rounded-lg text-sm font-medium transition-colors"
           >
-            Team
-          </a>
+            {t.header.team}
+          </Link>
+          {/* Mobile locale toggle */}
+          <button
+            onClick={toggleLocale}
+            className="text-left px-4 py-3 text-slate-200 hover:text-amber-400 hover:bg-white/5 rounded-lg text-sm font-medium transition-colors cursor-pointer"
+          >
+            {locale === "fr" ? "English" : "Français"}
+          </button>
           <button
             onClick={() => handleNavClick("#contact")}
             className="mt-2 px-4 py-3 bg-amber-500 hover:bg-amber-400 text-navy-900 font-semibold text-sm rounded-lg transition-colors cursor-pointer w-full text-center"
           >
-            Start a project
+            {t.header.cta}
           </button>
         </div>
       </div>

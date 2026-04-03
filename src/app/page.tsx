@@ -11,23 +11,21 @@ import type {
   HeroData,
   ServiceData,
   CaseStudyData,
+  TestimonialData,
   GlobalData,
 } from "@/types/strapi";
 
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
+import ClientLogosSection from "@/components/ClientLogosSection";
 import ServicesSection from "@/components/ServicesSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
 // Resolve relative Strapi media URLs to absolute ones server-side.
-// IMPORTANT: Must use STRAPI_PUBLIC_URL (no NEXT_PUBLIC_ prefix), NOT
-// NEXT_PUBLIC_STRAPI_URL. Next.js inlines all NEXT_PUBLIC_ vars at build time
-// so their value is frozen to whatever was set when `npm run build` ran inside
-// Docker — the K8s runtime env var is never read. A plain env var like
-// STRAPI_PUBLIC_URL is read from process.env at request time by the server
-// component, so it always reflects the live runtime value.
 function resolveUrl(url: string | null | undefined): string {
   if (!url) return "";
   if (url.startsWith("http")) return url;
@@ -74,6 +72,22 @@ async function fetchCaseStudies() {
   }
 }
 
+async function fetchTestimonials() {
+  try {
+    const res = await strapiGet<StrapiListResponse<TestimonialData>>(
+      "/testimonials?filters[featured][$eq]=true&populate=*"
+    );
+    return res.data.map((t) => ({
+      ...t,
+      avatar: t.avatar
+        ? { ...t.avatar, url: resolveUrl(t.avatar.url) }
+        : null,
+    }));
+  } catch {
+    return null;
+  }
+}
+
 async function fetchGlobal() {
   try {
     const res = await strapiGet<StrapiResponse<GlobalData>>(
@@ -90,11 +104,12 @@ async function fetchGlobal() {
 }
 
 export default async function HomePage() {
-  const [hero, services, caseStudies, globalData] =
+  const [hero, services, caseStudies, testimonials, globalData] =
     await Promise.all([
       fetchHero(),
       fetchServices(),
       fetchCaseStudies(),
+      fetchTestimonials(),
       fetchGlobal(),
     ]);
 
@@ -102,8 +117,10 @@ export default async function HomePage() {
     <main>
       <Header />
       <HeroSection data={hero} />
+      <ClientLogosSection />
       <ServicesSection services={services} globalData={globalData} />
       <CaseStudiesSection caseStudies={caseStudies} />
+      <TestimonialsSection testimonials={testimonials} globalData={globalData} />
       <ContactSection globalData={globalData} services={services} />
       <Footer globalData={globalData} />
     </main>

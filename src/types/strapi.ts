@@ -100,6 +100,8 @@ export interface TeamMemberData {
   name: string;
   role: string;
   bio?: string;
+  credentials?: string[];
+  specialties?: string[];
   photo?: StrapiMedia | null;
   linkedIn?: string;
   order: number;

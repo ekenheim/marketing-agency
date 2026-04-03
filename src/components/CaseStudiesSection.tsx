@@ -3,48 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Tag } from "lucide-react";
 import type { CaseStudyData } from "@/types/strapi";
-
-const FALLBACK_CASES: CaseStudyData[] = [
-  {
-    title: "3× leads for Casablanca real estate brand",
-    slug: "casablanca-real-estate",
-    client: "Immo Maroc",
-    industry: "Real Estate",
-    results: [
-      { id: 1, value: "3×", label: "Lead volume" },
-      { id: 2, value: "−42%", label: "Cost per lead" },
-      { id: 3, value: "90 days", label: "To results" },
-    ],
-    tags: "paid-social,real-estate,meta-ads",
-    featured: true,
-  },
-  {
-    title: "Scaling an e-commerce brand from 0 to MAD 2M revenue",
-    slug: "ecommerce-scale",
-    client: "Maroc Artisanat",
-    industry: "E-commerce",
-    results: [
-      { id: 1, value: "MAD 2M", label: "Revenue in Y1" },
-      { id: 2, value: "8×", label: "ROAS on Google Shopping" },
-      { id: 3, value: "55%", label: "Repeat purchase rate" },
-    ],
-    tags: "google-ads,e-commerce,cro",
-    featured: true,
-  },
-  {
-    title: "SaaS startup reaches 500 qualified demos in 6 months",
-    slug: "saas-demos",
-    client: "TechMaroc",
-    industry: "SaaS / B2B",
-    results: [
-      { id: 1, value: "500+", label: "Qualified demos" },
-      { id: 2, value: "−60%", label: "CAC reduction" },
-      { id: 3, value: "12%", label: "Demo-to-close rate" },
-    ],
-    tags: "b2b,linkedin,content-marketing",
-    featured: true,
-  },
-];
+import { useLocale } from "@/i18n/useLocale";
 
 function parseTags(tags?: string): string[] {
   if (!tags) return [];
@@ -66,13 +25,23 @@ const cardVariants: Variants = {
 
 interface Props {
   caseStudies: CaseStudyData[] | null;
-  ctaLabel?: string;
-  ctaUrl?: string;
 }
 
-export default function CaseStudiesSection({ caseStudies, ctaLabel = "Start a project", ctaUrl = "#contact" }: Props) {
-  const items =
-    caseStudies && caseStudies.length > 0 ? caseStudies : FALLBACK_CASES;
+export default function CaseStudiesSection({ caseStudies }: Props) {
+  const { t } = useLocale();
+
+  const items: CaseStudyData[] =
+    caseStudies && caseStudies.length > 0
+      ? caseStudies
+      : t.caseStudies.items.map((cs) => ({
+          title: cs.title,
+          slug: cs.title.toLowerCase().replace(/\s+/g, "-"),
+          client: cs.client,
+          industry: cs.industry,
+          results: cs.results.map((r, ri) => ({ id: ri + 1, value: r.value, label: r.label })),
+          tags: cs.tags,
+          featured: true,
+        }));
 
   return (
     <section id="case-studies" className="py-24 bg-navy-950">
@@ -87,22 +56,22 @@ export default function CaseStudiesSection({ caseStudies, ctaLabel = "Start a pr
         >
           <div>
             <span className="inline-block text-amber-500 text-sm font-semibold uppercase tracking-widest mb-4">
-              Portfolio
+              {t.caseStudies.label}
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white">
-              Results that{" "}
-              <span className="text-amber-400">speak for themselves</span>
+              {t.caseStudies.title}{" "}
+              <span className="text-amber-400">{t.caseStudies.titleAccent}</span>
             </h2>
           </div>
           <div className="flex flex-col items-start sm:items-end gap-4">
             <button
               onClick={() => {
-                const el = document.querySelector(ctaUrl);
+                const el = document.querySelector("#contact");
                 if (el) el.scrollIntoView({ behavior: "smooth" });
               }}
               className="group flex items-center gap-2 px-6 py-3 bg-amber-500 hover:bg-amber-400 text-navy-900 font-bold rounded-xl transition-all duration-200 hover:scale-105 active:scale-95 text-sm shadow-lg shadow-amber-500/25 cursor-pointer whitespace-nowrap"
             >
-              {ctaLabel}
+              {t.caseStudies.ctaLabel}
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
@@ -150,7 +119,7 @@ export default function CaseStudiesSection({ caseStudies, ctaLabel = "Start a pr
                   {/* Overlay on hover */}
                   <div className="absolute inset-0 bg-navy-950/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <div className="flex items-center gap-2 text-white font-semibold text-sm">
-                      View case study <ArrowUpRight size={16} />
+                      {t.caseStudies.viewCaseStudy} <ArrowUpRight size={16} />
                     </div>
                   </div>
                   {/* Industry badge */}

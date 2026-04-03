@@ -1,20 +1,24 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { Instagram, Linkedin, Mail, ArrowUp } from "lucide-react";
 import type { GlobalData } from "@/types/strapi";
-
-const scrollLinks = [
-  { label: "Services", href: "#services" },
-  { label: "Work", href: "#case-studies" },
-  { label: "Contact", href: "#contact" },
-];
+import { useLocale } from "@/i18n/useLocale";
 
 interface Props {
   globalData: GlobalData | null;
 }
 
 export default function Footer({ globalData }: Props) {
+  const { t } = useLocale();
+
+  const scrollLinks = [
+    { label: t.header.services, href: "#services" },
+    { label: t.header.work, href: "#case-studies" },
+    { label: t.header.contact, href: "#contact" },
+  ];
+
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
   const handleNav = (href: string) => {
     const el = document.querySelector(href);
@@ -29,7 +33,7 @@ export default function Footer({ globalData }: Props) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12"
+          className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12"
         >
           {/* Brand */}
           <div className="md:col-span-1">
@@ -85,7 +89,7 @@ export default function Footer({ globalData }: Props) {
           {/* Navigation */}
           <div>
             <h4 className="text-white font-semibold text-sm uppercase tracking-widest mb-5">
-              Navigation
+              {t.footer.navigation}
             </h4>
             <ul className="space-y-3">
               {scrollLinks.map((link) => (
@@ -99,12 +103,43 @@ export default function Footer({ globalData }: Props) {
                 </li>
               ))}
               <li>
-                <a
-                  href="/team"
-                  className="text-slate-400 hover:text-amber-400 text-sm transition-colors"
-                >
-                  Team
-                </a>
+                <Link href="/about" className="text-slate-400 hover:text-amber-400 text-sm transition-colors">
+                  {t.header.about}
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="text-slate-400 hover:text-amber-400 text-sm transition-colors">
+                  {t.header.blog}
+                </Link>
+              </li>
+              <li>
+                <Link href="/team" className="text-slate-400 hover:text-amber-400 text-sm transition-colors">
+                  {t.header.team}
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Industries */}
+          <div>
+            <h4 className="text-white font-semibold text-sm uppercase tracking-widest mb-5">
+              {t.footer.industries}
+            </h4>
+            <ul className="space-y-3">
+              <li>
+                <Link href="/industries/hospitality" className="text-slate-400 hover:text-amber-400 text-sm transition-colors">
+                  {t.footer.hospitality}
+                </Link>
+              </li>
+              <li>
+                <Link href="/industries/ecommerce" className="text-slate-400 hover:text-amber-400 text-sm transition-colors">
+                  {t.footer.ecommerce}
+                </Link>
+              </li>
+              <li>
+                <Link href="/industries/b2b" className="text-slate-400 hover:text-amber-400 text-sm transition-colors">
+                  {t.footer.b2b}
+                </Link>
               </li>
             </ul>
           </div>
@@ -112,7 +147,7 @@ export default function Footer({ globalData }: Props) {
           {/* Contact */}
           <div>
             <h4 className="text-white font-semibold text-sm uppercase tracking-widest mb-5">
-              Contact
+              {t.footer.contact}
             </h4>
             <ul className="space-y-3">
               {globalData?.email && (
@@ -146,11 +181,11 @@ export default function Footer({ globalData }: Props) {
         <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-slate-500 text-sm">
             © {new Date().getFullYear()}{" "}
-            {globalData?.siteName ?? "Digitomara"}. All rights reserved.
+            {globalData?.siteName ?? "Digitomara"}. {t.footer.allRights}
           </p>
           <div className="flex items-center gap-6">
-            <span className="text-slate-600 text-xs">Privacy Policy</span>
-            <span className="text-slate-600 text-xs">Terms of Service</span>
+            <span className="text-slate-600 text-xs">{t.footer.privacyPolicy}</span>
+            <span className="text-slate-600 text-xs">{t.footer.termsOfService}</span>
             <button
               onClick={scrollTop}
               className="w-8 h-8 rounded-lg border border-white/10 hover:border-amber-500/40 flex items-center justify-center text-slate-500 hover:text-amber-400 transition-all cursor-pointer"

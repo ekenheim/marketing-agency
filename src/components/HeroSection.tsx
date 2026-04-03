@@ -5,20 +5,9 @@ import { ArrowRight, TrendingUp, Users, BarChart2 } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import type { LucideProps } from "lucide-react";
 import type { HeroData, StatData } from "@/types/strapi";
+import { useLocale } from "@/i18n/useLocale";
 
-const FALLBACK: HeroData = {
-  headline: "We turn clicks into clients —",
-  headlineAccent: "and clients into loyal fans",
-  subheadline: "Data-driven digital growth strategies that scale.",
-  primaryCta: { label: "View Case Studies", url: "#case-studies", variant: "primary" },
-  secondaryCta: { label: "Book a Strategy Call", url: "#contact", variant: "secondary" },
-};
-
-const FALLBACK_STATS = [
-  { icon: TrendingUp, value: "3×", label: "Average lead growth" },
-  { icon: Users, value: "50+", label: "Moroccan brands served" },
-  { icon: BarChart2, value: "−42%", label: "Avg. cost per lead" },
-];
+const FALLBACK_STAT_ICONS = [TrendingUp, Users, BarChart2];
 
 type IconComponent = React.ComponentType<LucideProps>;
 
@@ -34,8 +23,16 @@ interface Props {
 }
 
 export default function HeroSection({ data }: Props) {
-  const hero = data ?? FALLBACK;
-  const bgUrl = hero.backgroundMedia?.url ?? null;
+  const { t } = useLocale();
+
+  const hero = data ?? {
+    headline: t.hero.headline,
+    headlineAccent: t.hero.headlineAccent,
+    subheadline: t.hero.subheadline,
+    primaryCta: { label: t.hero.primaryCta, url: "#case-studies", variant: "primary" as const },
+    secondaryCta: { label: t.hero.secondaryCta, url: "#contact", variant: "secondary" as const },
+  };
+  const bgUrl = (data?.backgroundMedia?.url) ?? null;
 
   const handleCta = (url: string) => {
     if (url.startsWith("#")) {
@@ -71,29 +68,17 @@ export default function HeroSection({ data }: Props) {
           />
         )
       ) : (
-        /* Geometric background pattern */
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 w-[700px] h-[700px] rounded-full bg-amber-500/5 blur-3xl" />
           <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full bg-blue-500/5 blur-3xl" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-amber-500/3 blur-3xl" />
-          {/* Grid lines */}
           <svg
             className="absolute inset-0 w-full h-full opacity-5"
             xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
-              <pattern
-                id="grid"
-                width="60"
-                height="60"
-                patternUnits="userSpaceOnUse"
-              >
-                <path
-                  d="M 60 0 L 0 0 0 60"
-                  fill="none"
-                  stroke="white"
-                  strokeWidth="1"
-                />
+              <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" strokeWidth="1" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#grid)" />
@@ -114,10 +99,10 @@ export default function HeroSection({ data }: Props) {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-sm font-medium mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-            Nordic performance standards · Moroccan market
+            {t.hero.badge}
           </motion.div>
 
-          {/* Headline — staggered word animation */}
+          {/* Headline */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
             {hero.headline.split(" ").map((word, i) => (
               <motion.span
@@ -173,7 +158,7 @@ export default function HeroSection({ data }: Props) {
               onClick={() => handleCta("#case-studies")}
               className="group flex items-center gap-2 px-7 py-4 bg-amber-500 hover:bg-amber-400 text-navy-900 font-bold rounded-xl transition-all duration-200 hover:scale-105 active:scale-95 text-base shadow-lg shadow-amber-500/25 cursor-pointer"
             >
-              {hero.primaryCta?.label ?? "View Case Studies"}
+              {hero.primaryCta?.label ?? t.hero.primaryCta}
               <ArrowRight
                 size={18}
                 className="group-hover:translate-x-1 transition-transform"
@@ -183,7 +168,7 @@ export default function HeroSection({ data }: Props) {
               onClick={() => handleCta("#contact")}
               className="flex items-center gap-2 px-7 py-4 border border-white/20 hover:border-amber-500/50 text-white hover:text-amber-400 font-semibold rounded-xl transition-all duration-200 hover:bg-white/5 text-base cursor-pointer"
             >
-              {hero.secondaryCta?.label ?? "Book a Strategy Call"}
+              {hero.secondaryCta?.label ?? t.hero.secondaryCta}
             </button>
           </motion.div>
 
@@ -194,8 +179,8 @@ export default function HeroSection({ data }: Props) {
             transition={{ duration: 0.6, delay: 0.9 }}
             className="flex flex-wrap gap-6 sm:gap-10"
           >
-            {hero.stats && hero.stats.length > 0
-              ? hero.stats.map((stat: StatData) => (
+            {data?.stats && data.stats.length > 0
+              ? data.stats.map((stat: StatData) => (
                   <div key={stat.id} className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
                       <StatIcon name={stat.icon} />
@@ -206,10 +191,13 @@ export default function HeroSection({ data }: Props) {
                     </div>
                   </div>
                 ))
-              : FALLBACK_STATS.map((stat, i) => (
+              : t.hero.stats.map((stat, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
-                      <stat.icon size={18} className="text-amber-400" />
+                      {(() => {
+                        const Icon = FALLBACK_STAT_ICONS[i] ?? TrendingUp;
+                        return <Icon size={18} className="text-amber-400" />;
+                      })()}
                     </div>
                     <div>
                       <div className="text-2xl font-black text-white">{stat.value}</div>
@@ -228,7 +216,7 @@ export default function HeroSection({ data }: Props) {
         transition={{ delay: 1.5, duration: 0.5 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="text-xs text-slate-500 font-medium tracking-widest uppercase">Scroll</span>
+        <span className="text-xs text-slate-500 font-medium tracking-widest uppercase">{t.hero.scroll}</span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}

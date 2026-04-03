@@ -4,33 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, Quote, User } from "lucide-react";
 import type { TestimonialData, GlobalData } from "@/types/strapi";
-
-const FALLBACK_TESTIMONIALS: TestimonialData[] = [
-  {
-    quote:
-      "Digitomara doubled our qualified leads in 90 days. The reporting is crystal clear and their team is always a step ahead.",
-    authorName: "Karim Benali",
-    authorRole: "CEO",
-    company: "Immo Maroc",
-    featured: true,
-  },
-  {
-    quote:
-      "We went from barely breaking even on ads to an 8× ROAS in under 4 months. I wish we'd found them sooner.",
-    authorName: "Fatima-Zahra Ouhbi",
-    authorRole: "Founder",
-    company: "Maroc Artisanat",
-    featured: true,
-  },
-  {
-    quote:
-      "Unlike other agencies, Digitomara speaks the language of business — CAC, LTV, pipeline. No fluff, just results.",
-    authorName: "Mehdi Alaoui",
-    authorRole: "CMO",
-    company: "TechMaroc",
-    featured: true,
-  },
-];
+import { useLocale } from "@/i18n/useLocale";
 
 function StarRating() {
   return (
@@ -48,10 +22,23 @@ interface Props {
 }
 
 export default function TestimonialsSection({ testimonials, globalData }: Props) {
-  const items =
+  const { t } = useLocale();
+
+  const items: TestimonialData[] =
     testimonials && testimonials.length > 0
       ? testimonials
-      : FALLBACK_TESTIMONIALS;
+      : t.testimonials.items.map((item) => ({
+          quote: item.quote,
+          authorName: item.authorName,
+          authorRole: item.authorRole,
+          company: item.company,
+          featured: true,
+        }));
+
+  const badges =
+    globalData?.trustBadges && globalData.trustBadges.length > 0
+      ? globalData.trustBadges.map((b) => b.label)
+      : t.testimonials.badges;
 
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -80,17 +67,16 @@ export default function TestimonialsSection({ testimonials, globalData }: Props)
           className="text-center mb-16"
         >
           <span className="inline-block text-amber-500 text-sm font-semibold uppercase tracking-widest mb-4">
-            Client stories
+            {t.testimonials.label}
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white">
-            Brands that{" "}
-            <span className="text-amber-400">trust us to deliver</span>
+            {t.testimonials.title}{" "}
+            <span className="text-amber-400">{t.testimonials.titleAccent}</span>
           </h2>
         </motion.div>
 
         {/* Testimonial carousel */}
         <div className="relative max-w-3xl mx-auto">
-          {/* Decorative quote mark */}
           <div className="absolute -top-4 -left-4 sm:-left-8 opacity-10">
             <Quote size={80} className="text-amber-500" />
           </div>
@@ -139,7 +125,6 @@ export default function TestimonialsSection({ testimonials, globalData }: Props)
 
           {/* Controls */}
           <div className="flex items-center justify-between mt-6">
-            {/* Dots */}
             <div className="flex gap-2">
               {items.map((_, i) => (
                 <button
@@ -158,7 +143,6 @@ export default function TestimonialsSection({ testimonials, globalData }: Props)
               ))}
             </div>
 
-            {/* Arrows */}
             <div className="flex gap-2">
               <button
                 onClick={prev}
@@ -186,10 +170,7 @@ export default function TestimonialsSection({ testimonials, globalData }: Props)
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-16 flex flex-wrap justify-center gap-8 items-center"
         >
-          {(globalData?.trustBadges && globalData.trustBadges.length > 0
-            ? globalData.trustBadges.map((b) => b.label)
-            : ["Google Partner", "Meta Business Partner", "HubSpot Certified", "ISO 27001 Aware"]
-          ).map((badge) => (
+          {badges.map((badge) => (
             <div
               key={badge}
               className="px-4 py-2 border border-white/10 rounded-lg text-slate-500 text-sm font-medium"

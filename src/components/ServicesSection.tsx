@@ -4,81 +4,9 @@ import { motion, type Variants } from "framer-motion";
 import * as LucideIcons from "lucide-react";
 import { CheckCircle2, type LucideProps } from "lucide-react";
 import type { ServiceData, GlobalData } from "@/types/strapi";
+import { useLocale } from "@/i18n/useLocale";
 
-const FALLBACK_SERVICES: ServiceData[] = [
-  {
-    title: "Performance Marketing",
-    slug: "performance-marketing",
-    icon: "BarChart2",
-    shortDescription: "ROI-focused paid campaigns across Meta and Google.",
-    features: [
-      { id: 1, label: "Google Ads management" },
-      { id: 2, label: "Meta & Instagram campaigns" },
-      { id: 3, label: "Weekly performance reports" },
-    ],
-    order: 1,
-  },
-  {
-    title: "SEO & Content",
-    slug: "seo-content",
-    icon: "Search",
-    shortDescription: "Rank higher and attract organic traffic that converts.",
-    features: [
-      { id: 1, label: "Technical SEO audits" },
-      { id: 2, label: "Arabic & French content" },
-      { id: 3, label: "Link building strategy" },
-    ],
-    order: 2,
-  },
-  {
-    title: "Social Media",
-    slug: "social-media",
-    icon: "Share2",
-    shortDescription: "Build engaged communities and grow brand awareness.",
-    features: [
-      { id: 1, label: "Content creation & scheduling" },
-      { id: 2, label: "Community management" },
-      { id: 3, label: "Influencer partnerships" },
-    ],
-    order: 3,
-  },
-  {
-    title: "Web & Landing Pages",
-    slug: "web-landing-pages",
-    icon: "Layout",
-    shortDescription: "Conversion-optimised pages that turn visitors into leads.",
-    features: [
-      { id: 1, label: "CRO-focused design" },
-      { id: 2, label: "A/B testing setup" },
-      { id: 3, label: "Analytics integration" },
-    ],
-    order: 4,
-  },
-  {
-    title: "Email & CRM",
-    slug: "email-crm",
-    icon: "Mail",
-    shortDescription: "Nurture leads with personalised automated campaigns.",
-    features: [
-      { id: 1, label: "Email automation flows" },
-      { id: 2, label: "CRM setup & integration" },
-      { id: 3, label: "Lead scoring models" },
-    ],
-    order: 5,
-  },
-  {
-    title: "Analytics & Data",
-    slug: "analytics-data",
-    icon: "PieChart",
-    shortDescription: "Turn raw data into actionable growth insights.",
-    features: [
-      { id: 1, label: "Custom dashboards" },
-      { id: 2, label: "Attribution modelling" },
-      { id: 3, label: "Monthly strategy reviews" },
-    ],
-    order: 6,
-  },
-];
+const ICON_NAMES = ["BarChart2", "Search", "Share2", "Layout", "Mail", "PieChart"];
 
 type IconComponent = React.ComponentType<LucideProps>;
 
@@ -105,10 +33,23 @@ interface Props {
 }
 
 export default function ServicesSection({ services, globalData }: Props) {
-  const items = (services && services.length > 0) ? services : FALLBACK_SERVICES;
-  const sectionLabel = globalData?.servicesSectionLabel ?? "What we do";
-  const sectionTitle = globalData?.servicesSectionTitle ?? "Services built for measurable growth";
-  const sectionSubtitle = globalData?.servicesSectionSubtitle ?? "Every service is designed around one goal: attracting high-value clients and delivering returns you can see.";
+  const { t } = useLocale();
+
+  const items: ServiceData[] =
+    services && services.length > 0
+      ? services
+      : t.services.items.map((s, i) => ({
+          title: s.title,
+          slug: s.title.toLowerCase().replace(/\s+/g, "-"),
+          icon: ICON_NAMES[i],
+          shortDescription: s.description,
+          features: s.features.map((f, fi) => ({ id: fi + 1, label: f })),
+          order: i + 1,
+        }));
+
+  const sectionLabel = globalData?.servicesSectionLabel ?? t.services.label;
+  const sectionTitle = globalData?.servicesSectionTitle ?? t.services.title;
+  const sectionSubtitle = globalData?.servicesSectionSubtitle ?? t.services.subtitle;
 
   return (
     <section id="services" className="py-24 bg-navy-900">
@@ -162,10 +103,7 @@ export default function ServicesSection({ services, globalData }: Props) {
                 <ul className="space-y-2">
                   {service.features.map((feat) => (
                     <li key={feat.id} className="flex items-center gap-2.5 text-sm text-slate-300">
-                      <CheckCircle2
-                        size={15}
-                        className="text-amber-500 flex-shrink-0"
-                      />
+                      <CheckCircle2 size={15} className="text-amber-500 flex-shrink-0" />
                       {feat.label}
                     </li>
                   ))}

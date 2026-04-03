@@ -4,29 +4,18 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Send, CheckCircle2, AlertCircle, Mail, Phone, MapPin } from "lucide-react";
-import { useState } from "react";
+import { Send, CheckCircle2, AlertCircle, Mail, Phone, MapPin, Sparkles } from "lucide-react";
+import { useState, useMemo } from "react";
 import type { GlobalData, ServiceData } from "@/types/strapi";
+import { useLocale } from "@/i18n/useLocale";
 
-const contactSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  company: z.string().optional(),
-  service: z.string().optional(),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-});
-
-type ContactForm = z.infer<typeof contactSchema>;
-
-const SERVICE_OPTIONS = [
-  "Performance Marketing",
-  "SEO & Content",
-  "Social Media",
-  "Web & Landing Pages",
-  "Email & CRM",
-  "Analytics & Data",
-  "Not sure yet",
-];
+type ContactForm = {
+  name: string;
+  email: string;
+  company?: string;
+  service?: string;
+  message: string;
+};
 
 interface Props {
   globalData: GlobalData | null;
@@ -34,10 +23,24 @@ interface Props {
 }
 
 export default function ContactSection({ globalData, services }: Props) {
+  const { t } = useLocale();
+
+  const contactSchema = useMemo(
+    () =>
+      z.object({
+        name: z.string().min(2, t.contact.formValidation.nameMin),
+        email: z.string().email(t.contact.formValidation.emailInvalid),
+        company: z.string().optional(),
+        service: z.string().optional(),
+        message: z.string().min(10, t.contact.formValidation.messageMin),
+      }),
+    [t],
+  );
+
   const serviceOptions =
     services && services.length > 0
-      ? [...services.map((s) => s.title), "Not sure yet"]
-      : SERVICE_OPTIONS;
+      ? [...services.map((s) => s.title), t.contact.notSureYet]
+      : [...t.services.items.map((s) => s.title), t.contact.notSureYet];
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
@@ -81,15 +84,14 @@ export default function ContactSection({ globalData, services }: Props) {
           className="text-center mb-14"
         >
           <span className="inline-block text-amber-500 text-sm font-semibold uppercase tracking-widest mb-4">
-            Get in touch
+            {t.contact.label}
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-5">
-            Ready to{" "}
-            <span className="text-amber-400">grow your brand?</span>
+            {t.contact.title}{" "}
+            <span className="text-amber-400">{t.contact.titleAccent}</span>
           </h2>
           <p className="text-slate-400 text-lg max-w-xl mx-auto">
-            Tell us about your business and we&apos;ll map out a data-driven growth
-            strategy tailored to your goals.
+            {t.contact.subtitle}
           </p>
         </motion.div>
 
@@ -103,11 +105,9 @@ export default function ContactSection({ globalData, services }: Props) {
             className="lg:col-span-2 space-y-8"
           >
             <div>
-              <h3 className="text-white font-bold text-xl mb-2">Let&apos;s talk growth</h3>
+              <h3 className="text-white font-bold text-xl mb-2">{t.contact.talkTitle}</h3>
               <p className="text-slate-400 leading-relaxed">
-                We work with a select group of Moroccan brands at a time to
-                ensure every client gets our full attention. Reach out to see
-                if we&apos;re a fit.
+                {t.contact.talkDescription}
               </p>
             </div>
 
@@ -162,9 +162,22 @@ export default function ContactSection({ globalData, services }: Props) {
               <div className="flex items-start gap-3">
                 <CheckCircle2 size={18} className="text-amber-400 flex-shrink-0 mt-0.5" />
                 <p className="text-slate-300 text-sm leading-relaxed">
-                  <strong className="text-amber-400">24-hour response guarantee.</strong>{" "}
-                  Every enquiry gets a thoughtful reply within one business day.
+                  <strong className="text-amber-400">{t.contact.responseTitle}</strong>{" "}
+                  {t.contact.responseDetail}
                 </p>
+              </div>
+            </div>
+
+            {/* Free audit highlight */}
+            <div className="p-4 bg-navy-800/60 border border-white/5 rounded-xl">
+              <div className="flex items-start gap-3">
+                <Sparkles size={18} className="text-amber-400 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-white font-semibold text-sm mb-1">{t.contact.auditHighlight}</p>
+                  <p className="text-slate-400 text-sm leading-relaxed">
+                    {t.contact.auditDescription}
+                  </p>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -187,15 +200,13 @@ export default function ContactSection({ globalData, services }: Props) {
                   <div className="w-16 h-16 rounded-full bg-green-500/15 border border-green-500/30 flex items-center justify-center mx-auto mb-5">
                     <CheckCircle2 size={32} className="text-green-400" />
                   </div>
-                  <h3 className="text-white font-bold text-xl mb-2">Message sent!</h3>
-                  <p className="text-slate-400 mb-6">
-                    We&apos;ll get back to you within 24 hours.
-                  </p>
+                  <h3 className="text-white font-bold text-xl mb-2">{t.contact.successTitle}</h3>
+                  <p className="text-slate-400 mb-6">{t.contact.successMessage}</p>
                   <button
                     onClick={() => setStatus("idle")}
                     className="px-6 py-2.5 border border-white/15 rounded-lg text-slate-300 hover:text-white hover:border-white/30 text-sm transition-colors cursor-pointer"
                   >
-                    Send another message
+                    {t.contact.sendAnother}
                   </button>
                 </motion.div>
               ) : (
@@ -204,11 +215,11 @@ export default function ContactSection({ globalData, services }: Props) {
                     {/* Name */}
                     <div>
                       <label className="block text-sm font-medium text-slate-300 mb-2">
-                        Name <span className="text-amber-500">*</span>
+                        {t.contact.formLabels.name} <span className="text-amber-500">*</span>
                       </label>
                       <input
                         {...register("name")}
-                        placeholder="Sara El Amrani"
+                        placeholder={t.contact.formPlaceholders.name}
                         className={`w-full px-4 py-3 bg-navy-900/60 border rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-colors ${
                           errors.name
                             ? "border-red-500/60"
@@ -223,12 +234,12 @@ export default function ContactSection({ globalData, services }: Props) {
                     {/* Email */}
                     <div>
                       <label className="block text-sm font-medium text-slate-300 mb-2">
-                        Email <span className="text-amber-500">*</span>
+                        {t.contact.formLabels.email} <span className="text-amber-500">*</span>
                       </label>
                       <input
                         {...register("email")}
                         type="email"
-                        placeholder="sara@example.com"
+                        placeholder={t.contact.formPlaceholders.email}
                         className={`w-full px-4 py-3 bg-navy-900/60 border rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-colors ${
                           errors.email
                             ? "border-red-500/60"
@@ -245,11 +256,11 @@ export default function ContactSection({ globalData, services }: Props) {
                     {/* Company */}
                     <div>
                       <label className="block text-sm font-medium text-slate-300 mb-2">
-                        Company
+                        {t.contact.formLabels.company}
                       </label>
                       <input
                         {...register("company")}
-                        placeholder="Startup Maroc"
+                        placeholder={t.contact.formPlaceholders.company}
                         className="w-full px-4 py-3 bg-navy-900/60 border border-white/10 focus:border-amber-500/40 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-colors"
                       />
                     </div>
@@ -257,13 +268,13 @@ export default function ContactSection({ globalData, services }: Props) {
                     {/* Service */}
                     <div>
                       <label className="block text-sm font-medium text-slate-300 mb-2">
-                        Service interested in
+                        {t.contact.formLabels.service}
                       </label>
                       <select
                         {...register("service")}
                         className="w-full px-4 py-3 bg-navy-900/60 border border-white/10 focus:border-amber-500/40 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-colors appearance-none cursor-pointer"
                       >
-                        <option value="">Select a service…</option>
+                        <option value="">{t.contact.formPlaceholders.service}</option>
                         {serviceOptions.map((s) => (
                           <option key={s} value={s}>
                             {s}
@@ -276,12 +287,12 @@ export default function ContactSection({ globalData, services }: Props) {
                   {/* Message */}
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Message <span className="text-amber-500">*</span>
+                      {t.contact.formLabels.message} <span className="text-amber-500">*</span>
                     </label>
                     <textarea
                       {...register("message")}
                       rows={5}
-                      placeholder="Tell us about your business, goals, and current challenges…"
+                      placeholder={t.contact.formPlaceholders.message}
                       className={`w-full px-4 py-3 bg-navy-900/60 border rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-colors resize-none ${
                         errors.message
                           ? "border-red-500/60"
@@ -296,7 +307,7 @@ export default function ContactSection({ globalData, services }: Props) {
                   {status === "error" && (
                     <div className="flex items-center gap-2.5 p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-sm text-red-400">
                       <AlertCircle size={16} />
-                      Something went wrong. Please try again or email us directly.
+                      {t.contact.errorMessage}
                     </div>
                   )}
 
@@ -309,18 +320,18 @@ export default function ContactSection({ globalData, services }: Props) {
                     {status === "loading" ? (
                       <>
                         <div className="w-4 h-4 border-2 border-navy-900/30 border-t-navy-900 rounded-full animate-spin" />
-                        Sending…
+                        {t.contact.sending}
                       </>
                     ) : (
                       <>
                         <Send size={16} />
-                        Send message
+                        {t.contact.submitButton}
                       </>
                     )}
                   </button>
 
                   <p className="text-xs text-slate-500 text-center">
-                    By sending this form you agree to our privacy policy. We never sell your data.
+                    {t.contact.privacyNotice}
                   </p>
                 </form>
               )}
