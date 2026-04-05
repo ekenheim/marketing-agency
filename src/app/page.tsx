@@ -127,7 +127,9 @@ export default async function HomePage() {
       <ClientLogosSection />
       <ServicesSection services={services} globalData={globalData} />
       <CaseStudiesSection caseStudies={caseStudies} />
-      <TestimonialsSection testimonials={testimonials} globalData={globalData} />
+      {testimonials && testimonials.length > 0 && (
+        <TestimonialsSection testimonials={testimonials} globalData={globalData} />
+      )}
       <ContactSection globalData={globalData} services={services} />
       <Footer globalData={globalData} />
     </main>

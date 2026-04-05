@@ -4,12 +4,11 @@ import { motion, type Variants } from "framer-motion";
 import { useLocale } from "@/i18n/useLocale";
 
 const LOGOS = [
-  "Immo Maroc",
-  "Maroc Artisanat",
-  "TechMaroc",
-  "CasaFinance",
-  "Atlas Motors",
   "Riad Collection",
+  "O'Learys",
+  "Toyota",
+  "Lexus",
+  "Avanza",
 ];
 
 const containerVariants = {
