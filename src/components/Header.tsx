@@ -119,6 +119,20 @@ export default function Header() {
             </button>
           </div>
 
+          {/* Mobile Locale Toggle */}
+          <button
+            onClick={toggleLocale}
+            className="md:hidden flex items-center gap-1.5 text-[0.7rem] font-semibold tracking-widest cursor-pointer"
+          >
+            <span className={`transition-colors duration-200 ${locale === "fr" ? "text-amber-400" : "text-white/30"}`}>
+              FR
+            </span>
+            <span className="text-white/10">·</span>
+            <span className={`transition-colors duration-200 ${locale === "en" ? "text-amber-400" : "text-white/30"}`}>
+              EN
+            </span>
+          </button>
+
           {/* Mobile Toggle */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -169,12 +183,6 @@ export default function Header() {
               >
                 {t.header.team}
               </Link>
-              <button
-                onClick={toggleLocale}
-                className="text-left px-4 py-3.5 text-white/70 hover:text-amber-400 hover:bg-white/[0.03] rounded-xl text-sm font-medium tracking-wide transition-colors cursor-pointer"
-              >
-                {locale === "fr" ? "English" : "Français"}
-              </button>
               <div className="editorial-line my-2" />
               <button
                 onClick={() => handleNavClick("#contact")}
