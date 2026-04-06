@@ -307,7 +307,7 @@ const en: Dictionary = {
     b2b: "B2B & SaaS",
   },
   logos: {
-    label: "Brands we work with",
+    label: "Marketing experience across global and regional brands",
   },
   whatsapp: {
     tooltip: "Chat with us",
@@ -503,7 +503,7 @@ const fr: Dictionary = {
     b2b: "B2B & SaaS",
   },
   logos: {
-    label: "Les marques avec qui on travaille",
+    label: "Expérience marketing avec des marques mondiales et régionales",
   },
   whatsapp: {
     tooltip: "Discutons sur WhatsApp",

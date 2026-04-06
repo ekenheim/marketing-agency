@@ -135,6 +135,12 @@ export interface GlobalData {
   servicesSectionSubtitle?: string;
 }
 
+export interface ClientBrandData {
+  id?: number;
+  name: string;
+  order: number;
+}
+
 export interface ContactSubmission {
   name: string;
   email: string;

@@ -13,6 +13,7 @@ import type {
   ServiceData,
   CaseStudyData,
   TestimonialData,
+  ClientBrandData,
   GlobalData,
 } from "@/types/strapi";
 
@@ -92,6 +93,18 @@ async function fetchTestimonials(locale: string) {
   }
 }
 
+async function fetchClientBrands(locale: string) {
+  try {
+    const res = await strapiGet<StrapiListResponse<ClientBrandData>>(
+      "/client-brands?sort=order:asc&populate=*",
+      locale,
+    );
+    return res.data;
+  } catch {
+    return null;
+  }
+}
+
 async function fetchGlobal(locale: string) {
   try {
     const res = await strapiGet<StrapiResponse<GlobalData>>(
@@ -111,12 +124,13 @@ async function fetchGlobal(locale: string) {
 export default async function HomePage() {
   const locale = await getLocale();
 
-  const [hero, services, caseStudies, testimonials, globalData] =
+  const [hero, services, caseStudies, testimonials, clientBrands, globalData] =
     await Promise.all([
       fetchHero(locale),
       fetchServices(locale),
       fetchCaseStudies(locale),
       fetchTestimonials(locale),
+      fetchClientBrands(locale),
       fetchGlobal(locale),
     ]);
 
@@ -124,7 +138,7 @@ export default async function HomePage() {
     <main>
       <Header />
       <HeroSection data={hero} />
-      <ClientLogosSection />
+      <ClientLogosSection brands={clientBrands} />
       <ServicesSection services={services} globalData={globalData} />
       <CaseStudiesSection caseStudies={caseStudies} />
       {testimonials && testimonials.length > 0 && (
