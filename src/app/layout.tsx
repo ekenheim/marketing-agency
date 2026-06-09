@@ -5,7 +5,18 @@ import Script from "next/script";
 import "./globals.css";
 import LocaleProvider from "@/i18n/LocaleProvider";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { strapiGet } from "@/lib/strapi";
+import type { StrapiResponse, GlobalData } from "@/types/strapi";
 import { LOCALE_COOKIE, DEFAULT_LOCALE, type Locale } from "@/i18n/locale";
+
+async function fetchGlobalPhone(locale: string): Promise<string | null> {
+  try {
+    const res = await strapiGet<StrapiResponse<GlobalData>>("/global", locale);
+    return res.data?.phone ?? null;
+  } catch {
+    return null;
+  }
+}
 
 const display = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -63,13 +74,14 @@ export default async function RootLayout({
 }) {
   const cookieStore = await cookies();
   const locale = (cookieStore.get(LOCALE_COOKIE)?.value ?? DEFAULT_LOCALE) as Locale;
+  const whatsappPhone = await fetchGlobalPhone(locale);
 
   return (
     <html lang={locale} className={`scroll-smooth ${display.variable} ${body.variable}`}>
       <body className="antialiased font-[family-name:var(--font-body)]" suppressHydrationWarning>
         <LocaleProvider locale={locale}>
           {children}
-          <WhatsAppButton />
+          <WhatsAppButton phone={whatsappPhone} />
         </LocaleProvider>
       </body>
       <Script
