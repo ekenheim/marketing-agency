@@ -3,14 +3,19 @@
 import { motion } from "framer-motion";
 import { useLocale } from "@/i18n/useLocale";
 
-const WHATSAPP_NUMBER = "212XXXXXXXXX";
-
-export default function WhatsAppButton() {
+export default function WhatsAppButton({ phone }: { phone?: string | null }) {
   const { t } = useLocale();
+
+  // wa.me requires digits only (e.g. 212654252478); strip formatting from the
+  // Strapi Phone field so "+212 6 54 25 24 78" still produces a valid link.
+  const number = phone?.replace(/\D/g, "");
+  if (!number) return null;
+
+  const href = `https://wa.me/${number}?text=${encodeURIComponent(t.whatsapp.message)}`;
 
   return (
     <motion.a
-      href={`https://wa.me/${WHATSAPP_NUMBER}`}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t.whatsapp.tooltip}

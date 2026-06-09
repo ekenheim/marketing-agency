@@ -115,6 +115,7 @@ export interface Dictionary {
   };
   whatsapp: {
     tooltip: string;
+    message: string;
   };
 }
 
@@ -311,6 +312,8 @@ const en: Dictionary = {
   },
   whatsapp: {
     tooltip: "Chat with us",
+    message:
+      "Hi, I found Digitomara and would like to learn more about how you can help my business",
   },
 };
 
@@ -507,6 +510,8 @@ const fr: Dictionary = {
   },
   whatsapp: {
     tooltip: "Discutons sur WhatsApp",
+    message:
+      "Bonjour, j'ai découvert Digitomara et j'aimerais en savoir plus sur la façon dont vous pouvez aider mon entreprise",
   },
 };
 
