@@ -10,6 +10,7 @@ import type {
   StrapiResponse,
   StrapiListResponse,
   HeroData,
+  IntroductionData,
   ServiceData,
   CaseStudyData,
   TestimonialData,
@@ -20,6 +21,7 @@ import type {
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import ClientLogosSection from "@/components/ClientLogosSection";
+import IntroductionSection from "@/components/IntroductionSection";
 import ServicesSection from "@/components/ServicesSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -54,6 +56,25 @@ async function fetchServices(locale: string) {
       locale,
     );
     return res.data;
+  } catch {
+    return null;
+  }
+}
+
+async function fetchIntroduction(locale: string) {
+  try {
+    const res = await strapiGet<StrapiResponse<IntroductionData>>(
+      "/introduction?populate=*",
+      locale,
+    );
+    const introduction = res.data;
+    if (!introduction) return null;
+    return {
+      ...introduction,
+      image: introduction.image?.url
+        ? { ...introduction.image, url: resolveUrl(introduction.image.url) }
+        : null,
+    };
   } catch {
     return null;
   }
@@ -124,7 +145,7 @@ async function fetchGlobal(locale: string) {
 export default async function HomePage() {
   const locale = await getLocale();
 
-  const [hero, services, caseStudies, testimonials, clientBrands, globalData] =
+  const [hero, services, caseStudies, testimonials, clientBrands, globalData, introduction] =
     await Promise.all([
       fetchHero(locale),
       fetchServices(locale),
@@ -132,6 +153,7 @@ export default async function HomePage() {
       fetchTestimonials(locale),
       fetchClientBrands(locale),
       fetchGlobal(locale),
+      fetchIntroduction(locale),
     ]);
 
   return (
@@ -139,6 +161,7 @@ export default async function HomePage() {
       <Header />
       <HeroSection data={hero} />
       <ClientLogosSection brands={clientBrands} />
+      <IntroductionSection data={introduction} />
       <ServicesSection services={services} globalData={globalData} />
       <CaseStudiesSection caseStudies={caseStudies} />
       {testimonials && testimonials.length > 0 && (

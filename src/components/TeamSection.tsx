@@ -2,7 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { Linkedin, User } from "lucide-react";
-import type { TeamMemberData } from "@/types/strapi";
+import type { TeamMemberData, GlobalData } from "@/types/strapi";
 import { useLocale } from "@/i18n/useLocale";
 
 const FALLBACK_TEAM: TeamMemberData[] = [
@@ -43,11 +43,18 @@ const cardVariants: Variants = {
 
 interface Props {
   team: TeamMemberData[] | null;
+  globalData?: GlobalData | null;
 }
 
-export default function TeamSection({ team }: Props) {
+export default function TeamSection({ team, globalData }: Props) {
   const { t } = useLocale();
   const members = team && team.length > 0 ? team : FALLBACK_TEAM;
+  const customTitle = globalData?.teamSectionTitle?.trim();
+  const label = globalData?.teamSectionLabel ?? t.team.label;
+  const title = customTitle || t.team.title;
+  // A new title must not inherit the old heading's highlighted words.
+  const titleAccent = globalData?.teamSectionTitleAccent ?? (customTitle ? "" : t.team.titleAccent);
+  const subtitle = globalData?.teamSectionSubtitle ?? t.team.subtitle;
 
   return (
     <section id="team" className="py-28 bg-navy-900 relative overflow-hidden">
@@ -61,16 +68,16 @@ export default function TeamSection({ team }: Props) {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-block text-amber-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em] mb-5">
-            {t.team.label}
-          </span>
+          {label && (
+            <span className="inline-block text-amber-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em] mb-5">
+              {label}
+            </span>
+          )}
           <h2 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-[3.25rem] font-extrabold text-white/95 mb-5 leading-tight">
-            {t.team.title}{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-300">{t.team.titleAccent}</span>
+            {title}
+            {titleAccent && <>{" "}<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-300">{titleAccent}</span></>}
           </h2>
-          <p className="text-white/35 text-lg max-w-2xl mx-auto font-light">
-            {t.team.subtitle}
-          </p>
+          {subtitle && <p className="text-white/35 text-lg max-w-2xl mx-auto font-light">{subtitle}</p>}
         </motion.div>
 
         {/* Grid */}
