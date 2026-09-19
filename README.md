@@ -5,11 +5,13 @@ Next.js 16 marketing site for Digitomara, a data-driven digital agency targeting
 ## Architecture
 
 ```
-Browser → Next.js (server component, force-dynamic) → Strapi v5 REST API
-                                                         ↑
-                                              contact form POSTs directly
-                                              from the browser
+Browser → Next.js (server components, force-dynamic) → Strapi v5 REST API (internal cluster URL)
+   │            │
+   │            └─ /api/contact → Google Sheets (contact form)
+   └─ images only → public Strapi hostname (/uploads/...)
 ```
+
+Strapi, its database, the secrets and the Kubernetes deployment live in a separate cluster repo. See [`docs/strapi.md`](docs/strapi.md) for how that side is set up, and [`AGENTS.md`](AGENTS.md) for how to contribute.
 
 The home page (`src/app/page.tsx`) is a single **async server component** marked `force-dynamic`. On every request it fires six parallel `strapiGet` calls to populate:
 
@@ -18,11 +20,13 @@ The home page (`src/app/page.tsx`) is a single **async server component** marked
 | Hero | `/api/hero?populate=*` |
 | Services | `/api/services?sort=order:asc&populate=*` |
 | Case Studies | `/api/case-studies?filters[featured][$eq]=true&populate=*` |
-| Team | `/api/team-members?sort=order:asc&populate=*` |
+| Client brands | `/api/client-brands?sort=order:asc&populate=*` |
 | Testimonials | `/api/testimonials?filters[featured][$eq]=true&populate=*` |
 | Global (site config) | `/api/global?populate=*` |
 
-The `ContactSection` is a **client component** — on submit it POSTs the form payload directly from the browser to `${NEXT_PUBLIC_STRAPI_URL}/api/contacts`, bypassing the Next.js server entirely. Form validation uses `react-hook-form` + `zod`.
+Each fetch is wrapped in `try/catch` with a fallback so the page still renders when Strapi is unavailable.
+
+The `ContactSection` is a **client component** — on submit it POSTs the form payload to this site's own `/api/contact` route, which appends a row to a Google Sheet. It does not use Strapi. Form validation uses `react-hook-form` + `zod`.
 
 ## Environment Variables
 
@@ -30,8 +34,10 @@ The `ContactSection` is a **client component** — on submit it POSTs the form p
 |---|---|---|
 | `STRAPI_API_URL` | Server only (SSR) | Internal Strapi base URL used for server-side data fetches (e.g. `http://strapi-cms.development.svc.cluster.local:1337`) |
 | `STRAPI_API_TOKEN` | Server only (SSR) | Read-only Strapi API token, injected as a `Bearer` header on every `strapiGet` call |
-| `NEXT_PUBLIC_STRAPI_URL` | Build-time + browser | Public Strapi URL, baked into the JS bundle at build time. Used by the contact form POST and for constructing absolute media URLs client-side |
-| `STRAPI_PUBLIC_URL` | Server only (runtime) | Runtime override for constructing absolute media URLs in server components. Unlike `NEXT_PUBLIC_STRAPI_URL`, this is read from `process.env` at request time so Kubernetes can override it without rebuilding |
+| `NEXT_PUBLIC_STRAPI_URL` | Build-time + browser | Public Strapi URL, baked into the JS bundle at build time. A value set at runtime has no effect; changing it needs a rebuild |
+| `STRAPI_PUBLIC_URL` | Server only (runtime) | Runtime override for constructing absolute media URLs in server components. Unlike `NEXT_PUBLIC_STRAPI_URL`, this is read from `process.env` at request time so Kubernetes can override it without rebuilding. The default comes from the `ENV` line in the `Dockerfile` |
+| `GOOGLE_SHEET_ID` | Server only | Spreadsheet that contact form submissions are appended to |
+| `GOOGLE_SERVICE_ACCOUNT_KEY` | Server only | JSON key of the Google service account used for the Sheets API |
 
 > **Why two Strapi URL variables?** `NEXT_PUBLIC_*` values are inlined at `npm run build` time and cannot be changed at runtime. `STRAPI_PUBLIC_URL` (no `NEXT_PUBLIC_` prefix) is a plain env var read by the server component on each request, so the Kubernetes pod can set it freely without a new Docker build.
 
@@ -67,11 +73,16 @@ docker run -p 3000:3000 \
 
 The `NEXT_PUBLIC_STRAPI_URL` build-arg is committed in `.env.production` so CI picks it up automatically without needing a secret.
 
+## Releases
+
+Every push to `main` is released automatically: `.github/workflows/deploy.yml` bumps the patch version, pushes `ghcr.io/ekenheim/marketing-agency-website:vX.Y.Z` and creates the git tag. Renovate in the cluster repo then picks up the new tag and Flux rolls it out, typically within a few hours. Pull requests are checked by `.github/workflows/ci.yml` (lint, typecheck, build).
+
 ## API Routes
 
 | Route | Method | Purpose |
 |---|---|---|
 | `/api/health` | `GET` | Returns `{ status: "ok" }` — used as a Kubernetes liveness/readiness probe |
+| `/api/contact` | `POST` | Appends a contact form submission to the Google Sheet |
 
 ## Key Dependencies
 
@@ -96,3 +107,6 @@ Strapi v5 returns **flat responses** — there is no `attributes` wrapper. The T
 - `TeamMember` (collection) — name, role, bio, photo, LinkedIn, sort order
 - `Testimonial` (collection) — quote, author, avatar, featured flag
 - `Global` (single type) — site name, logo, contact info, social links, trust badges
+- `ClientBrand` (collection) — client logos shown on the home page
+
+Content types are localised (Strapi i18n) and use draft & publish — the API only returns published entries. They are created in the Strapi admin's Content-Type Builder; see [`docs/strapi.md`](docs/strapi.md).
