@@ -48,7 +48,7 @@ Media URLs from Strapi are relative paths — they must be resolved with `STRAPI
 
 - Docker multi-stage build: `NEXT_PUBLIC_STRAPI_URL` is baked in at build time as a build ARG
 - Output mode is `standalone` for minimal Docker image
-- CI/CD: GitHub Actions builds and pushes to GHCR on `v*` git tags
+- CI/CD: every push to `main` auto-bumps the patch version, builds and pushes to GHCR, then creates the `v*` git tag (`.github/workflows/deploy.yml`). Manually pushed `v*` tags still build. PRs run lint/typecheck/build (`ci.yml`). Contributor workflow is in `AGENTS.md`.
 - Kubernetes deployment (no docker-compose)
 - `/api/health` route serves as the liveness/readiness probe
 
