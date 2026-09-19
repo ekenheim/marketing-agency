@@ -52,7 +52,7 @@ export default async function TeamPage() {
     <main>
       <Header />
       <div className="pt-24">
-        <TeamSection team={team} />
+        <TeamSection team={team} globalData={globalData} />
       </div>
       <Footer globalData={globalData} />
     </main>

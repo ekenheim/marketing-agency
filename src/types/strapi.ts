@@ -69,6 +69,20 @@ export interface HeroData {
   stats?: StatData[];
 }
 
+export interface IntroductionData {
+  id?: number;
+  enabled?: boolean | null;
+  label?: string | null;
+  headline?: string | null;
+  introduction?: string | null;
+  whyTitle?: string | null;
+  whyText?: string | null;
+  name?: string | null;
+  role?: string | null;
+  image?: StrapiMedia | null;
+  contactLabel?: string | null;
+}
+
 export interface ServiceData {
   id?: number;
   title: string;
@@ -133,6 +147,10 @@ export interface GlobalData {
   servicesSectionLabel?: string;
   servicesSectionTitle?: string;
   servicesSectionSubtitle?: string;
+  teamSectionLabel?: string | null;
+  teamSectionTitle?: string | null;
+  teamSectionTitleAccent?: string | null;
+  teamSectionSubtitle?: string | null;
 }
 
 export interface ClientBrandData {

@@ -29,8 +29,8 @@ export default function HeroSection({ data }: Props) {
     headline: t.hero.headline,
     headlineAccent: t.hero.headlineAccent,
     subheadline: t.hero.subheadline,
-    primaryCta: { label: t.hero.primaryCta, url: "#case-studies", variant: "primary" as const },
-    secondaryCta: { label: t.hero.secondaryCta, url: "#contact", variant: "secondary" as const },
+    primaryCta: { label: t.hero.primaryCta, url: "#contact", variant: "primary" as const },
+    secondaryCta: { label: t.hero.secondaryCta, url: "#services", variant: "secondary" as const },
   };
   const bgUrl = (data?.backgroundMedia?.url) ?? null;
 
@@ -88,17 +88,6 @@ export default function HeroSection({ data }: Props) {
 
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pt-32 pb-24">
         <div className="max-w-5xl">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-amber-500/[0.08] border border-amber-500/15 text-amber-400 text-[0.75rem] font-medium tracking-wider uppercase mb-10"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-            {t.hero.badge}
-          </motion.div>
-
           {/* Headline — editorial large type */}
           <h1 className="font-[family-name:var(--font-display)] text-[2rem] sm:text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-extrabold text-white/95 leading-[1.05] tracking-tight mb-6 sm:mb-8">
             {hero.headline.split(" ").map((word, i) => (
@@ -154,7 +143,7 @@ export default function HeroSection({ data }: Props) {
             className="flex flex-wrap gap-3 sm:gap-4 mb-14 sm:mb-24"
           >
             <button
-              onClick={() => handleCta("#case-studies")}
+              onClick={() => handleCta("#contact")}
               className="group flex items-center gap-2 sm:gap-3 px-5 sm:px-8 py-3.5 sm:py-4 bg-amber-500 hover:bg-amber-400 text-navy-900 font-semibold rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-amber-500/20 active:scale-95 text-[0.8rem] sm:text-[0.85rem] uppercase tracking-wider cursor-pointer"
             >
               {hero.primaryCta?.label ?? t.hero.primaryCta}
@@ -164,7 +153,7 @@ export default function HeroSection({ data }: Props) {
               />
             </button>
             <button
-              onClick={() => handleCta("#contact")}
+              onClick={() => handleCta("#services")}
               className="flex items-center gap-2 sm:gap-3 px-5 sm:px-8 py-3.5 sm:py-4 border border-white/10 hover:border-amber-500/30 text-white/70 hover:text-amber-400 font-medium rounded-xl transition-all duration-300 hover:bg-white/[0.02] text-[0.8rem] sm:text-[0.85rem] uppercase tracking-wider cursor-pointer"
             >
               {hero.secondaryCta?.label ?? t.hero.secondaryCta}

@@ -147,7 +147,7 @@ const en: Dictionary = {
     label: "What we do",
     title: "Services that move the needle",
     subtitle:
-      "We do six things, and we do them well. Each one is aimed at getting you more clients and more revenue.",
+      "Our services are aimed at getting you more clients and more revenue.",
     items: [
       {
         title: "Performance Marketing",
@@ -345,7 +345,7 @@ const fr: Dictionary = {
     label: "Nos services",
     title: "Des services qui font la différence",
     subtitle:
-      "On fait six choses, et on les fait bien. Chacune vise à vous amener plus de clients et plus de chiffre d'affaires.",
+      "Nos services visent à vous amener plus de clients et plus de chiffre d'affaires.",
     items: [
       {
         title: "Marketing de performance",

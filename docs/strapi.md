@@ -107,6 +107,64 @@ returns 404 today, so the type is not being served.
 3. Add the matching type in `src/types/strapi.ts`. Strapi v5 responses are flat, with no `attributes` wrapper.
 4. Publish the entries. Draft and publish is on, and the API only returns published entries.
 
+## Editable team-page heading
+
+Add these optional, localised fields to the existing **Global** single type in
+Content-Type Builder, then save the schema:
+
+| API field | Strapi field type | Purpose |
+|---|---|---|
+| `teamSectionLabel` | Text (short) | Small label above the heading |
+| `teamSectionTitle` | Text (short) | Main heading text |
+| `teamSectionTitleAccent` | Text (short) | Optional highlighted words after the heading |
+| `teamSectionSubtitle` | Text (long) | Text below the heading |
+
+Edit these in **Content Manager → Global**, choose the language, then Save and
+Publish. A custom title with no accent text replaces the entire old heading.
+Missing or null label/subtitle fields use the existing translated defaults; an
+explicit empty string hides them. A missing, null, or blank main title falls back
+to the existing translated title. The page also keeps rendering if Strapi is
+unavailable. The frontend change must be deployed before live edits take effect.
+
+## Homepage introduction
+
+The homepage reads the optional, localised single type `introduction` from
+`/api/introduction?populate=*&locale=en` (or the visitor's selected locale).
+It appears between the client logos and services. To enable it:
+
+1. In Content-Type Builder, create a **Single Type** named **Introduction** with
+   singular API ID `introduction`. Enable internationalisation and Draft & Publish.
+2. Add the fields below, using the API names exactly as written. Enable localisation
+   for the text and image fields so each language can be edited independently.
+3. Save the schema and allow Strapi to restart. Ensure the website's API token has
+   `find` access to Introduction. Public write permissions are not needed.
+4. In Content Manager → Introduction, add your text and portrait, then publish each
+   locale you want to show. Subsequent content edits only require Save and Publish;
+   they do not require a website release.
+
+| API field | Strapi field type | Purpose |
+|---|---|---|
+| `enabled` | Boolean, default true | Turn the section on or off |
+| `label` | Text (short) | Small heading above the title |
+| `headline` | Text (short), required | Main introduction heading |
+| `introduction` | Text (long) | Your introduction; line breaks are preserved |
+| `whyTitle` | Text (short) | Heading for why Digitomara is a good fit |
+| `whyText` | Text (long) | Your approach and value for growing brands |
+| `name` | Text (short) | Your name beneath the portrait |
+| `role` | Text (short) | Your role beneath the portrait |
+| `image` | Media (single, images only) | Portrait; a 4:5 crop works best |
+| `contactLabel` | Text (short) | Optional link text pointing to the contact form |
+
+Use plain long text, not a Rich Text field, for `introduction` and `whyText`.
+Set the image's alternative text in the Media Library to describe the portrait.
+Leave `contactLabel` empty to omit the link. The heading and at least one of
+`introduction` or `whyText` must contain text to display the section. Without an
+image, the layout becomes one text column. Missing types, unpublished entries,
+disabled content, and failed CMS requests hide the section without breaking the page.
+
+The initial frontend change requires the usual reviewed deployment before this
+section appears on the live website.
+
 ## The contact form does not use Strapi
 
 `ContactSection` posts to this site's own `/api/contact` route
