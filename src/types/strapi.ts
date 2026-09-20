@@ -151,6 +151,23 @@ export interface GlobalData {
   teamSectionTitle?: string | null;
   teamSectionTitleAccent?: string | null;
   teamSectionSubtitle?: string | null;
+  blogSectionLabel?: string | null;
+  blogSectionTitle?: string | null;
+  blogSectionSubtitle?: string | null;
+}
+
+export interface BlogPostData {
+  id?: number;
+  title?: string | null;
+  slug?: string | null;
+  excerpt?: string | null;
+  content?: string | null;
+  author?: string | null;
+  authorRole?: string | null;
+  publishedAt?: string | null;
+  category?: string | null;
+  readingTime?: number | null;
+  coverImage?: StrapiMedia | null;
 }
 
 export interface ClientBrandData {

@@ -8,7 +8,8 @@ import type { StrapiResponse, GlobalData } from "@/types/strapi";
 import Header from "@/components/Header";
 import BlogPostContent from "@/components/blog/BlogPostContent";
 import Footer from "@/components/Footer";
-import { BLOG_POSTS } from "@/data/blog-posts";
+import { fetchBlogPost } from "@/lib/blog";
+import Link from "next/link";
 
 function resolveUrl(url: string | null | undefined): string {
   if (!url) return "";
@@ -40,13 +41,13 @@ export async function generateMetadata({
   params: Params;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = BLOG_POSTS.find((p) => p.slug === slug);
+  const { post, unavailable } = await fetchBlogPost(slug, await getLocale());
   if (!post) {
-    return { title: "Post Not Found | Digitomara" };
+    return { title: unavailable ? "Article Unavailable" : "Post Not Found", robots: { index: false } };
   }
   return {
-    title: `${post.title} | Digitomara`,
-    description: post.excerpt,
+    title: post.title,
+    description: post.excerpt ?? undefined,
   };
 }
 
@@ -56,20 +57,26 @@ export default async function BlogPostPage({
   params: Params;
 }) {
   const { slug } = await params;
-  const post = BLOG_POSTS.find((p) => p.slug === slug);
+  const locale = await getLocale();
+  const { post, unavailable } = await fetchBlogPost(slug, locale);
 
-  if (!post) {
+  if (!post && !unavailable) {
     notFound();
   }
 
-  const locale = await getLocale();
   const globalData = await fetchGlobal(locale);
 
   return (
     <main>
       <Header />
       <div className="pt-24">
-        <BlogPostContent post={post} />
+        {post ? <BlogPostContent post={post} /> : (
+          <section className="mx-auto max-w-3xl px-5 py-28 text-center">
+            <h1 className="mb-6 text-3xl font-bold">{locale === "fr" ? "Article temporairement indisponible" : "Article temporarily unavailable"}</h1>
+            <p className="mb-8 text-white/65">{locale === "fr" ? "Veuillez réessayer dans quelques instants." : "Please try again in a few moments."}</p>
+            <Link href="/blog" className="text-amber-400">{locale === "fr" ? "Retour au blog" : "Back to blog"}</Link>
+          </section>
+        )}
       </div>
       <Footer globalData={globalData} />
     </main>

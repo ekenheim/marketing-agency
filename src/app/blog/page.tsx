@@ -6,10 +6,10 @@ import type { StrapiResponse, GlobalData } from "@/types/strapi";
 import Header from "@/components/Header";
 import BlogListingSection from "@/components/blog/BlogListingSection";
 import Footer from "@/components/Footer";
-import { BLOG_POSTS } from "@/data/blog-posts";
+import { fetchBlogPosts } from "@/lib/blog";
 
 export const metadata = {
-  title: "Blog | Digitomara",
+  title: "Blog",
   description:
     "Digital marketing insights, guides, and strategies for Moroccan businesses.",
 };
@@ -38,13 +38,13 @@ async function fetchGlobal(locale: string) {
 
 export default async function BlogPage() {
   const locale = await getLocale();
-  const globalData = await fetchGlobal(locale);
+  const [globalData, posts] = await Promise.all([fetchGlobal(locale), fetchBlogPosts(locale)]);
 
   return (
     <main>
       <Header />
       <div className="pt-24">
-        <BlogListingSection posts={BLOG_POSTS} />
+        <BlogListingSection posts={posts} globalData={globalData} />
       </div>
       <Footer globalData={globalData} />
     </main>
