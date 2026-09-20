@@ -256,7 +256,7 @@ const en: Dictionary = {
     subtitle: "Tell us what you're working on. We'll come back with a plan.",
     talkTitle: "Let's talk growth",
     talkDescription:
-      "We take on a limited number of clients so nobody gets half-assed service. Drop us a line and we'll see if it makes sense to work together.",
+      "Tell us where you want to grow, what’s getting in the way, and what you need help with. We’ll figure out the right setup — senior hands-on support or a wider team.",
     responseTitle: "24-hour response guarantee.",
     responseDetail: "We reply to every message within one business day.",
     formLabels: {
@@ -291,10 +291,10 @@ const en: Dictionary = {
   },
   team: {
     label: "The team",
-    title: "Strategists, not",
-    titleAccent: "order-takers",
+    title: "Senior expertise,",
+    titleAccent: "tailored to what you need.",
     subtitle:
-      "Small team, big opinions about your numbers. We'd rather argue about your conversion rate than your follower count.",
+      "Work directly with Randa for hands-on senior support, from strategy through execution — or bring in the wider Digitomara team when your project requires additional expertise and capacity.",
   },
   footer: {
     navigation: "Navigation",
@@ -454,7 +454,7 @@ const fr: Dictionary = {
     subtitle: "Dites-nous sur quoi vous bossez. On revient avec un plan.",
     talkTitle: "Parlons croissance",
     talkDescription:
-      "On prend un nombre limité de clients pour ne bâcler le travail de personne. Écrivez-nous et on verra si ça colle.",
+      "Parlez-nous de vos objectifs et de vos besoins. Nous verrons ensemble comment vous accompagner, directement avec Randa ou avec l’équipe Digitomara selon le projet.",
     responseTitle: "Réponse garantie sous 24h.",
     responseDetail: "On répond à chaque message en un jour ouvré.",
     formLabels: {
@@ -489,10 +489,10 @@ const fr: Dictionary = {
   },
   team: {
     label: "L'équipe",
-    title: "Des stratèges, pas des",
-    titleAccent: "exécutants",
+    title: "Une expertise senior,",
+    titleAccent: "adaptée à vos besoins.",
     subtitle:
-      "Petite équipe, grandes convictions sur vos chiffres. On préfère débattre de votre taux de conversion que de votre nombre de followers.",
+      "Travaillez directement avec Randa pour un accompagnement senior, de la stratégie à l’exécution — ou mobilisez l’équipe Digitomara lorsque votre projet nécessite des expertises et des ressources complémentaires.",
   },
   footer: {
     navigation: "Navigation",

@@ -183,3 +183,62 @@ set by Renovate's schedule. The image is pulled with the `ghcr-pull` secret in t
 
 Health: the pods are probed on `/api/health`, and the public site is monitored from
 outside the cluster by Gatus.
+
+## Blog editing (CMS setup required before deployment)
+
+The blog reads published, localised **Blog Post** entries from `/api/blog-posts`.
+The frontend code does not create Strapi fields. Complete the following setup and
+copy the existing articles before deploying this change; otherwise the blog will
+show an unavailable or empty state instead of the old hardcoded articles.
+
+### Create the fields once
+
+In Content-Type Builder create a **Collection Type** with display name **Blog Post**,
+singular API ID `blog-post`, plural API ID `blog-posts`. Enable Draft & Publish and
+internationalisation. Add these fields using the exact API names:
+
+| API field | Strapi field type | Settings |
+|---|---|---|
+| `title` | Text (short) | Required, localised |
+| `slug` | UID linked to `title` | Required; keep the same URL slug across translations |
+| `excerpt` | Text (long) | Localised; summary on the blog card and SEO description |
+| `content` | Text (long) | Localised; full article, blank lines between paragraphs |
+| `coverImage` | Media (single, images only) | Localised; optional; add alternative text in the Media Library |
+| `author` | Text (short) | Author name |
+| `authorRole` | Text (short) | Localised; optional |
+| `category` | Text (short) | Localised; optional |
+| `readingTime` | Number (integer) | Optional; positive number of minutes |
+
+`content` is plain long text, not Rich Text Blocks or Markdown. Text is escaped by
+React; HTML is not executed. `publishedAt` is supplied by Strapi's publication
+system and should not be added manually.
+
+On the existing **Global** single type, add optional localised fields:
+`blogSectionLabel` (short text), `blogSectionTitle` (short text), and
+`blogSectionSubtitle` (long text). These control the blog listing header.
+
+Save the schema and wait for Strapi to restart. Ensure the website's read-only API
+token has `find` access to Blog Post. Do not enable public write permissions.
+
+### Preserve the existing articles
+
+The old articles remain in `src/data/blog-posts.ts` as migration source material;
+they are no longer served by the blog routes. Copy each into Content Manager →
+Blog Post, keeping its existing `slug` to preserve inbound links, and publish it.
+Add French translations using the same slug before enabling French articles.
+The old static posts are deliberately not used as fallbacks: otherwise unpublishing
+or deleting a post in Strapi could cause stale content to reappear.
+
+### Edit posts yourself
+
+1. Open Content Manager → Blog Post → Create new entry (or select an existing post).
+2. Choose the language and edit title, excerpt, article text, author details,
+   category, reading time, and cover image. Separate paragraphs with a blank line.
+3. Save to keep a draft; Publish when ready. Unpublish removes the post from the
+   website. Avoid changing a published slug unless you also arrange a redirect.
+4. Edit Content Manager → Global to change the blog page's label, title, and subtitle.
+
+Published changes appear on the next page request without a frontend release.
+The website fetches all list pages, displays an empty state when no posts are
+published for the selected language, returns 404 for a missing/unpublished article,
+and displays a temporary-unavailability message if Strapi cannot be reached.
