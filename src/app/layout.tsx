@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { cookies } from "next/headers";
 import { Bricolage_Grotesque, Outfit } from "next/font/google";
 import Script from "next/script";
@@ -11,11 +12,16 @@ import { LOCALE_COOKIE, DEFAULT_LOCALE, type Locale } from "@/i18n/locale";
 
 async function fetchGlobalPhone(locale: string): Promise<string | null> {
   try {
-    const res = await strapiGet<StrapiResponse<GlobalData>>("/global", locale);
+    const res = await strapiGet<StrapiResponse<GlobalData>>("/global?populate=*", locale);
     return res.data?.phone ?? null;
   } catch {
     return null;
   }
+}
+
+async function GlobalWhatsAppButton({ locale }: { locale: string }) {
+  const phone = await fetchGlobalPhone(locale);
+  return <WhatsAppButton phone={phone} />;
 }
 
 const display = Bricolage_Grotesque({
@@ -74,14 +80,15 @@ export default async function RootLayout({
 }) {
   const cookieStore = await cookies();
   const locale = (cookieStore.get(LOCALE_COOKIE)?.value ?? DEFAULT_LOCALE) as Locale;
-  const whatsappPhone = await fetchGlobalPhone(locale);
 
   return (
     <html lang={locale} className={`scroll-smooth ${display.variable} ${body.variable}`}>
       <body className="antialiased font-[family-name:var(--font-body)]" suppressHydrationWarning>
         <LocaleProvider locale={locale}>
           {children}
-          <WhatsAppButton phone={whatsappPhone} />
+          <Suspense fallback={null}>
+            <GlobalWhatsAppButton locale={locale} />
+          </Suspense>
         </LocaleProvider>
       </body>
       <Script
