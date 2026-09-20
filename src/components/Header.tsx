@@ -23,16 +23,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleNavClick = (href: string) => {
-    setMenuOpen(false);
-    const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    } else {
-      window.location.assign(`/${href}`);
-    }
-  };
-
   const toggleLocale = () => setLocale(locale === "fr" ? "en" : "fr");
 
   return (
@@ -46,8 +36,9 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          <Link
+            href="/"
+            onClick={() => setMenuOpen(false)}
             className="flex items-center gap-3 group"
           >
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center font-[family-name:var(--font-display)] font-extrabold text-navy-900 text-xl select-none shadow-lg shadow-amber-500/20 group-hover:shadow-amber-500/40 transition-shadow duration-300">
@@ -56,22 +47,24 @@ export default function Header() {
             <span className="font-[family-name:var(--font-display)] font-bold text-[1.35rem] text-white/90 tracking-tight">
               digito<span className="text-amber-500">mara</span>
             </span>
-          </button>
+          </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             {scrollLinks.map((link) => (
-              <button
+              <Link
                 key={link.href}
-                onClick={() => handleNavClick(link.href)}
+                href={`/${link.href}`}
+                onClick={() => setMenuOpen(false)}
                 className="relative text-white/50 hover:text-amber-400 text-[0.8rem] font-medium uppercase tracking-[0.15em] transition-colors duration-300 cursor-pointer group"
               >
                 {link.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-amber-500 group-hover:w-full transition-all duration-300" />
-              </button>
+              </Link>
             ))}
             <Link
               href="/about"
+              onClick={() => setMenuOpen(false)}
               className="relative text-white/50 hover:text-amber-400 text-[0.8rem] font-medium uppercase tracking-[0.15em] transition-colors duration-300 group"
             >
               {t.header.about}
@@ -79,6 +72,7 @@ export default function Header() {
             </Link>
             <Link
               href="/blog"
+              onClick={() => setMenuOpen(false)}
               className="relative text-white/50 hover:text-amber-400 text-[0.8rem] font-medium uppercase tracking-[0.15em] transition-colors duration-300 group"
             >
               {t.header.blog}
@@ -86,6 +80,7 @@ export default function Header() {
             </Link>
             <Link
               href="/team"
+              onClick={() => setMenuOpen(false)}
               className="relative text-white/50 hover:text-amber-400 text-[0.8rem] font-medium uppercase tracking-[0.15em] transition-colors duration-300 group"
             >
               {t.header.team}
@@ -111,12 +106,13 @@ export default function Header() {
 
           {/* Desktop CTA */}
           <div className="hidden md:block">
-            <button
-              onClick={() => handleNavClick("#contact")}
+            <Link
+              href="/#contact"
+              onClick={() => setMenuOpen(false)}
               className="px-6 py-2.5 bg-amber-500 hover:bg-amber-400 text-navy-900 font-semibold text-[0.8rem] uppercase tracking-wider rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/25 active:scale-95 cursor-pointer"
             >
               {t.header.cta}
-            </button>
+            </Link>
           </div>
 
           {/* Mobile Locale Toggle */}
@@ -157,39 +153,44 @@ export default function Header() {
           >
             <div className="bg-navy-900/95 backdrop-blur-xl border-t border-white/[0.04] px-5 py-5 flex flex-col gap-1">
               {scrollLinks.map((link) => (
-                <button
+                <Link
                   key={link.href}
-                  onClick={() => handleNavClick(link.href)}
+                  href={`/${link.href}`}
+                  onClick={() => setMenuOpen(false)}
                   className="text-left px-4 py-3.5 text-white/70 hover:text-amber-400 hover:bg-white/[0.03] rounded-xl text-sm font-medium tracking-wide transition-colors cursor-pointer"
                 >
                   {link.label}
-                </button>
+                </Link>
               ))}
               <Link
                 href="/about"
+                onClick={() => setMenuOpen(false)}
                 className="text-left px-4 py-3.5 text-white/70 hover:text-amber-400 hover:bg-white/[0.03] rounded-xl text-sm font-medium tracking-wide transition-colors"
               >
                 {t.header.about}
               </Link>
               <Link
                 href="/blog"
+                onClick={() => setMenuOpen(false)}
                 className="text-left px-4 py-3.5 text-white/70 hover:text-amber-400 hover:bg-white/[0.03] rounded-xl text-sm font-medium tracking-wide transition-colors"
               >
                 {t.header.blog}
               </Link>
               <Link
                 href="/team"
+                onClick={() => setMenuOpen(false)}
                 className="text-left px-4 py-3.5 text-white/70 hover:text-amber-400 hover:bg-white/[0.03] rounded-xl text-sm font-medium tracking-wide transition-colors"
               >
                 {t.header.team}
               </Link>
               <div className="editorial-line my-2" />
-              <button
-                onClick={() => handleNavClick("#contact")}
+              <Link
+                href="/#contact"
+                onClick={() => setMenuOpen(false)}
                 className="mt-1 px-4 py-3.5 bg-amber-500 hover:bg-amber-400 text-navy-900 font-semibold text-sm rounded-xl transition-colors cursor-pointer w-full text-center tracking-wide"
               >
                 {t.header.cta}
-              </button>
+              </Link>
             </div>
           </motion.div>
         )}

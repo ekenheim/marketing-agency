@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import * as LucideIcons from "lucide-react";
 import { CheckCircle2, type LucideProps } from "lucide-react";
 import type { ServiceData, GlobalData } from "@/types/strapi";
@@ -17,16 +17,6 @@ function ServiceIcon({ name }: { name?: string }) {
   return <Icon size={22} className="text-amber-400" />;
 }
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-};
-
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
-
 interface Props {
   services: ServiceData[] | null;
   globalData?: GlobalData | null;
@@ -34,6 +24,7 @@ interface Props {
 
 export default function ServicesSection({ services, globalData }: Props) {
   const { t } = useLocale();
+  const reduceMotion = useReducedMotion();
 
   const items: ServiceData[] =
     services && services.length > 0
@@ -59,8 +50,8 @@ export default function ServicesSection({ services, globalData }: Props) {
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={reduceMotion ? false : { y: 16 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
@@ -77,17 +68,14 @@ export default function ServicesSection({ services, globalData }: Props) {
         </motion.div>
 
         {/* Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="flex flex-wrap justify-center gap-5"
-        >
+        <div className="flex flex-wrap justify-center gap-5">
           {items.map((service, i) => (
             <motion.div
               key={service.slug || i}
-              variants={cardVariants}
+              initial={reduceMotion ? false : { y: 16 }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.35 }}
               className="group relative bg-navy-800/60 border border-white/[0.04] hover:border-amber-500/20 rounded-2xl p-8 transition-all duration-500 hover:bg-navy-800/90 hover:-translate-y-1 cursor-default w-full md:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)]"
             >
               {/* Number watermark */}
@@ -122,7 +110,7 @@ export default function ServicesSection({ services, globalData }: Props) {
               <div className="absolute bottom-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-amber-500/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -238,7 +238,31 @@ or deleting a post in Strapi could cause stale content to reappear.
    website. Avoid changing a published slug unless you also arrange a redirect.
 4. Edit Content Manager → Global to change the blog page's label, title, and subtitle.
 
-Published changes appear on the next page request without a frontend release.
+Published changes appear within 15 seconds of a new page request without a frontend release.
 The website fetches all list pages, displays an empty state when no posts are
 published for the selected language, returns 404 for a missing/unpublished article,
 and displays a temporary-unavailability message if Strapi cannot be reached.
+
+
+## Navigation and CMS response caching
+
+Successful Strapi responses are cached in server memory for at most 15 seconds,
+separately for each URL and locale, with a maximum of 200 entries per process.
+Concurrent identical requests share one fetch. Cached objects are cloned before
+returning them so page-level media URL resolution cannot mutate shared data.
+Failures are not cached, and expired content is not served after a failed refresh.
+The five-second network timeout also covers parsing the response body.
+
+Each website pod has its own cache; cold pods still need to fetch content. Pages
+remain dynamic, so build-time CMS failures never become permanently cached HTML.
+Allow up to 15 seconds and reload after publishing/unpublishing CMS content.
+
+The root layout streams the optional WhatsApp button separately from page content.
+`loading.tsx` supplies immediate navigation feedback while a dynamic page loads.
+Header section links use Next.js client navigation rather than full-page reloads.
+Service content is visible in server-rendered HTML; only its position animates as
+individual cards enter view, so delayed hydration or a missed scroll observer
+cannot leave cards transparent.
+
+Cache regression checks (Node 22.6+):
+`node --experimental-strip-types --test tests/content-cache.test.mjs`.

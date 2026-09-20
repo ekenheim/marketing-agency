@@ -1,7 +1,7 @@
 // Disable static pre-rendering. The build runs in CI where Strapi is unreachable
 // (internal K8s URL), so ISR would bake stale fallbacks and broken image URLs into
 // the static HTML. With force-dynamic every request is server-rendered fresh with
-// the correct runtime env vars and live Strapi data.
+// the correct runtime env vars. Successful CMS reads are reused for up to 15 seconds.
 export const dynamic = "force-dynamic";
 
 import { strapiGet } from "@/lib/strapi";
@@ -19,6 +19,7 @@ import type {
 } from "@/types/strapi";
 
 import Header from "@/components/Header";
+import HomeSectionScroll from "@/components/HomeSectionScroll";
 import HeroSection from "@/components/HeroSection";
 import ClientLogosSection from "@/components/ClientLogosSection";
 import IntroductionSection from "@/components/IntroductionSection";
@@ -158,6 +159,7 @@ export default async function HomePage() {
 
   return (
     <main>
+      <HomeSectionScroll />
       <Header />
       <HeroSection data={hero} />
       <ClientLogosSection brands={clientBrands} />
