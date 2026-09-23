@@ -43,7 +43,7 @@ export default function ServicesSection({ services, globalData }: Props) {
   const sectionSubtitle = globalData?.servicesSectionSubtitle ?? t.services.subtitle;
 
   return (
-    <section id="services" className="py-16 sm:py-28 bg-navy-900 relative overflow-hidden">
+    <section id="services" className="section-spacing bg-navy-900 relative overflow-hidden">
       {/* Subtle background pattern */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
 
@@ -54,7 +54,7 @@ export default function ServicesSection({ services, globalData }: Props) {
           whileInView={{ y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="text-center mb-10 sm:mb-12"
         >
           <span className="inline-block text-amber-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em] mb-5">
             {sectionLabel}

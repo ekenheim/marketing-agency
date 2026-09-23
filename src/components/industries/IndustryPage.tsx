@@ -32,7 +32,7 @@ export default function IndustryPage({ industry }: Props) {
   return (
     <>
       {/* Hero */}
-      <section className="py-28 bg-navy-950 relative overflow-hidden">
+      <section className="section-spacing bg-navy-950 relative overflow-hidden">
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-amber-500/[0.03] blur-[100px]" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
@@ -78,7 +78,7 @@ export default function IndustryPage({ industry }: Props) {
       </section>
 
       {/* Pain Points */}
-      <section className="py-28 bg-navy-900 relative">
+      <section className="section-spacing bg-navy-900 relative">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
@@ -87,7 +87,7 @@ export default function IndustryPage({ industry }: Props) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-10 sm:mb-12"
           >
             <span className="inline-block text-amber-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em] mb-5">
               Sound familiar?
@@ -129,7 +129,7 @@ export default function IndustryPage({ industry }: Props) {
       </section>
 
       {/* Solutions */}
-      <section className="py-28 bg-navy-950 relative">
+      <section className="section-spacing bg-navy-950 relative">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.04] to-transparent" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
@@ -138,7 +138,7 @@ export default function IndustryPage({ industry }: Props) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-10 sm:mb-12"
           >
             <span className="inline-block text-amber-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em] mb-5">
               Our approach
@@ -184,7 +184,7 @@ export default function IndustryPage({ industry }: Props) {
       </section>
 
       {/* CTA */}
-      <section className="py-28 bg-navy-900 relative">
+      <section className="section-spacing bg-navy-900 relative">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">

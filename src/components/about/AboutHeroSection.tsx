@@ -16,7 +16,7 @@ const cardVariants: Variants = {
 
 export default function AboutHeroSection() {
   return (
-    <section className="bg-navy-900 py-28 relative overflow-hidden">
+    <section className="bg-navy-900 section-spacing relative overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
 
       <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8 lg:px-10">
@@ -46,7 +46,7 @@ export default function AboutHeroSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6"
+          className="mt-10 sm:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6"
         >
           <motion.div
             variants={cardVariants}

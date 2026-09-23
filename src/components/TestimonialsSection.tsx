@@ -56,7 +56,7 @@ export default function TestimonialsSection({ testimonials, globalData }: Props)
   const avatarUrl = active.avatar?.url ?? null;
 
   return (
-    <section id="testimonials" className="py-16 sm:py-28 bg-navy-950 overflow-hidden relative">
+    <section id="testimonials" className="section-spacing bg-navy-950 overflow-hidden relative">
       {/* Background accents */}
       <div className="absolute top-1/2 left-0 w-[500px] h-[500px] -translate-y-1/2 -translate-x-1/2 rounded-full bg-amber-500/[0.02] blur-[100px]" />
 
@@ -67,7 +67,7 @@ export default function TestimonialsSection({ testimonials, globalData }: Props)
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12"
         >
           <span className="inline-block text-amber-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em] mb-5">
             {t.testimonials.label}
@@ -187,7 +187,7 @@ export default function TestimonialsSection({ testimonials, globalData }: Props)
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-20 flex flex-wrap justify-center gap-4 items-center"
+          className="mt-10 sm:mt-12 flex flex-wrap justify-center gap-4 items-center"
         >
           {badges.map((badge) => (
             <div

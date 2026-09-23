@@ -38,7 +38,7 @@ const cards = [
 
 export default function NordicEdgeSection() {
   return (
-    <section className="bg-navy-950 py-28 relative">
+    <section className="bg-navy-950 section-spacing relative">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.04] to-transparent" />
 
       <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8 lg:px-10">
@@ -63,7 +63,7 @@ export default function NordicEdgeSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-5"
+          className="mt-10 sm:mt-12 grid grid-cols-1 md:grid-cols-3 gap-5"
         >
           {cards.map((card) => (
             <motion.div

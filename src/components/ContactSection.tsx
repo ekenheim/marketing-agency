@@ -73,7 +73,7 @@ export default function ContactSection({ globalData, services }: Props) {
     }`;
 
   return (
-    <section id="contact" className="py-16 sm:py-28 bg-navy-900 relative overflow-hidden">
+    <section id="contact" className="section-spacing bg-navy-900 relative overflow-hidden">
       {/* Background accents */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute bottom-0 right-0 w-[700px] h-[700px] rounded-full bg-amber-500/[0.02] blur-[120px]" />
@@ -88,7 +88,7 @@ export default function ContactSection({ globalData, services }: Props) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12"
         >
           <span className="inline-block text-amber-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em] mb-5">
             {t.contact.label}

@@ -65,3 +65,14 @@ body {
   outline: 2px solid rgba(212, 168, 67, 0.5);
   outline-offset: 2px;
 }
+
+/* Shared section rhythm: comfortable space without stacking oversized gaps. */
+.section-spacing {
+  padding-block: 3rem;
+}
+
+@media (min-width: 40rem) {
+  .section-spacing {
+    padding-block: 4.5rem;
+  }
+}

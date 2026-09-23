@@ -16,9 +16,9 @@ export default function IntroductionSection({ data }: { data: IntroductionData |
   }
 
   return (
-    <section id="introduction" aria-labelledby="introduction-title" className="bg-navy-950 py-16 sm:py-28">
+    <section id="introduction" aria-labelledby="introduction-title" className="bg-navy-950 section-spacing">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-        <div className="mb-10 h-px bg-amber-500/25 sm:mb-14" />
+        <div className="mb-8 h-px bg-amber-500/25 sm:mb-10" />
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -57,7 +57,7 @@ export default function TeamSection({ team, globalData }: Props) {
   const subtitle = globalData?.teamSectionSubtitle ?? t.team.subtitle;
 
   return (
-    <section id="team" className="py-28 bg-navy-900 relative overflow-hidden">
+    <section id="team" className="section-spacing bg-navy-900 relative overflow-hidden">
 
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
         {/* Header */}
@@ -66,7 +66,7 @@ export default function TeamSection({ team, globalData }: Props) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12"
         >
           {label && (
             <span className="inline-block text-amber-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em] mb-5">

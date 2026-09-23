@@ -44,7 +44,7 @@ const values = [
 
 export default function ValuesSection() {
   return (
-    <section className="bg-navy-900 py-28 relative">
+    <section className="bg-navy-900 section-spacing relative">
 
       <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8 lg:px-10">
         <motion.div
@@ -68,7 +68,7 @@ export default function ValuesSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-5"
+          className="mt-10 sm:mt-12 grid grid-cols-1 md:grid-cols-2 gap-5"
         >
           {values.map((value) => (
             <motion.div

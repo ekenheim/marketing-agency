@@ -31,13 +31,13 @@ export default function Footer({ globalData }: Props) {
 
   return (
     <footer className="bg-navy-950 border-t border-white/[0.04]">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-20">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-12 sm:py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-4 gap-14 mb-14"
+          className="grid grid-cols-1 md:grid-cols-4 gap-8 sm:gap-10 mb-10"
         >
           {/* Brand */}
           <div className="md:col-span-1">

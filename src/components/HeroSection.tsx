@@ -46,7 +46,7 @@ export default function HeroSection({ data }: Props) {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center overflow-hidden bg-navy-950"
+      className="relative min-h-[36rem] flex items-center overflow-hidden bg-navy-950"
     >
       {/* Background layers */}
       {bgUrl ? (
@@ -86,7 +86,7 @@ export default function HeroSection({ data }: Props) {
       <div className="absolute inset-0 bg-gradient-to-b from-navy-950/60 via-navy-950/30 to-navy-950/80" />
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-navy-950 to-transparent" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pt-32 pb-24">
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pt-28 sm:pt-32 pb-24">
         <div className="max-w-5xl">
           {/* Headline — editorial large type */}
           <h1 className="font-[family-name:var(--font-display)] text-[2rem] sm:text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-extrabold text-white/95 leading-[1.05] tracking-tight mb-6 sm:mb-8">
@@ -140,7 +140,7 @@ export default function HeroSection({ data }: Props) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.85, ease: "easeOut" }}
-            className="flex flex-wrap gap-3 sm:gap-4 mb-14 sm:mb-24"
+            className="flex flex-wrap gap-3 sm:gap-4 mb-10 sm:mb-14"
           >
             <button
               onClick={() => handleCta("#contact")}
@@ -202,13 +202,13 @@ export default function HeroSection({ data }: Props) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.8, duration: 0.6 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
         <span className="text-[0.65rem] text-white/20 font-medium tracking-[0.25em] uppercase">{t.hero.scroll}</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          className="w-px h-10 bg-gradient-to-b from-amber-500/40 to-transparent"
+          className="w-px h-6 bg-gradient-to-b from-amber-500/40 to-transparent"
         />
       </motion.div>
     </section>

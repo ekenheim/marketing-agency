@@ -71,7 +71,7 @@ export default async function BlogPostPage({
       <Header />
       <div className="pt-24">
         {post ? <BlogPostContent post={post} /> : (
-          <section className="mx-auto max-w-3xl px-5 py-28 text-center">
+          <section className="mx-auto max-w-3xl px-5 section-spacing text-center">
             <h1 className="mb-6 text-3xl font-bold">{locale === "fr" ? "Article temporairement indisponible" : "Article temporarily unavailable"}</h1>
             <p className="mb-8 text-white/65">{locale === "fr" ? "Veuillez réessayer dans quelques instants." : "Please try again in a few moments."}</p>
             <Link href="/blog" className="text-amber-400">{locale === "fr" ? "Retour au blog" : "Back to blog"}</Link>

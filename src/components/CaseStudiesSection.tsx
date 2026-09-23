@@ -44,7 +44,7 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
         }));
 
   return (
-    <section id="case-studies" className="py-16 sm:py-28 bg-navy-950 relative overflow-hidden">
+    <section id="case-studies" className="section-spacing bg-navy-950 relative overflow-hidden">
       {/* Diagonal accent */}
       <div className="absolute top-0 left-[15%] w-px h-full bg-gradient-to-b from-transparent via-white/[0.03] to-transparent" />
 
@@ -55,7 +55,7 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-8 mb-16"
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-8 mb-10 sm:mb-12"
         >
           <div>
             <span className="inline-block text-amber-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em] mb-5">

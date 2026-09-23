@@ -27,7 +27,7 @@ export default function BlogPostContent({ post }: Props) {
     .filter((p) => p.trim().length > 0);
 
   return (
-    <section className="py-28 bg-navy-900">
+    <section className="section-spacing bg-navy-900">
       <div className="max-w-3xl mx-auto px-5 sm:px-8 lg:px-10">
         <motion.article
           initial={{ opacity: 0, y: 20 }}
@@ -81,7 +81,7 @@ export default function BlogPostContent({ post }: Props) {
             ))}
           </div>
 
-          <div className="mt-16 p-10 bg-navy-800/50 border border-white/[0.04] rounded-2xl text-center">
+          <div className="mt-10 sm:mt-12 p-10 bg-navy-800/50 border border-white/[0.04] rounded-2xl text-center">
             <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-white/90 mb-3">
               {french ? "Prêt à passer à l’action ?" : "Ready to apply these strategies?"}
             </h3>
