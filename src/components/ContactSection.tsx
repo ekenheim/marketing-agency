@@ -68,18 +68,18 @@ export default function ContactSection({ globalData, services }: Props) {
   };
 
   const inputClasses = (hasError: boolean) =>
-    `w-full px-4 sm:px-5 py-3 sm:py-3.5 bg-navy-950/80 border rounded-xl text-white/90 placeholder-white/20 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/30 transition-all duration-300 font-light ${
-      hasError ? "border-red-500/40" : "border-white/[0.06] focus:border-amber-500/30"
+    `w-full px-4 sm:px-5 py-3 sm:py-3.5 bg-ivory-100/80 border rounded-xl text-ink/90 placeholder-ink/60 text-sm focus:outline-none focus:ring-2 focus:ring-burgundy-500/30 transition-all duration-300 font-light ${
+      hasError ? "border-red-500/40" : "border-ink/15 focus:border-burgundy-500/30"
     }`;
 
   return (
-    <section id="contact" className="py-16 sm:py-28 bg-navy-900 relative overflow-hidden">
+    <section id="contact" className="section-spacing bg-ivory-200 relative overflow-hidden">
       {/* Background accents */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute bottom-0 right-0 w-[700px] h-[700px] rounded-full bg-amber-500/[0.02] blur-[120px]" />
-        <div className="absolute top-0 left-0 w-[400px] h-[400px] rounded-full bg-terra-500/[0.02] blur-[100px]" />
+        <div className="absolute bottom-0 right-0 w-[700px] h-[700px] rounded-full bg-burgundy-500/[0.02] blur-[120px]" />
+        <div className="absolute top-0 left-0 w-[400px] h-[400px] rounded-full bg-rosewood-500/[0.02] blur-[100px]" />
       </div>
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-burgundy-500/10 to-transparent" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
         {/* Header */}
@@ -88,16 +88,16 @@ export default function ContactSection({ globalData, services }: Props) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12"
         >
-          <span className="inline-block text-amber-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em] mb-5">
+          <span className="inline-block text-burgundy-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em] mb-5">
             {t.contact.label}
           </span>
-          <h2 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-[3.25rem] font-extrabold text-white/95 mb-5 leading-tight">
+          <h2 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-[3.25rem] font-extrabold text-ink/95 mb-5 leading-tight">
             {t.contact.title}{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-300">{t.contact.titleAccent}</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-burgundy-400 to-burgundy-300">{t.contact.titleAccent}</span>
           </h2>
-          <p className="text-white/35 text-lg max-w-xl mx-auto font-light">
+          <p className="text-ink/65 text-lg max-w-xl mx-auto font-light">
             {t.contact.subtitle}
           </p>
         </motion.div>
@@ -112,8 +112,8 @@ export default function ContactSection({ globalData, services }: Props) {
             className="lg:col-span-2 space-y-8"
           >
             <div>
-              <h3 className="font-[family-name:var(--font-display)] text-white/90 font-bold text-xl mb-3">{t.contact.talkTitle}</h3>
-              <p className="text-white/35 leading-relaxed font-light">
+              <h3 className="font-[family-name:var(--font-display)] text-ink/90 font-bold text-xl mb-3">{t.contact.talkTitle}</h3>
+              <p className="text-ink/65 leading-relaxed font-light">
                 {t.contact.talkDescription}
               </p>
             </div>
@@ -124,12 +124,12 @@ export default function ContactSection({ globalData, services }: Props) {
                   href={`mailto:${globalData.email}`}
                   className="flex items-center gap-4 group"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-amber-500/[0.06] border border-amber-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-amber-500/[0.1] group-hover:border-amber-500/20 transition-all duration-300">
-                    <Mail size={18} className="text-amber-400" />
+                  <div className="w-12 h-12 rounded-xl bg-burgundy-500/[0.06] border border-burgundy-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-burgundy-500/[0.1] group-hover:border-burgundy-500/20 transition-all duration-300">
+                    <Mail size={18} className="text-burgundy-400" />
                   </div>
                   <div>
-                    <div className="text-[0.65rem] text-white/20 font-medium uppercase tracking-[0.2em] mb-0.5">Email</div>
-                    <div className="text-white/60 group-hover:text-amber-400 transition-colors duration-300 text-sm">
+                    <div className="text-[0.65rem] text-ink/65 font-medium uppercase tracking-[0.2em] mb-0.5">Email</div>
+                    <div className="text-ink/65 group-hover:text-burgundy-400 transition-colors duration-300 text-sm">
                       {globalData.email}
                     </div>
                   </div>
@@ -140,24 +140,24 @@ export default function ContactSection({ globalData, services }: Props) {
                   href={`tel:${globalData.phone}`}
                   className="flex items-center gap-4 group"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-amber-500/[0.06] border border-amber-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-amber-500/[0.1] group-hover:border-amber-500/20 transition-all duration-300">
-                    <Phone size={18} className="text-amber-400" />
+                  <div className="w-12 h-12 rounded-xl bg-burgundy-500/[0.06] border border-burgundy-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-burgundy-500/[0.1] group-hover:border-burgundy-500/20 transition-all duration-300">
+                    <Phone size={18} className="text-burgundy-400" />
                   </div>
                   <div>
-                    <div className="text-[0.65rem] text-white/20 font-medium uppercase tracking-[0.2em] mb-0.5">Phone</div>
-                    <div className="text-white/60 group-hover:text-amber-400 transition-colors duration-300 text-sm">
+                    <div className="text-[0.65rem] text-ink/65 font-medium uppercase tracking-[0.2em] mb-0.5">Phone</div>
+                    <div className="text-ink/65 group-hover:text-burgundy-400 transition-colors duration-300 text-sm">
                       {globalData.phone}
                     </div>
                   </div>
                 </a>
               )}
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-amber-500/[0.06] border border-amber-500/10 flex items-center justify-center flex-shrink-0">
-                  <MapPin size={18} className="text-amber-400" />
+                <div className="w-12 h-12 rounded-xl bg-burgundy-500/[0.06] border border-burgundy-500/10 flex items-center justify-center flex-shrink-0">
+                  <MapPin size={18} className="text-burgundy-400" />
                 </div>
                 <div>
-                  <div className="text-[0.65rem] text-white/20 font-medium uppercase tracking-[0.2em] mb-0.5">Based in</div>
-                  <div className="text-white/60 text-sm">
+                  <div className="text-[0.65rem] text-ink/65 font-medium uppercase tracking-[0.2em] mb-0.5">Based in</div>
+                  <div className="text-ink/65 text-sm">
                     {globalData?.location ?? "Casablanca, Morocco"}
                   </div>
                 </div>
@@ -165,23 +165,23 @@ export default function ContactSection({ globalData, services }: Props) {
             </div>
 
             {/* Response time promise */}
-            <div className="p-5 bg-amber-500/[0.04] border border-amber-500/10 rounded-2xl">
+            <div className="p-5 bg-burgundy-500/[0.04] border border-burgundy-500/10 rounded-2xl">
               <div className="flex items-start gap-3">
-                <CheckCircle2 size={18} className="text-amber-400 flex-shrink-0 mt-0.5" />
-                <p className="text-white/50 text-sm leading-relaxed font-light">
-                  <strong className="text-amber-400 font-semibold">{t.contact.responseTitle}</strong>{" "}
+                <CheckCircle2 size={18} className="text-burgundy-400 flex-shrink-0 mt-0.5" />
+                <p className="text-ink/65 text-sm leading-relaxed font-light">
+                  <strong className="text-burgundy-400 font-semibold">{t.contact.responseTitle}</strong>{" "}
                   {t.contact.responseDetail}
                 </p>
               </div>
             </div>
 
             {/* Free audit highlight */}
-            <div className="p-5 bg-navy-800/60 border border-white/[0.04] rounded-2xl">
+            <div className="p-5 bg-ivory-50/60 border border-ink/10 rounded-2xl">
               <div className="flex items-start gap-3">
-                <Sparkles size={18} className="text-amber-400 flex-shrink-0 mt-0.5" />
+                <Sparkles size={18} className="text-burgundy-400 flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-white/80 font-semibold text-sm mb-1">{t.contact.auditHighlight}</p>
-                  <p className="text-white/30 text-sm leading-relaxed font-light">
+                  <p className="text-ink/80 font-semibold text-sm mb-1">{t.contact.auditHighlight}</p>
+                  <p className="text-ink/65 text-sm leading-relaxed font-light">
                     {t.contact.auditDescription}
                   </p>
                 </div>
@@ -197,7 +197,7 @@ export default function ContactSection({ globalData, services }: Props) {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lg:col-span-3"
           >
-            <div className="bg-navy-800/40 border border-white/[0.04] rounded-2xl p-6 sm:p-8 md:p-10">
+            <div className="bg-ivory-50/40 border border-ink/10 rounded-2xl p-6 sm:p-8 md:p-10">
               {status === "success" ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -205,13 +205,13 @@ export default function ContactSection({ globalData, services }: Props) {
                   className="text-center py-10"
                 >
                   <div className="w-16 h-16 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle2 size={32} className="text-green-400" />
+                    <CheckCircle2 size={32} className="text-green-700" />
                   </div>
-                  <h3 className="font-[family-name:var(--font-display)] text-white/90 font-bold text-xl mb-2">{t.contact.successTitle}</h3>
-                  <p className="text-white/35 mb-8 font-light">{t.contact.successMessage}</p>
+                  <h3 className="font-[family-name:var(--font-display)] text-ink/90 font-bold text-xl mb-2">{t.contact.successTitle}</h3>
+                  <p className="text-ink/65 mb-8 font-light">{t.contact.successMessage}</p>
                   <button
                     onClick={() => setStatus("idle")}
-                    className="px-6 py-2.5 border border-white/10 rounded-xl text-white/50 hover:text-white/80 hover:border-white/20 text-sm transition-all duration-300 cursor-pointer"
+                    className="px-6 py-2.5 border border-ink/10 rounded-xl text-ink/65 hover:text-ink/80 hover:border-ink/20 text-sm transition-all duration-300 cursor-pointer"
                   >
                     {t.contact.sendAnother}
                   </button>
@@ -220,8 +220,8 @@ export default function ContactSection({ globalData, services }: Props) {
                 <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-[0.75rem] font-medium text-white/40 mb-2.5 uppercase tracking-wider">
-                        {t.contact.formLabels.name} <span className="text-amber-500">*</span>
+                      <label className="block text-[0.75rem] font-medium text-ink/65 mb-2.5 uppercase tracking-wider">
+                        {t.contact.formLabels.name} <span className="text-burgundy-500">*</span>
                       </label>
                       <input
                         {...register("name")}
@@ -229,12 +229,12 @@ export default function ContactSection({ globalData, services }: Props) {
                         className={inputClasses(!!errors.name)}
                       />
                       {errors.name && (
-                        <p className="mt-2 text-xs text-red-400/80">{errors.name.message}</p>
+                        <p className="mt-2 text-xs text-red-700">{errors.name.message}</p>
                       )}
                     </div>
                     <div>
-                      <label className="block text-[0.75rem] font-medium text-white/40 mb-2.5 uppercase tracking-wider">
-                        {t.contact.formLabels.email} <span className="text-amber-500">*</span>
+                      <label className="block text-[0.75rem] font-medium text-ink/65 mb-2.5 uppercase tracking-wider">
+                        {t.contact.formLabels.email} <span className="text-burgundy-500">*</span>
                       </label>
                       <input
                         {...register("email")}
@@ -243,14 +243,14 @@ export default function ContactSection({ globalData, services }: Props) {
                         className={inputClasses(!!errors.email)}
                       />
                       {errors.email && (
-                        <p className="mt-2 text-xs text-red-400/80">{errors.email.message}</p>
+                        <p className="mt-2 text-xs text-red-700">{errors.email.message}</p>
                       )}
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-[0.75rem] font-medium text-white/40 mb-2.5 uppercase tracking-wider">
+                      <label className="block text-[0.75rem] font-medium text-ink/65 mb-2.5 uppercase tracking-wider">
                         {t.contact.formLabels.company}
                       </label>
                       <input
@@ -260,7 +260,7 @@ export default function ContactSection({ globalData, services }: Props) {
                       />
                     </div>
                     <div>
-                      <label className="block text-[0.75rem] font-medium text-white/40 mb-2.5 uppercase tracking-wider">
+                      <label className="block text-[0.75rem] font-medium text-ink/65 mb-2.5 uppercase tracking-wider">
                         {t.contact.formLabels.service}
                       </label>
                       <select
@@ -278,8 +278,8 @@ export default function ContactSection({ globalData, services }: Props) {
                   </div>
 
                   <div>
-                    <label className="block text-[0.75rem] font-medium text-white/40 mb-2.5 uppercase tracking-wider">
-                      {t.contact.formLabels.message} <span className="text-amber-500">*</span>
+                    <label className="block text-[0.75rem] font-medium text-ink/65 mb-2.5 uppercase tracking-wider">
+                      {t.contact.formLabels.message} <span className="text-burgundy-500">*</span>
                     </label>
                     <textarea
                       {...register("message")}
@@ -288,12 +288,12 @@ export default function ContactSection({ globalData, services }: Props) {
                       className={`${inputClasses(!!errors.message)} resize-none`}
                     />
                     {errors.message && (
-                      <p className="mt-2 text-xs text-red-400/80">{errors.message.message}</p>
+                      <p className="mt-2 text-xs text-red-700">{errors.message.message}</p>
                     )}
                   </div>
 
                   {status === "error" && (
-                    <div className="flex items-center gap-3 p-4 bg-red-500/[0.06] border border-red-500/20 rounded-xl text-sm text-red-400/80">
+                    <div className="flex items-center gap-3 p-4 bg-red-500/[0.06] border border-red-500/20 rounded-xl text-sm text-red-700">
                       <AlertCircle size={16} />
                       {t.contact.errorMessage}
                     </div>
@@ -302,11 +302,11 @@ export default function ContactSection({ globalData, services }: Props) {
                   <button
                     type="submit"
                     disabled={status === "loading"}
-                    className="w-full flex items-center justify-center gap-2.5 px-6 py-4 bg-amber-500 hover:bg-amber-400 disabled:bg-amber-500/40 disabled:cursor-not-allowed text-navy-900 font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/20 active:scale-[0.98] cursor-pointer text-[0.85rem] uppercase tracking-wider"
+                    className="w-full flex items-center justify-center gap-2.5 px-6 py-4 bg-burgundy-500 hover:bg-burgundy-400 disabled:bg-burgundy-500/40 disabled:cursor-not-allowed text-ivory-100 font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-burgundy-500/20 active:scale-[0.98] cursor-pointer text-[0.85rem] uppercase tracking-wider"
                   >
                     {status === "loading" ? (
                       <>
-                        <div className="w-4 h-4 border-2 border-navy-900/30 border-t-navy-900 rounded-full animate-spin" />
+                        <div className="w-4 h-4 border-2 border-ivory-200/30 border-t-ivory-200 rounded-full animate-spin" />
                         {t.contact.sending}
                       </>
                     ) : (
@@ -317,7 +317,7 @@ export default function ContactSection({ globalData, services }: Props) {
                     )}
                   </button>
 
-                  <p className="text-[0.7rem] text-white/20 text-center font-light">
+                  <p className="text-[0.7rem] text-ink/65 text-center font-light">
                     {t.contact.privacyNotice}
                   </p>
                 </form>

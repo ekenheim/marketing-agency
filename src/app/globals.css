@@ -1,25 +1,26 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy-950: #040810;
-  --color-navy-900: #060B14;
-  --color-navy-800: #0C1524;
-  --color-navy-700: #111D30;
-  --color-navy-600: #1A2940;
-  --color-navy-500: #253754;
-  --color-amber-300: #E8C878;
-  --color-amber-400: #D4B85A;
-  --color-amber-500: #D4A843;
-  --color-amber-600: #B8943F;
-  --color-amber-700: #9A7A33;
-  --color-terra-400: #D97A5A;
-  --color-terra-500: #C4603A;
-  --color-terra-600: #A84E2E;
+  --color-ivory-50: #FAF6EF;
+  --color-ivory-100: #F2EBDD;
+  --color-ivory-200: #EBE1D1;
+  --color-sand-200: #E1D2BD;
+  --color-sand-300: #D1BDA0;
+  --color-sand-400: #B39970;
+  --color-ink: #2D2426;
+  --color-burgundy-300: #8A4053;
+  --color-burgundy-400: #7A3044;
+  --color-burgundy-500: #6D2638;
+  --color-burgundy-600: #5B1F2F;
+  --color-burgundy-700: #491926;
+  --color-rosewood-400: #A36B65;
+  --color-rosewood-500: #8D554F;
+  --color-rosewood-600: #75443F;
 }
 
 :root {
-  --background: #060B14;
-  --foreground: #F0EDE6;
+  --background: #F2EBDD;
+  --foreground: #2D2426;
 }
 
 html {
@@ -35,8 +36,8 @@ body {
 }
 
 ::selection {
-  background-color: rgba(212, 168, 67, 0.25);
-  color: #F0EDE6;
+  background-color: rgba(109, 38, 56, 0.18);
+  color: #2D2426;
 }
 
 ::-webkit-scrollbar {
@@ -44,24 +45,49 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #060B14;
+  background: #F2EBDD;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1A2940;
+  background: #D1BDA0;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D4A843;
+  background: #6D2638;
 }
 
 .editorial-line {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(212, 168, 67, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(109, 38, 56, 0.2), transparent);
 }
 
 *:focus-visible {
-  outline: 2px solid rgba(212, 168, 67, 0.5);
+  outline: 2px solid #6D2638;
   outline-offset: 2px;
+}
+
+/* Shared section rhythm: comfortable space without stacking oversized gaps. */
+.section-spacing {
+  padding-block: 3rem;
+}
+
+@media (min-width: 40rem) {
+  .section-spacing {
+    padding-block: 4.5rem;
+  }
+}
+
+/* Feather the portrait into the hero surface without changing the CMS image. */
+.hero-portrait {
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent),
+    linear-gradient(to bottom, transparent, black 8%, black 82%, transparent);
+  mask-composite: intersect;
+}
+
+@media (min-width: 64rem) {
+  .hero-portrait {
+    mask-image: linear-gradient(to right, transparent, black 20%, black 90%, transparent),
+      linear-gradient(to bottom, transparent, black 8%, black 78%, transparent);
+  }
 }

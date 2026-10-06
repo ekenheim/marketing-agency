@@ -57,7 +57,7 @@ export default function TeamSection({ team, globalData }: Props) {
   const subtitle = globalData?.teamSectionSubtitle ?? t.team.subtitle;
 
   return (
-    <section id="team" className="py-28 bg-navy-900 relative overflow-hidden">
+    <section id="team" className="section-spacing bg-ivory-200 relative overflow-hidden">
 
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
         {/* Header */}
@@ -66,18 +66,18 @@ export default function TeamSection({ team, globalData }: Props) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12"
         >
           {label && (
-            <span className="inline-block text-amber-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em] mb-5">
+            <span className="inline-block text-burgundy-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em] mb-5">
               {label}
             </span>
           )}
-          <h2 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-[3.25rem] font-extrabold text-white/95 mb-5 leading-tight">
+          <h2 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-[3.25rem] font-extrabold text-ink/95 mb-5 leading-tight">
             {title}
-            {titleAccent && <>{" "}<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-300">{titleAccent}</span></>}
+            {titleAccent && <>{" "}<span className="text-transparent bg-clip-text bg-gradient-to-r from-burgundy-400 to-burgundy-300">{titleAccent}</span></>}
           </h2>
-          {subtitle && <p className="text-white/35 text-lg max-w-2xl mx-auto font-light">{subtitle}</p>}
+          {subtitle && <p className="text-ink/65 text-lg max-w-2xl mx-auto font-light">{subtitle}</p>}
         </motion.div>
 
         {/* Grid */}
@@ -95,7 +95,7 @@ export default function TeamSection({ team, globalData }: Props) {
               <motion.div
                 key={member.name + i}
                 variants={cardVariants}
-                className="group bg-navy-800/50 border border-white/[0.04] hover:border-amber-500/20 rounded-2xl p-8 text-center transition-all duration-500 hover:-translate-y-1"
+                className="group bg-ivory-50/50 border border-ink/10 hover:border-burgundy-500/20 rounded-2xl p-8 text-center transition-all duration-500 hover:-translate-y-1"
               >
                 {/* Avatar */}
                 <div className="relative w-24 h-24 mx-auto mb-6">
@@ -104,24 +104,24 @@ export default function TeamSection({ team, globalData }: Props) {
                     <img
                       src={photoUrl}
                       alt={member.name}
-                      className="w-full h-full rounded-full object-cover border-2 border-amber-500/15 group-hover:border-amber-500/40 transition-colors duration-500"
+                      className="w-full h-full rounded-full object-cover border-2 border-burgundy-500/15 group-hover:border-burgundy-500/40 transition-colors duration-500"
                     />
                   ) : (
-                    <div className="w-full h-full rounded-full bg-gradient-to-br from-navy-600 to-navy-700 border-2 border-amber-500/15 group-hover:border-amber-500/40 transition-colors duration-500 flex items-center justify-center">
-                      <User size={36} className="text-white/20" />
+                    <div className="w-full h-full rounded-full bg-gradient-to-br from-sand-300 to-sand-200 border-2 border-burgundy-500/15 group-hover:border-burgundy-500/40 transition-colors duration-500 flex items-center justify-center">
+                      <User size={36} className="text-ink/65" />
                     </div>
                   )}
                   {/* Online dot */}
-                  <div className="absolute bottom-1 right-1 w-3.5 h-3.5 rounded-full bg-amber-500 border-2 border-navy-900" />
+                  <div className="absolute bottom-1 right-1 w-3.5 h-3.5 rounded-full bg-burgundy-500 border-2 border-ivory-200" />
                 </div>
 
                 {/* Info */}
-                <h3 className="font-[family-name:var(--font-display)] text-white/90 font-bold text-lg mb-1">{member.name}</h3>
-                <p className="text-amber-500 text-[0.65rem] font-semibold uppercase tracking-[0.2em] mb-4">
+                <h3 className="font-[family-name:var(--font-display)] text-ink/90 font-bold text-lg mb-1">{member.name}</h3>
+                <p className="text-burgundy-500 text-[0.65rem] font-semibold uppercase tracking-[0.2em] mb-4">
                   {member.role}
                 </p>
                 {member.bio && (
-                  <p className="text-white/30 text-sm leading-relaxed mb-5 font-light">
+                  <p className="text-ink/65 text-sm leading-relaxed mb-5 font-light">
                     {member.bio}
                   </p>
                 )}
@@ -132,7 +132,7 @@ export default function TeamSection({ team, globalData }: Props) {
                     {member.credentials.map((c) => (
                       <span
                         key={c}
-                        className="inline-block px-2.5 py-1 bg-amber-500/[0.06] border border-amber-500/10 rounded-lg text-[0.65rem] text-amber-400"
+                        className="inline-block px-2.5 py-1 bg-burgundy-500/[0.06] border border-burgundy-500/10 rounded-lg text-[0.65rem] text-burgundy-400"
                       >
                         {c}
                       </span>
@@ -146,7 +146,7 @@ export default function TeamSection({ team, globalData }: Props) {
                     {member.specialties.map((s) => (
                       <span
                         key={s}
-                        className="inline-block px-2.5 py-1 bg-white/[0.03] rounded-lg text-[0.65rem] text-white/30"
+                        className="inline-block px-2.5 py-1 bg-ink/[0.03] rounded-lg text-[0.65rem] text-ink/65"
                       >
                         {s}
                       </span>
@@ -160,7 +160,7 @@ export default function TeamSection({ team, globalData }: Props) {
                     href={member.linkedIn}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-[0.7rem] text-white/25 hover:text-amber-400 transition-colors duration-300"
+                    className="inline-flex items-center gap-1.5 text-[0.7rem] text-ink/65 hover:text-burgundy-400 transition-colors duration-300"
                   >
                     <Linkedin size={13} />
                     LinkedIn

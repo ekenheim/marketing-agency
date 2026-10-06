@@ -43,8 +43,8 @@ const steps = [
 
 export default function MethodologySection() {
   return (
-    <section className="bg-navy-950 py-28 relative">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+    <section className="bg-ivory-100 section-spacing relative">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-burgundy-500/10 to-transparent" />
 
       <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8 lg:px-10">
         <motion.div
@@ -54,12 +54,12 @@ export default function MethodologySection() {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <span className="text-amber-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em]">
+          <span className="text-burgundy-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em]">
             How we work
           </span>
-          <h2 className="mt-5 font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-[3.25rem] font-extrabold text-white/95 leading-tight">
+          <h2 className="mt-5 font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-[3.25rem] font-extrabold text-ink/95 leading-tight">
             Four steps,{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-300">no mystery</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-burgundy-400 to-burgundy-300">no mystery</span>
           </h2>
         </motion.div>
 
@@ -68,22 +68,22 @@ export default function MethodologySection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-5"
+          className="mt-10 sm:mt-12 grid grid-cols-1 md:grid-cols-2 gap-5"
         >
           {steps.map((step) => (
             <motion.div
               key={step.number}
               variants={cardVariants}
               transition={{ duration: 0.6 }}
-              className="bg-navy-800/50 border border-white/[0.04] rounded-2xl p-8 relative overflow-hidden group hover:border-amber-500/15 transition-all duration-500"
+              className="bg-ivory-50/50 border border-ink/10 rounded-2xl p-8 relative overflow-hidden group hover:border-burgundy-500/15 transition-all duration-500"
             >
-              <span className="font-[family-name:var(--font-display)] text-6xl font-extrabold text-amber-500/[0.06] absolute top-4 right-6 group-hover:text-amber-500/[0.1] transition-colors duration-500">
+              <span className="font-[family-name:var(--font-display)] text-6xl font-extrabold text-burgundy-500/[0.06] absolute top-4 right-6 group-hover:text-burgundy-500/[0.1] transition-colors duration-500">
                 {step.number}
               </span>
-              <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-white/90 mb-3">
+              <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-ink/90 mb-3">
                 {step.title}
               </h3>
-              <p className="text-white/35 font-light leading-relaxed">{step.description}</p>
+              <p className="text-ink/65 font-light leading-relaxed">{step.description}</p>
             </motion.div>
           ))}
         </motion.div>

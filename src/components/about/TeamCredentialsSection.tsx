@@ -41,7 +41,7 @@ const founders = [
 
 export default function TeamCredentialsSection() {
   return (
-    <section className="bg-navy-900 py-28 relative">
+    <section className="bg-ivory-200 section-spacing relative">
 
       <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8 lg:px-10">
         <motion.div
@@ -51,12 +51,12 @@ export default function TeamCredentialsSection() {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <span className="text-amber-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em]">
+          <span className="text-burgundy-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em]">
             The founders
           </span>
-          <h2 className="mt-5 font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-[3.25rem] font-extrabold text-white/95 leading-tight">
+          <h2 className="mt-5 font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-[3.25rem] font-extrabold text-ink/95 leading-tight">
             Built by practitioners,{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-300">not theorists</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-burgundy-400 to-burgundy-300">not theorists</span>
           </h2>
         </motion.div>
 
@@ -65,37 +65,37 @@ export default function TeamCredentialsSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-5"
+          className="mt-10 sm:mt-12 grid grid-cols-1 md:grid-cols-3 gap-5"
         >
           {founders.map((founder) => (
             <motion.div
               key={founder.name}
               variants={cardVariants}
               transition={{ duration: 0.6 }}
-              className="bg-navy-800/50 border border-white/[0.04] rounded-2xl p-8"
+              className="bg-ivory-50/50 border border-ink/10 rounded-2xl p-8"
             >
               <div className="flex items-center gap-4 mb-6">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy-700 border border-white/[0.06]">
-                  <User className="h-6 w-6 text-amber-500" />
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sand-200 border border-ink/15">
+                  <User className="h-6 w-6 text-burgundy-500" />
                 </div>
                 <div>
-                  <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-white/90">
+                  <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-ink/90">
                     {founder.name}
                   </h3>
-                  <p className="text-amber-500 text-[0.7rem] font-medium uppercase tracking-wider">
+                  <p className="text-burgundy-500 text-[0.7rem] font-medium uppercase tracking-wider">
                     {founder.role}
                   </p>
                 </div>
               </div>
 
-              <p className="text-white/35 font-light leading-relaxed mb-5">{founder.description}</p>
+              <p className="text-ink/65 font-light leading-relaxed mb-5">{founder.description}</p>
 
               {founder.credentials.length > 0 && (
                 <div className="flex flex-wrap gap-2">
                   {founder.credentials.map((cred) => (
                     <span
                       key={cred}
-                      className="bg-amber-500/[0.06] border border-amber-500/10 rounded-lg text-[0.7rem] text-amber-400 px-2.5 py-1"
+                      className="bg-burgundy-500/[0.06] border border-burgundy-500/10 rounded-lg text-[0.7rem] text-burgundy-400 px-2.5 py-1"
                     >
                       {cred}
                     </span>
