@@ -24,9 +24,9 @@ export default function ClientLogosSection({ brands }: Props) {
   if (!brands || brands.length === 0) return null;
 
   return (
-    <section className="py-10 sm:py-12 bg-navy-900 border-y border-white/[0.04]">
+    <section className="py-10 sm:py-12 bg-ivory-200 border-y border-ink/10">
       <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
-        <p className="text-white/20 text-[0.65rem] uppercase tracking-[0.25em] text-center mb-6 sm:mb-8 font-medium">
+        <p className="text-ink/65 text-[0.65rem] uppercase tracking-[0.25em] text-center mb-6 sm:mb-8 font-medium">
           {t.logos.label}
         </p>
         <motion.div
@@ -40,7 +40,7 @@ export default function ClientLogosSection({ brands }: Props) {
             <motion.span
               key={brand.id ?? brand.name}
               variants={itemVariants}
-              className="font-[family-name:var(--font-display)] text-white/15 text-xl font-bold tracking-wide hover:text-amber-500/30 transition-all duration-500 cursor-default"
+              className="font-[family-name:var(--font-display)] text-ink/65 text-xl font-bold tracking-wide hover:text-burgundy-500 transition-all duration-500 cursor-default"
             >
               {brand.name}
             </motion.span>

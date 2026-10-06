@@ -16,8 +16,8 @@ const cardVariants: Variants = {
 
 export default function AboutHeroSection() {
   return (
-    <section className="bg-navy-900 section-spacing relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/10 to-transparent" />
+    <section className="bg-ivory-200 section-spacing relative overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-burgundy-500/10 to-transparent" />
 
       <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8 lg:px-10">
         <motion.div
@@ -27,14 +27,14 @@ export default function AboutHeroSection() {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <span className="text-amber-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em]">
+          <span className="text-burgundy-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em]">
             Who we are
           </span>
-          <h1 className="mt-5 font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-[3.25rem] font-extrabold text-white/95 leading-tight">
+          <h1 className="mt-5 font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-[3.25rem] font-extrabold text-ink/95 leading-tight">
             Nordic precision.{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-300">Moroccan ambition.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-burgundy-400 to-burgundy-300">Moroccan ambition.</span>
           </h1>
-          <p className="mt-7 text-white/35 text-lg max-w-3xl mx-auto font-light leading-relaxed">
+          <p className="mt-7 text-ink/65 text-lg max-w-3xl mx-auto font-light leading-relaxed">
             We started Digitomara because we thought Moroccan brands deserved
             the same performance-first approach we used to grow some of
             Scandinavia&apos;s biggest digital companies. So we brought it here.
@@ -51,10 +51,10 @@ export default function AboutHeroSection() {
           <motion.div
             variants={cardVariants}
             transition={{ duration: 0.6 }}
-            className="bg-navy-800/50 border border-white/[0.04] rounded-2xl p-8"
+            className="bg-ivory-50/50 border border-ink/10 rounded-2xl p-8"
           >
-            <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-white/90 mb-3">Mission</h3>
-            <p className="text-white/35 font-light leading-relaxed">
+            <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-ink/90 mb-3">Mission</h3>
+            <p className="text-ink/65 font-light leading-relaxed">
               Help Moroccan businesses grow online with performance marketing,
               proper analytics, and CRM that actually gets used.
             </p>
@@ -63,10 +63,10 @@ export default function AboutHeroSection() {
           <motion.div
             variants={cardVariants}
             transition={{ duration: 0.6 }}
-            className="bg-navy-800/50 border border-white/[0.04] rounded-2xl p-8"
+            className="bg-ivory-50/50 border border-ink/10 rounded-2xl p-8"
           >
-            <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-white/90 mb-3">Vision</h3>
-            <p className="text-white/35 font-light leading-relaxed">
+            <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-ink/90 mb-3">Vision</h3>
+            <p className="text-ink/65 font-light leading-relaxed">
               Be the agency Moroccan brands call when they want results, not
               slide decks.
             </p>

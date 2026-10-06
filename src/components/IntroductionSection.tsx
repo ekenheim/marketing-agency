@@ -16,9 +16,9 @@ export default function IntroductionSection({ data }: { data: IntroductionData |
   }
 
   return (
-    <section id="introduction" aria-labelledby="introduction-title" className="bg-navy-950 section-spacing">
+    <section id="introduction" aria-labelledby="introduction-title" className="bg-ivory-100 section-spacing">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-        <div className="mb-8 h-px bg-amber-500/25 sm:mb-10" />
+        <div className="mb-8 h-px bg-burgundy-500/25 sm:mb-10" />
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -28,7 +28,7 @@ export default function IntroductionSection({ data }: { data: IntroductionData |
         >
           {data.image?.url && (
             <figure className="min-w-0">
-              <div className="aspect-[4/5] overflow-hidden bg-navy-800">
+              <div className="aspect-[4/5] overflow-hidden bg-ivory-50">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={data.image.url}
@@ -40,36 +40,36 @@ export default function IntroductionSection({ data }: { data: IntroductionData |
                 />
               </div>
               {(data.name || data.role) && (
-                <figcaption className="mt-5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-t border-white/10 pt-4 text-sm break-words">
-                  {data.name && <span className="font-semibold text-white/90">{data.name}</span>}
-                  {data.role && <span className="text-white/60">{data.role}</span>}
+                <figcaption className="mt-5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-t border-ink/10 pt-4 text-sm break-words">
+                  {data.name && <span className="font-semibold text-ink/90">{data.name}</span>}
+                  {data.role && <span className="text-ink/65">{data.role}</span>}
                 </figcaption>
               )}
             </figure>
           )}
           <div className="min-w-0 self-center break-words">
             {data.label && (
-              <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-amber-400">{data.label}</p>
+              <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-burgundy-400">{data.label}</p>
             )}
-            <h2 id="introduction-title" className="mb-7 font-[family-name:var(--font-display)] text-3xl leading-[1.1] font-extrabold tracking-tight text-white/95 sm:text-4xl lg:text-5xl">
+            <h2 id="introduction-title" className="mb-7 font-[family-name:var(--font-display)] text-3xl leading-[1.1] font-extrabold tracking-tight text-ink/95 sm:text-4xl lg:text-5xl">
               {headline}
             </h2>
-            {introduction && <p className="whitespace-pre-line text-lg leading-relaxed font-light text-white/75">{introduction}</p>}
+            {introduction && <p className="whitespace-pre-line text-lg leading-relaxed font-light text-ink/75">{introduction}</p>}
             {whyText && (
-              <div className="mt-8 border-l-2 border-amber-500/60 pl-5 sm:pl-6">
-                {data.whyTitle && <h3 className="mb-3 font-[family-name:var(--font-display)] text-xl font-semibold text-amber-300">{data.whyTitle}</h3>}
-                <p className="whitespace-pre-line text-base leading-relaxed text-white/65">{whyText}</p>
+              <div className="mt-8 border-l-2 border-burgundy-500/60 pl-5 sm:pl-6">
+                {data.whyTitle && <h3 className="mb-3 font-[family-name:var(--font-display)] text-xl font-semibold text-burgundy-300">{data.whyTitle}</h3>}
+                <p className="whitespace-pre-line text-base leading-relaxed text-ink/65">{whyText}</p>
               </div>
             )}
             {!data.image?.url && (data.name || data.role) && (
-              <p className="mt-8 text-sm text-white/65">
-                {data.name && <span className="font-semibold text-white/90">{data.name}</span>}
+              <p className="mt-8 text-sm text-ink/65">
+                {data.name && <span className="font-semibold text-ink/90">{data.name}</span>}
                 {data.name && data.role && " · "}
                 {data.role}
               </p>
             )}
             {data.contactLabel?.trim() && (
-              <a href="#contact" className="mt-8 inline-flex min-h-11 items-center gap-3 border-b border-amber-500/50 py-2 text-sm font-semibold text-amber-400 transition-colors hover:text-amber-300">
+              <a href="#contact" className="mt-8 inline-flex min-h-11 items-center gap-3 border-b border-burgundy-500/50 py-2 text-sm font-semibold text-burgundy-400 transition-colors hover:text-burgundy-300">
                 {data.contactLabel}<ArrowUpRight size={18} aria-hidden="true" />
               </a>
             )}

@@ -266,3 +266,18 @@ cannot leave cards transparent.
 
 Cache regression checks (Node 22.6+):
 `node --experimental-strip-types --test tests/content-cache.test.mjs`.
+
+## Homepage images
+
+- **Content Manager → Single Types → Hero → backgroundMedia** controls the image
+  beside the homepage headline. Despite its existing field name, it is displayed
+  as a separate portrait panel, not behind the text. Choose an image, add useful
+  alternative text in the Media Library, then save and publish in each language.
+  A portrait works well; images are cropped to fill the panel. On phones the
+  portrait stays to the right of the headline, with the description and buttons
+  below both columns. Video remains
+  supported with playback controls. Without media, the hero uses the full width.
+- **Content Manager → Single Types → Introduction** controls the separate image
+  and introduction section. Enable it, fill in `headline` plus `introduction`
+  and/or `whyText`, add `image`, and publish. An empty or unpublished entry is
+  deliberately hidden. Select English or French using the locale menu.

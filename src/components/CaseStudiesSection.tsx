@@ -44,9 +44,9 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
         }));
 
   return (
-    <section id="case-studies" className="section-spacing bg-navy-950 relative overflow-hidden">
+    <section id="case-studies" className="section-spacing bg-ivory-100 relative overflow-hidden">
       {/* Diagonal accent */}
-      <div className="absolute top-0 left-[15%] w-px h-full bg-gradient-to-b from-transparent via-white/[0.03] to-transparent" />
+      <div className="absolute top-0 left-[15%] w-px h-full bg-gradient-to-b from-transparent via-ink/[0.03] to-transparent" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
         {/* Header */}
@@ -58,12 +58,12 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
           className="flex flex-col sm:flex-row sm:items-end justify-between gap-8 mb-10 sm:mb-12"
         >
           <div>
-            <span className="inline-block text-amber-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em] mb-5">
+            <span className="inline-block text-burgundy-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em] mb-5">
               {t.caseStudies.label}
             </span>
-            <h2 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-[3.25rem] font-extrabold text-white/95 leading-tight">
+            <h2 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-[3.25rem] font-extrabold text-ink/95 leading-tight">
               {t.caseStudies.title}{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-300">{t.caseStudies.titleAccent}</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-burgundy-400 to-burgundy-300">{t.caseStudies.titleAccent}</span>
             </h2>
           </div>
           <div className="flex flex-col items-start sm:items-end gap-4">
@@ -72,7 +72,7 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
                 const el = document.querySelector("#contact");
                 if (el) el.scrollIntoView({ behavior: "smooth" });
               }}
-              className="group flex items-center gap-3 px-7 py-3.5 bg-amber-500 hover:bg-amber-400 text-navy-900 font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/20 active:scale-95 text-[0.8rem] uppercase tracking-wider cursor-pointer whitespace-nowrap"
+              className="group flex items-center gap-3 px-7 py-3.5 bg-burgundy-500 hover:bg-burgundy-400 text-ivory-100 font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-burgundy-500/20 active:scale-95 text-[0.8rem] uppercase tracking-wider cursor-pointer whitespace-nowrap"
             >
               {t.caseStudies.ctaLabel}
               <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-300" />
@@ -100,10 +100,10 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
                   const el = document.querySelector("#contact");
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="group relative bg-navy-800/50 border border-white/[0.04] hover:border-amber-500/20 rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-2 cursor-pointer"
+                className="group relative bg-ivory-50/50 border border-ink/10 hover:border-burgundy-500/20 rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-2 cursor-pointer"
               >
                 {/* Cover image / placeholder */}
-                <div className="relative h-52 bg-gradient-to-br from-navy-700 to-navy-800 overflow-hidden">
+                <div className="relative h-52 bg-gradient-to-br from-sand-200 to-ivory-50 overflow-hidden">
                   {coverUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -114,24 +114,24 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="text-center relative z-10">
-                        <div className="text-[0.65rem] font-semibold text-white/10 uppercase tracking-[0.3em]">
+                        <div className="text-[0.65rem] font-semibold text-ink/65 uppercase tracking-[0.3em]">
                           {cs.industry}
                         </div>
-                        <div className="font-[family-name:var(--font-display)] text-amber-500/20 text-6xl font-extrabold mt-2">
+                        <div className="font-[family-name:var(--font-display)] text-burgundy-500/20 text-6xl font-extrabold mt-2">
                           {cs.results?.[0]?.value}
                         </div>
                       </div>
                     </div>
                   )}
                   {/* Overlay on hover */}
-                  <div className="absolute inset-0 bg-navy-950/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-sm">
-                    <div className="flex items-center gap-2 text-amber-400 font-medium text-sm tracking-wide">
+                  <div className="absolute inset-0 bg-ivory-100/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-sm">
+                    <div className="flex items-center gap-2 text-burgundy-400 font-medium text-sm tracking-wide">
                       {t.caseStudies.viewCaseStudy} <ArrowUpRight size={15} />
                     </div>
                   </div>
                   {/* Industry badge */}
                   {cs.industry && (
-                    <div className="absolute top-3 left-3 px-3 py-1.5 bg-navy-900/80 backdrop-blur-sm rounded-lg text-[0.65rem] text-white/50 font-medium uppercase tracking-wider">
+                    <div className="absolute top-3 left-3 px-3 py-1.5 bg-ivory-200/80 backdrop-blur-sm rounded-lg text-[0.65rem] text-ink/65 font-medium uppercase tracking-wider">
                       {cs.industry}
                     </div>
                   )}
@@ -139,15 +139,15 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
 
                 {/* Content */}
                 <div className="p-7">
-                  <div className="text-[0.65rem] text-amber-500 font-semibold uppercase tracking-[0.2em] mb-2">
+                  <div className="text-[0.65rem] text-burgundy-500 font-semibold uppercase tracking-[0.2em] mb-2">
                     {cs.client}
                   </div>
-                  <h3 className="font-[family-name:var(--font-display)] text-white/90 font-bold text-base leading-snug mb-4">
+                  <h3 className="font-[family-name:var(--font-display)] text-ink/90 font-bold text-base leading-snug mb-4">
                     {cs.title}
                   </h3>
 
                   {cs.summary && (
-                    <p className="text-white/30 text-sm leading-relaxed mb-5 line-clamp-3 font-light">
+                    <p className="text-ink/65 text-sm leading-relaxed mb-5 line-clamp-3 font-light">
                       {cs.summary}
                     </p>
                   )}
@@ -158,12 +158,12 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
                       {cs.results.slice(0, 3).map((r) => (
                         <div
                           key={r.id}
-                          className="flex flex-col px-3.5 py-2.5 bg-amber-500/[0.05] border border-amber-500/10 rounded-xl"
+                          className="flex flex-col px-3.5 py-2.5 bg-burgundy-500/[0.05] border border-burgundy-500/10 rounded-xl"
                         >
-                          <span className="font-[family-name:var(--font-display)] text-amber-400 font-extrabold text-base leading-none">
+                          <span className="font-[family-name:var(--font-display)] text-burgundy-400 font-extrabold text-base leading-none">
                             {r.value}
                           </span>
-                          <span className="text-white/30 text-[0.65rem] mt-1 font-medium">{r.label}</span>
+                          <span className="text-ink/65 text-[0.65rem] mt-1 font-medium">{r.label}</span>
                         </div>
                       ))}
                     </div>
@@ -175,7 +175,7 @@ export default function CaseStudiesSection({ caseStudies }: Props) {
                       {tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className="inline-flex items-center gap-1 px-2.5 py-1 bg-white/[0.03] rounded-lg text-[0.65rem] text-white/30 font-medium"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 bg-ink/[0.03] rounded-lg text-[0.65rem] text-ink/65 font-medium"
                         >
                           <Tag size={9} />
                           {tag}

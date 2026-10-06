@@ -44,7 +44,7 @@ const values = [
 
 export default function ValuesSection() {
   return (
-    <section className="bg-navy-900 section-spacing relative">
+    <section className="bg-ivory-200 section-spacing relative">
 
       <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8 lg:px-10">
         <motion.div
@@ -54,12 +54,12 @@ export default function ValuesSection() {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <span className="text-amber-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em]">
+          <span className="text-burgundy-500 text-[0.7rem] font-semibold uppercase tracking-[0.25em]">
             What we stand for
           </span>
-          <h2 className="mt-5 font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-[3.25rem] font-extrabold text-white/95 leading-tight">
+          <h2 className="mt-5 font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-[3.25rem] font-extrabold text-ink/95 leading-tight">
             How we{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-300">actually operate</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-burgundy-400 to-burgundy-300">actually operate</span>
           </h2>
         </motion.div>
 
@@ -75,13 +75,13 @@ export default function ValuesSection() {
               key={value.title}
               variants={cardVariants}
               transition={{ duration: 0.6 }}
-              className="bg-navy-800/50 border border-white/[0.04] hover:border-amber-500/15 rounded-2xl p-8 transition-all duration-500"
+              className="bg-ivory-50/50 border border-ink/10 hover:border-burgundy-500/15 rounded-2xl p-8 transition-all duration-500"
             >
-              <value.icon className="h-8 w-8 text-amber-500 mb-5" />
-              <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-white/90 mb-3">
+              <value.icon className="h-8 w-8 text-burgundy-500 mb-5" />
+              <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-ink/90 mb-3">
                 {value.title}
               </h3>
-              <p className="text-white/35 font-light leading-relaxed">{value.description}</p>
+              <p className="text-ink/65 font-light leading-relaxed">{value.description}</p>
             </motion.div>
           ))}
         </motion.div>
