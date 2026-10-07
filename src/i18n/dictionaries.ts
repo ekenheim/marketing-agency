@@ -138,9 +138,10 @@ const en: Dictionary = {
     secondaryCta: "Get a Free Audit",
     scroll: "Scroll",
     stats: [
-      { value: "3×", label: "Average lead growth" },
-      { value: "50+", label: "Moroccan brands served" },
-      { value: "−42%", label: "Avg. cost per lead" },
+      { value: "", label: "Senior-level expertise" },
+      { value: "", label: "Cross-market thinking" },
+      { value: "", label: "Flexible team when needed" },
+      { value: "", label: "Strategy to execution" },
     ],
   },
   services: {
@@ -336,9 +337,10 @@ const fr: Dictionary = {
     secondaryCta: "Audit gratuit",
     scroll: "Défiler",
     stats: [
-      { value: "3×", label: "Croissance moyenne des leads" },
-      { value: "50+", label: "Marques marocaines servies" },
-      { value: "−42%", label: "Coût par lead moyen" },
+      { value: "", label: "Expertise senior" },
+      { value: "", label: "Vision internationale" },
+      { value: "", label: "Équipe flexible selon vos besoins" },
+      { value: "", label: "De la stratégie à l’exécution" },
     ],
   },
   services: {

@@ -281,3 +281,30 @@ Cache regression checks (Node 22.6+):
   and introduction section. Enable it, fill in `headline` plus `introduction`
   and/or `whyText`, add `image`, and publish. An empty or unpublished entry is
   deliberately hidden. Select English or French using the locale menu.
+
+## Hero expertise strip
+
+Edit **Content Manager → Hero → stats** to change the items in the strip beneath
+the hero. Each entry uses `label` for its text and `icon` for a Lucide icon name
+(e.g. `Award`, `Globe2`, `Users`, `Gem`). `value` is no longer displayed. Keep
+labels short: four items fit on one row on desktop, with two columns on mobile.
+Save and publish the English/French entries separately.
+
+## About Us page
+
+**Content Manager → Single Types → About Us** (`about-page`) is the editor.
+It supports English and French with draft/publish, and these localized fields:
+`title` (required short text), `description` (long text), `content` (Rich text
+Blocks), and `enabled` (boolean, default false).
+
+Keep `enabled` false while rewriting. The page is excluded from desktop/mobile
+navigation and the footer and returns not found at `/about` until an enabled entry
+with a title is published for the current locale. Unpublishing hides it again.
+Headings, paragraphs, links, lists, quotes, and inline formatting are supported.
+The former hardcoded About components remain in the repository as migration
+reference; they are no longer rendered as fallback content.
+
+The website API token needs read (`find`) access to `api::about-page.about-page`.
+Schema creation does not automatically expand an existing custom token. Configure
+that read permission in Strapi before enabling the page. Do not grant write access.
+Navigation reads stream separately so CMS downtime does not block the other links.

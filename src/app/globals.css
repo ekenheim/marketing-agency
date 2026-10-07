@@ -91,3 +91,14 @@ body {
       linear-gradient(to bottom, transparent, black 8%, black 78%, transparent);
   }
 }
+
+/* Two readable columns on phones; one uninterrupted row on desktop. */
+.hero-pillar:nth-child(even) { padding-left: 1rem; border-left: 1px solid rgb(109 38 56 / 20%); }
+.hero-pillar:nth-child(odd) { padding-right: 1rem; }
+.hero-pillar:nth-child(n + 3) { border-top: 1px solid rgb(109 38 56 / 15%); }
+@media (min-width: 64rem) {
+  .hero-pillar:nth-child(n) { padding-inline: 1.25rem; border: 0; }
+  .hero-pillar:first-child { padding-left: 0; }
+  .hero-pillar:last-child { padding-right: 0; }
+  .hero-pillar + .hero-pillar { border-left: 1px solid rgb(109 38 56 / 25%); }
+}

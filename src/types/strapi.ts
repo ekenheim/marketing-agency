@@ -183,3 +183,25 @@ export interface ContactSubmission {
   message: string;
   service?: string;
 }
+
+export interface AboutBlock {
+  type: string;
+  image?: StrapiMedia;
+  text?: string;
+  bold?: boolean;
+  italic?: boolean;
+  underline?: boolean;
+  strikethrough?: boolean;
+  code?: boolean;
+  level?: number;
+  format?: string;
+  url?: string;
+  children?: AboutBlock[];
+}
+
+export interface AboutPageData {
+  enabled?: boolean | null;
+  title?: string | null;
+  description?: string | null;
+  content?: AboutBlock[] | null;
+}

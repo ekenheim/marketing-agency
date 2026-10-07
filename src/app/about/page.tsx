@@ -4,11 +4,9 @@ import { strapiGet } from "@/lib/strapi";
 import { getLocale } from "@/i18n/getLocale";
 import type { StrapiResponse, GlobalData } from "@/types/strapi";
 import Header from "@/components/Header";
-import AboutHeroSection from "@/components/about/AboutHeroSection";
-import NordicEdgeSection from "@/components/about/NordicEdgeSection";
-import TeamCredentialsSection from "@/components/about/TeamCredentialsSection";
-import MethodologySection from "@/components/about/MethodologySection";
-import ValuesSection from "@/components/about/ValuesSection";
+import { notFound } from "next/navigation";
+import { getAboutPage, isAboutVisible } from "@/lib/about";
+import AboutContent from "@/components/about/AboutContent";
 import Footer from "@/components/Footer";
 
 function resolveUrl(url: string | null | undefined): string {
@@ -33,25 +31,22 @@ async function fetchGlobal(locale: string) {
   }
 }
 
-export const metadata = {
-  title: "About Us",
-  description:
-    "Digitomara brings Nordic performance standards to the Moroccan market. Meet the team behind data-driven digital growth.",
-};
+export async function generateMetadata() {
+  const page = await getAboutPage(await getLocale());
+  return isAboutVisible(page)
+    ? { title: page?.title, description: page?.description ?? undefined }
+    : { title: "Page not found", robots: { index: false, follow: false } };
+}
 
 export default async function AboutPage() {
   const locale = await getLocale();
+  const page = await getAboutPage(locale);
+  if (!page || !isAboutVisible(page)) notFound();
   const globalData = await fetchGlobal(locale);
   return (
     <main>
       <Header />
-      <div className="pt-24">
-        <AboutHeroSection />
-        <NordicEdgeSection />
-        <TeamCredentialsSection />
-        <MethodologySection />
-        <ValuesSection />
-      </div>
+      <AboutContent page={page} mediaBase={process.env.STRAPI_PUBLIC_URL ?? ""} />
       <Footer globalData={globalData} />
     </main>
   );
