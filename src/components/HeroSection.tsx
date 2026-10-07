@@ -1,21 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, TrendingUp, Users, BarChart2 } from "lucide-react";
+import { ArrowRight, Award, Globe2, Users, Gem } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import type { LucideProps } from "lucide-react";
-import type { HeroData, StatData } from "@/types/strapi";
+import type { HeroData } from "@/types/strapi";
 import { useLocale } from "@/i18n/useLocale";
 
-const FALLBACK_STAT_ICONS = [TrendingUp, Users, BarChart2];
+const FALLBACK_STAT_ICONS = [Award, Globe2, Users, Gem];
 
 type IconComponent = React.ComponentType<LucideProps>;
 
-function StatIcon({ name }: { name?: string }) {
-  if (!name) return <TrendingUp size={18} className="text-burgundy-400" />;
-  const Icon = (LucideIcons as unknown as Record<string, IconComponent>)[name];
-  if (!Icon) return <TrendingUp size={18} className="text-burgundy-400" />;
-  return <Icon size={18} className="text-burgundy-400" />;
+function StatIcon({ name, index }: { name?: string; index: number }) {
+  const Icon = (name && (LucideIcons as unknown as Record<string, IconComponent>)[name.trim()])
+    || FALLBACK_STAT_ICONS[index % FALLBACK_STAT_ICONS.length];
+  return <Icon aria-hidden="true" strokeWidth={1.4} className="h-6 w-6 shrink-0 text-burgundy-500 sm:h-7 sm:w-7" />;
 }
 
 interface Props {
@@ -32,6 +31,7 @@ export default function HeroSection({ data }: Props) {
     primaryCta: { label: t.hero.primaryCta, url: "#contact", variant: "primary" as const },
     secondaryCta: { label: t.hero.secondaryCta, url: "#services", variant: "secondary" as const },
   };
+  const pillars: { label: string; icon?: string }[] = (data?.stats?.length ? data.stats : t.hero.stats).filter((stat) => stat.label?.trim());
   const media = data?.backgroundMedia;
   const mediaUrl = media?.url;
   const isVideo = /\.(mp4|webm)(?:[?#]|$)/i.test(mediaUrl ?? "");
@@ -48,7 +48,7 @@ export default function HeroSection({ data }: Props) {
   return (
     <section
       id="hero"
-      className="relative min-h-[36rem] flex items-center overflow-hidden bg-ivory-100"
+      className="relative min-h-[36rem] overflow-hidden bg-ivory-100"
     >
       <div className="w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pt-28 sm:pt-32 pb-12 sm:pb-16">
         <div className={mediaUrl ? "grid grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-center gap-x-4 gap-y-6 sm:gap-x-8 lg:grid-cols-2 lg:gap-x-12 lg:gap-y-8" : "max-w-5xl"}>
@@ -154,41 +154,19 @@ export default function HeroSection({ data }: Props) {
           )}
         </div>
 
-          {/* Stats — editorial layout with dividers */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 1 }}
-            className="mt-10 sm:mt-12 pt-8 border-t border-burgundy-500/20 grid grid-cols-2 sm:flex sm:flex-wrap gap-y-6 gap-x-4 sm:gap-x-0"
-          >
-            {data?.stats && data.stats.length > 0
-              ? data.stats.map((stat: StatData, i: number) => (
-                  <div key={stat.id} className={`flex items-center gap-3 sm:gap-4 sm:pr-10 md:pr-12 ${i > 0 ? "sm:pl-10 md:pl-12 sm:border-l sm:border-ink/15" : ""}`}>
-                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-burgundy-500/[0.08] border border-burgundy-500/15 flex items-center justify-center flex-shrink-0">
-                      <StatIcon name={stat.icon} />
-                    </div>
-                    <div>
-                      <div className="font-[family-name:var(--font-display)] text-xl sm:text-2xl md:text-3xl font-extrabold text-ink">{stat.value}</div>
-                      <div className="text-[0.6rem] sm:text-[0.7rem] text-ink/65 font-medium uppercase tracking-wider">{stat.label}</div>
-                    </div>
-                  </div>
-                ))
-              : t.hero.stats.map((stat, i) => (
-                  <div key={i} className={`flex items-center gap-3 sm:gap-4 sm:pr-10 md:pr-12 ${i > 0 ? "sm:pl-10 md:pl-12 sm:border-l sm:border-ink/15" : ""}`}>
-                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-burgundy-500/[0.08] border border-burgundy-500/15 flex items-center justify-center flex-shrink-0">
-                      {(() => {
-                        const Icon = FALLBACK_STAT_ICONS[i] ?? TrendingUp;
-                        return <Icon size={18} className="text-burgundy-400" />;
-                      })()}
-                    </div>
-                    <div>
-                      <div className="font-[family-name:var(--font-display)] text-xl sm:text-2xl md:text-3xl font-extrabold text-ink">{stat.value}</div>
-                      <div className="text-[0.6rem] sm:text-[0.7rem] text-ink/65 font-medium uppercase tracking-wider">{stat.label}</div>
-                    </div>
-                  </div>
-                ))}
-          </motion.div>
       </div>
+      {pillars.length > 0 && (
+        <div className="border-y border-burgundy-500/15 bg-ivory-50/70">
+          <ul className="hero-pillars mx-auto grid max-w-7xl grid-cols-2 px-5 sm:px-8 lg:flex lg:items-center lg:justify-between lg:px-10">
+            {pillars.map((pillar, index) => (
+              <li key={index} className="hero-pillar flex min-w-0 items-center gap-3 py-5 sm:py-7 lg:gap-3">
+                <StatIcon name={pillar.icon} index={index} />
+                <span className="text-[0.65rem] leading-relaxed font-medium uppercase tracking-[0.08em] text-ink sm:text-xs lg:whitespace-nowrap lg:text-[0.65rem] xl:text-xs">{pillar.label}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
     </section>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "@/components/Header";
+import Header from "@/components/HeaderClient";
 import { useLocale } from "@/i18n/useLocale";
 
 export default function Loading() {
