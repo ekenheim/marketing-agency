@@ -6,7 +6,9 @@ ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci
+# The build needs devDependencies (Tailwind, TypeScript), which NODE_ENV=production
+# would otherwise leave out.
+RUN npm ci --include=dev
 
 COPY . .
 
