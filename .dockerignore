@@ -1,0 +1,5 @@
+# The image installs its own dependencies for Alpine (musl). A host
+# node_modules copied over them brings the wrong native binaries.
+node_modules
+.next
+.git

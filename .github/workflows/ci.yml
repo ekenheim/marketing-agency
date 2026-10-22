@@ -34,3 +34,15 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  # The release builds this image on Alpine, where native packages differ
+  # from the runner's, so a green `npm run build` above doesn't prove it.
+  image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build image
+        run: docker build .
