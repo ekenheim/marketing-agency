@@ -4,6 +4,12 @@
     "local>ekenheim/renovate-config",
     "docker:pinDigests"
   ],
+  "description": [
+    "Renovate's own npm is held on v11. npm 12 refuses 'remote' fetches by default (allow-remote) and wrongly counts registry tarballs of packages with bundleDependencies as remote (npm/cli#9800), so every lockfile update here died on @tailwindcss/oxide-wasm32-wasi with EALLOWREMOTE. Drop the constraint once that bug is fixed. CI and the Dockerfile use the npm that ships with their Node and are unaffected."
+  ],
+  "constraints": {
+    "npm": "^11"
+  },
   "platformAutomerge": false,
   "lockFileMaintenance": {
     "enabled": true,
