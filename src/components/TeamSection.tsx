@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { Linkedin, User } from "lucide-react";
+import { User } from "lucide-react";
+import { Linkedin } from "@/components/BrandIcons";
 import type { TeamMemberData, GlobalData } from "@/types/strapi";
 import { useLocale } from "@/i18n/useLocale";
 

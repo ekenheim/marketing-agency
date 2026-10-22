@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Instagram, Linkedin, Mail, ArrowUp } from "lucide-react";
+import { Mail, ArrowUp } from "lucide-react";
+import { Instagram, Linkedin } from "@/components/BrandIcons";
 import type { GlobalData } from "@/types/strapi";
 import { useLocale } from "@/i18n/useLocale";
 
