@@ -1,6 +1,62 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>ekenheim/renovate-config"
+    "local>ekenheim/renovate-config",
+    "docker:pinDigests"
+  ],
+  "platformAutomerge": false,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on monday"],
+    "automerge": true,
+    "automergeType": "pr",
+    "rebaseWhen": "behind-base-branch"
+  },
+  "packageRules": [
+    {
+      "description": "One PR for all non-major npm deps: every npm PR rewrites package-lock.json, so ungrouped they conflict with each other on every merge",
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "groupName": "npm deps (non-major)",
+      "groupSlug": "npm-non-major"
+    },
+    {
+      "description": "One PR for all non-major GitHub Actions. Actions only (github-tags/github-digest): the same manager also reports node-version, which is a runtime bump and is reviewed by hand below",
+      "matchManagers": ["github-actions"],
+      "matchDatasources": ["github-tags", "github-digest"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "groupName": "github actions (non-major)",
+      "groupSlug": "github-actions-non-major"
+    },
+    {
+      "description": "Automerge non-major npm and action updates once CI is green. No branch protection on this repo, so Renovate checks the status itself (platformAutomerge=false) and merges through a PR, because ci.yml only runs on pull requests. Rebased onto main first so the green run is against current main. Every merge to main is a production release of the public site, so the release age guards against compromised fresh publishes reaching it",
+      "matchManagers": ["npm", "github-actions"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "automerge": true,
+      "automergeType": "pr",
+      "rebaseWhen": "behind-base-branch",
+      "minimumReleaseAge": "3 days"
+    },
+    {
+      "description": "Base image digests automerge. docker:pinDigests pins node:22-alpine to a digest, so Node patch releases and Alpine security fixes arrive as digest PRs, and merging one releases a fresh image: that is this repo's rebuild cadence, with no empty weekly rebuilds. No release age here: a digest update often has no release timestamp, and Renovate holds an update without one for good while minimumReleaseAge is set (minimumReleaseAgeBehaviour defaults to timestamp-required)",
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["pinDigest", "digest"],
+      "automerge": true,
+      "automergeType": "pr",
+      "rebaseWhen": "behind-base-branch"
+    },
+    {
+      "description": "Runtime versions (the node base image tag, node-version in workflows) change the interpreter under everything, so they are reviewed by hand, and only open a PR once ticked on the Renovate Dashboard",
+      "matchDatasources": ["docker", "node-version"],
+      "matchUpdateTypes": ["major", "minor", "patch"],
+      "automerge": false,
+      "dependencyDashboardApproval": true
+    },
+    {
+      "description": "Majors are reviewed by hand, and only open a PR once ticked on the Renovate Dashboard: a green major still needs someone to look at the site before the merge releases it, so an open PR nobody is about to review is just noise",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "dependencyDashboardApproval": true
+    }
   ]
 }
